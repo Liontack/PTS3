@@ -1,0 +1,23 @@
+package model.server;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import model.User;
+
+public class UserManagement{
+	
+	public final static UserManagement instance = new UserManagement();
+	
+	private Set<User> users;
+	
+	private UserManagement(){
+		fillUsersSet();
+	}
+	
+	private void fillUsersSet(){
+		 users = new HashSet<>();
+		 users.add(new User("Anjo", "a"));
+	}
+	
+}

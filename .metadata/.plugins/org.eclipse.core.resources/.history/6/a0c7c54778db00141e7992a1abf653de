@@ -1,0 +1,18 @@
+package model;
+
+public class User{
+	
+	public final String username; // Unique
+	private final String password;
+	
+	private Player player;
+	
+	public User(String username, String password){
+		this.username = username;
+	}
+	
+	public boolean equalsPassword(String password){
+		return this.password.equals(password);
+	}
+	
+}
