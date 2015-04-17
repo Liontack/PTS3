@@ -43,7 +43,7 @@ public class StartScreen extends JPanel{
 		playGameOnline.setEnabled(false);
 		
 		// West side
-		userRatings.setSize(Program.windowSize.width * 1 / 2, Program.windowSize.height);
+		userRatings.setSize(Program.windowSize.width * 1 / 2, Program.windowSize.height - 50);
 		userRatings.setLocation(0, 0);
 		this.add(userRatings);
 		
@@ -52,6 +52,7 @@ public class StartScreen extends JPanel{
 		playGameOnline.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 2 / 10);
 		playGameOnline.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
+				// Go to a next screen, dependent on whether there is someone logged in
 				if(Program.loggedInUser == null){
 					Program.switchToPanel(LoginScreen.class);
 				}else{
@@ -69,6 +70,7 @@ public class StartScreen extends JPanel{
 		playGameOffline.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 4 / 10);
 		playGameOffline.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
+				// Go directly to the game screen
 				Program.switchToPanel(GameScreen.class);
 			}
 		});
@@ -78,6 +80,7 @@ public class StartScreen extends JPanel{
 		logOut.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 7 / 10);
 		logOut.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
+				// Close application
 				Program.close();
 			}
 		});

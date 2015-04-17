@@ -23,8 +23,13 @@ public class LoginScreen extends JPanel{
 	private JLabel lbl_password = new JLabel("Wachtwoord");
 	private JPasswordField input_password = new JPasswordField();
 	private JButton btn_logIn = new JButton("Log in");
-
-	private JLabel lbl_fail_login = new JLabel("Wachtwoord was onjuist.");
+	
+	// The action to perform when hitting the submit button
+	private enum Action{
+		REGISTRATE,
+		LOGIN
+	}
+	private Action action = Action.LOGIN;
 	
 	public LoginScreen(){
 		this.addFocusListener(new FocusAdapter(){
@@ -40,7 +45,16 @@ public class LoginScreen extends JPanel{
 		btn_register.setLocation(Program.windowSize.width - btn_register.getWidth() - 8, 8);
 		btn_register.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
-				Program.switchToPanel(RegistrationScreen.class);
+				// Switch between the login and registrate function 
+				if(action == Action.LOGIN){
+					action = Action.REGISTRATE;
+					btn_register.setText("Login");
+					btn_logIn.setText("Registreer");
+				}else{
+					action = Action.LOGIN;
+					btn_register.setText("Registreer");
+					btn_logIn.setText("Log in");
+				}
 			}
 		});
 		this.add(btn_register);
@@ -65,26 +79,34 @@ public class LoginScreen extends JPanel{
 		btn_logIn.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 5 / 10);
 		btn_logIn.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
-				Program.loggedInUser = UserManagement.userLogin(input_username.getText(), new String(input_password.getPassword()));
-				if(Program.loggedInUser != null){
-					Program.switchToPanel(PreGameScreen.class);
-				}else{
-					lbl_fail_login.setVisible(true);
-					input_password.setText("");
+				// If the user requested a login
+				if(action == Action.LOGIN){
+					// Try to log in
+					Program.loggedInUser = UserManagement.userLogin(input_username.getText(), new String(input_password.getPassword()));
+					if(Program.loggedInUser != null){
+						Program.switchToPanel(PreGameScreen.class);
+						Program.setFeedback("Gebruiker ingelogd", Color.green);
+					}else{
+						input_password.setText("");
+						Program.setFeedback("Wachtwoord was onjuist", Color.red);
+					}
+				// If the user requested a registration
+				}else if(action == Action.REGISTRATE){
+					// Try to registrate
+					if(UserManagement.addUser(input_username.getText(), new String(input_password.getPassword()))){
+						Program.setFeedback("Gebruiker aangemaakt", Color.green);
+					}else{
+						Program.setFeedback("Gebruikersnaam bestaat al", Color.red);
+					}
 				}
 			}
 		});
 		this.add(btn_logIn);
 		
-		lbl_fail_login.setSize(200, 25);
-		lbl_fail_login.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 6 / 10);
-		lbl_fail_login.setForeground(Color.red);
-		this.add(lbl_fail_login);
-		
 	}
 	
 	public void initScreen(){
-		lbl_fail_login.setVisible(false);
+		
 	}
 	
 }

@@ -1,11 +1,14 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -23,7 +26,9 @@ public class Program{
 	// MainFrame with all panels
 	private static JFrame mainFrame;
 	public static JPanel cardStack,
-						startScreen;
+						feedbackPanel; //XXX might be interesting as template
+	
+	private static JLabel label_feedback = new JLabel();
 	
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -45,6 +50,37 @@ public class Program{
 		createCardStack();
 		defineCardsInStack();
 		showFirstCard();
+		
+		// Set up feedback panel
+		feedbackPanel = new JPanel();
+		feedbackPanel.setSize(50, 50);
+		feedbackPanel.setBackground(Color.black);
+		mainFrame.add(feedbackPanel, BorderLayout.SOUTH);
+		// Init feedback label
+		feedbackPanel.add(label_feedback, BorderLayout.CENTER);
+		
+	}
+	
+	public static void setFeedback(String feedback, Color color){
+		if(color == Color.red){
+			color = new Color(255, 100, 100);
+		}
+		feedbackPanel.setBackground(color);
+		label_feedback.setText(feedback);
+		new Thread(new Runnable(){
+			public void run(){
+				try{
+					Thread.sleep(5000);
+					removeFeedback();
+				}catch(InterruptedException e){
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	private static void removeFeedback(){
+		label_feedback.setText("");
+		feedbackPanel.setBackground(Color.black);
 	}
 	
 	public static void createCardStack(){
@@ -56,14 +92,13 @@ public class Program{
 		// Defining all cards and add them to the stack
 		defineCard(StartScreen.class);
 		defineCard(LoginScreen.class);
-		defineCard(RegistrationScreen.class);
 		defineCard(PreGameScreen.class);
 		defineCard(GameScreen.class);
 	}
 	public static void showFirstCard(){
 		// Show one of the cards first
 		mainFrame.add(cardStack);
-		switchToPanel(RegistrationScreen.class);//XXX Change to StartScreen
+		switchToPanel(LoginScreen.class);//XXX Change to StartScreen
 	}
 	
 	public static void defineCard(Class<? extends JPanel> panelClass){

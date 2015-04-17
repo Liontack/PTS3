@@ -4,6 +4,8 @@ import model.Player;
 
 public class User{
 	
+	private static final int INITIAL_RATING = 15;
+	
 	public final String username; // Unique
 	private final String password;
 	
@@ -16,6 +18,12 @@ public class User{
 		this.username = username;
 		this.password = password;
 		this.rating = rating;
+	}
+	
+	User(String username, String password){
+		this.username = username;
+		this.password = password;
+		this.rating = INITIAL_RATING;
 	}
 	
 	public boolean equalsPassword(String password){

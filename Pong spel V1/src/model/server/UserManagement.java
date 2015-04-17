@@ -20,14 +20,14 @@ public class UserManagement{
 		users = new HashSet<>();
 		users.add(new User("Anjo", "a", 20));
 		users.add(new User("Bart", "b", 21));
-		users.add(new User("Cleo", "c", 15));
+		users.add(new User("Cleo", "c"));
 		users.add(new User("Dirk", "d", 32));
 		users.add(new User("Echo", "e", 10));
 	}
 	
 	
 	
-	public static User userLogin(String username, String password){
+	public static synchronized User userLogin(String username, String password){
 		for(User user : instance.users){
 			if(user.username.toLowerCase().equals(username.toLowerCase()) && user.equalsPassword(password)){
 				return user;
@@ -36,13 +36,21 @@ public class UserManagement{
 		return null;
 	}
 	
-	public static boolean addUser(String username, String password, int rating){
+	public static synchronized boolean addUser(String username, String password){
+		// Check if there isn't already a user with the given username; username must be unique
+		for(User user : instance.users){
+			if(user.username == username){
+				return false;
+			}
+		}
+		
+		// Return true if the user was created
 		int userAmount = instance.users.size();
-		instance.users.add(new User(username, password, rating));
+		instance.users.add(new User(username, password));
 		return (instance.users.size() == userAmount++);
 	}
 	
-	public static Set<User> getUsers(){
+	public static synchronized Set<User> getUsers(){
 		return Collections.unmodifiableSet(instance.users);
 	}
 	
