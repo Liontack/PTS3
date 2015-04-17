@@ -1,7 +1,12 @@
 
+/bin/
+\bin\
 bin/
 bin\
+
 .metadata/
 .metadata\
+/.metadata/
+\.metadata\
 
 *.class
