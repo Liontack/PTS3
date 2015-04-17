@@ -26,7 +26,7 @@ public class Program{
 	// MainFrame with all panels
 	private static JFrame mainFrame;
 	public static JPanel cardStack,
-						feedbackPanel; //XXX might be interesting as template
+						feedbackPanel;
 	
 	private static JLabel label_feedback = new JLabel();
 	
@@ -98,7 +98,7 @@ public class Program{
 	public static void showFirstCard(){
 		// Show one of the cards first
 		mainFrame.add(cardStack);
-		switchToPanel(LoginScreen.class);//XXX Change to StartScreen
+		switchToPanel(StartScreen.class);
 	}
 	
 	public static void defineCard(Class<? extends JPanel> panelClass){

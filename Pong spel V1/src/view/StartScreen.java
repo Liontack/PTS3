@@ -40,7 +40,7 @@ public class StartScreen extends JPanel{
 		this.setLayout(null);
 		
 		//XXX ~Remove at iteration 2
-		playGameOnline.setEnabled(false);
+		//playGameOnline.setEnabled(false);
 		
 		// West side
 		userRatings.setSize(Program.windowSize.width * 1 / 2, Program.windowSize.height - 50);
