@@ -15,8 +15,8 @@ import javax.swing.JTable;
 
 import comparator.UserRating;
 
-import model.server.User;
-import model.server.UserManagement;
+import model.User;
+import model.UserManagement;
 
 @SuppressWarnings("serial")
 public class StartScreen extends JPanel{

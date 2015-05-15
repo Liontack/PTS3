@@ -1,7 +1,8 @@
 package comparator;
 
 import java.util.Comparator;
-import model.server.User;
+
+import model.User;
 
 public class UserRating implements Comparator<User>{
 	

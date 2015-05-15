@@ -11,7 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import model.server.UserManagement;
+
+import model.UserManagement;
 
 @SuppressWarnings("serial")
 public class LoginScreen extends JPanel{

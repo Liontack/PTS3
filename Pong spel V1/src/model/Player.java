@@ -10,18 +10,24 @@ public class Player{
 		GREEN
 	}
 	
-	public final Colour colour;
-	public final boolean isAI;
+	
+	
+	private final boolean isAI;
 	private int points = START_POINTS;
 	
+	private final Colour colour;
 	public PowerUp[] powerUps = new PowerUp[3];
-	public final Side side;
+	public final Bat bat;
 	
-	Player(Colour colour, Side side, boolean isAI){
+	
+	
+	Player(Colour colour, Bat bat, boolean isAI){
 		this.colour = colour;
-		this.side = side;
+		this.bat = bat;
 		this.isAI = isAI;
 	}
+	
+	
 	
 	public int getPoints(){
 		return this.points;
@@ -41,19 +47,19 @@ public class Player{
 	
 	/**
 	 * Get the power up on position
-	 * @param nr	the n-th PowerUp to get, where 0<=nr<=3
+	 * @param nr	the n-th PowerUp to get, where 0<=nr<=size(powerups)
 	 * @return		PowerUp on position nr, or null if it is empty
 	 */
 	public PowerUp getPowerUp(int nr){
-		if(nr >= 0 && nr <= 3){
+		if(nr >= 0 && nr <= powerUps.length){
 			return this.powerUps[nr];
 		}else{
 			throw new IllegalArgumentException("Parameter 'nr', is not in the given range");
 		}
 	}
 	
-	public Side getSide(){
-		return this.side;
+	public Bat getBat(){
+		return this.bat;
 	}
 	
 	/**
@@ -95,6 +101,11 @@ public class Player{
 			this.powerUps[nr] = null;
 			return true;
 		}
+	}
+	
+	public void usePowerUp(int nr){
+		this.powerUps[nr].use();
+		this.removePowerUp(nr);
 	}
 	
 }
