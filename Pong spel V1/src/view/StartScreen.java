@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import comparator.UserRating;
-
-import model.User;
+import comparator.RatingWrapper;
 import model.UserManagement;
 
 @SuppressWarnings("serial")
@@ -38,9 +36,6 @@ public class StartScreen extends JPanel{
 		
 		/* User interface */
 		this.setLayout(null);
-		
-		//XXX ~Remove at iteration 2
-		//playGameOnline.setEnabled(false);
 		
 		// West side
 		userRatings.setSize(Program.windowSize.width * 1 / 2, Program.windowSize.height - 50);
@@ -80,6 +75,9 @@ public class StartScreen extends JPanel{
 		logOut.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 7 / 10);
 		logOut.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
+				// Log out
+				UserManagement.userLogout(Program.loggedInUser);
+				
 				// Close application
 				Program.close();
 			}
@@ -89,14 +87,14 @@ public class StartScreen extends JPanel{
 	
 	public void initScreen(){
 		// Reload the user rating table
-		Set<User> users = new TreeSet<>(new UserRating());
-		users.addAll(UserManagement.getUsers());
+		Set<RatingWrapper> ratings = new TreeSet<>(new comparator.UserRating());
+		ratings.addAll(UserManagement.getUserRatings());
 		String[] columnNames = { "Username", "Rating" };
-		Object[][] data = new Object[users.size()][2];
+		Object[][] data = new Object[ratings.size()][2];
 			int i = 0;
-			for(User user : users){
-				data[i][0] = user.username;
-				data[i++][1] = user.rating();
+			for(RatingWrapper r: ratings){
+				data[i][0] = r.getUsername();
+				data[i++][1] = r.getRating();
 			}
 		userRatingsTable = new JTable(data, columnNames);
 		userRatingsTable.setSize(Program.windowSize.width * 1 / 2, Program.windowSize.height);
@@ -107,7 +105,7 @@ public class StartScreen extends JPanel{
 		if(Program.loggedInUser == null){
 			welcomeUser.setText("");
 		}else{
-			welcomeUser.setText("Hallo " + Program.loggedInUser.username);
+			welcomeUser.setText("Hallo " + Program.loggedInUser.getUsername());
 		}
 	}
 	

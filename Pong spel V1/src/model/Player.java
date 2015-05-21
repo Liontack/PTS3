@@ -98,7 +98,12 @@ public class Player{
 		if(this.powerUps[nr] == null){
 			return false;
 		}else{
-			this.powerUps[nr] = null;
+			// Reposition
+			for(int i = nr; i < this.powerUps.length - 1; i++){
+				this.powerUps[i] = this.powerUps[i + 1];
+			}
+			this.powerUps[this.powerUps.length - 1] = null;
+			
 			return true;
 		}
 	}

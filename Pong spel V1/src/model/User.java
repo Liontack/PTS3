@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 
 public class User{
 	
@@ -16,12 +18,15 @@ public class User{
 	// XXX creating user with password like this, doesn't feel save
 	User(String username, String password, int[] mostRecentPoints){
 		this(username, password);
-		this.mostRecentPoints = mostRecentPoints;
+		for(int i = 0; i < Math.min(mostRecentPoints.length, this.mostRecentPoints.length); i++){
+			this.mostRecentPoints[i] = mostRecentPoints[i];
+		}
 	}
 	
 	User(String username, String password){
 		this.username = username;
 		this.password = password;
+		Arrays.fill(this.mostRecentPoints, -1);
 	}
 	
 	
@@ -42,12 +47,12 @@ public class User{
 	public double getRating(){
 		int rating = 0;
 		for(int i = 0; i < this.mostRecentPoints.length; i++){
-			if(this.mostRecentPoints[i] == 0){
+			if(this.mostRecentPoints[i] == -1){
 				return INITIAL_RATING;
 			}
 			rating += (5 - i) * this.mostRecentPoints[i];
 		}
-		return (double) (Math.round(rating / 1.5) * 10);
+		return (double)Math.round((double)rating / 1.5) / 10.0;
 	}
 	
 	public Player getPlayer(){

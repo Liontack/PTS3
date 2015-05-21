@@ -16,7 +16,7 @@ public class Puck{
 	
 	
 	public Puck(int angle, Point position, int averageRating){
-		this.velocity = averageRating * DEFAULT_VELOCITY;
+		this.setVelocity(averageRating * DEFAULT_VELOCITY);
 		this.setAngle(angle);
 		this.position = position;
 	}
@@ -36,7 +36,7 @@ public class Puck{
 	}
 	
 	public int getDiameter(){
-		return (Puck.DIAMETER_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
+		return (Puck.DIAMETER_PERCENT_OF_SIDE_LENGTH * Side.LENGTH / 100);
 	}
 	
 	public void setVelocity(int velocity){

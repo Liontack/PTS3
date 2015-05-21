@@ -1,6 +1,8 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 
 public class Goal{
 	
@@ -8,10 +10,13 @@ public class Goal{
 	
 	
 	
+	private Point a, b;
 	private Bat bat;
 	
 	
-	public Goal(){
+	public Goal(Point a, Point b){
+		this.a = a;
+		this.b = b;
 		this.bat = new Bat(this.getGoalLength());
 	}
 	
@@ -25,17 +30,24 @@ public class Goal{
 		return (Goal.LENGTH_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
 	}
 	
-	public boolean isInGoal(Puck puck){
-		//TODO Goal --> isingoal puck
-		return false;
+	public boolean isInGoal(Side side, Puck puck){
+		int y_perx = (b.y - a.y)/(b.x - a.x);
+		int y_on0x = a.y - (y_perx * a.x);
+		
+		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
+		
+		if((y_px > puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() != Player.Colour.RED)){
+			return !this.bat.hit(puck);
+		}else{
+			return false;
+		}
 	}
 	
 	
 	
 	public void draw(Graphics g){
-		//TODO Goal --> draw
 		g.setColor(Color.white);
-		//g.drawLine();
+		g.drawLine(a.x, a.y, b.x, b.y);
 		
 		this.bat.draw(g);
 	}

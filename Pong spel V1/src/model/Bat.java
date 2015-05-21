@@ -26,18 +26,18 @@ public class Bat{
 	public int getLength(){
 		return (Bat.LENGTH_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
 	}
-	
-	public void setPositionInGoal(int position){
-		if(position > 0 && position < maximumGoalPosition){
-			
-		}else{
-			throw new IllegalArgumentException("Can't position the bat out of the goal");
-		}
+
+	public void moveLeft(){
+		this.positionInGoal = Math.max(0, this.positionInGoal - MOVE_SPEED);
+	}
+
+	public void moveRight(){
+		this.positionInGoal = Math.min(this.maximumGoalPosition, this.positionInGoal + MOVE_SPEED);
 	}
 	
 	public boolean hit(Puck puck){
 		//TODO Bat --> hit
-		return true;
+		return false;
 	}
 	
 	

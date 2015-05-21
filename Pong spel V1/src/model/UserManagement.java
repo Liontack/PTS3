@@ -2,8 +2,11 @@ package model;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import comparator.RatingWrapper;
 
 
 
@@ -22,7 +25,7 @@ public class UserManagement{
 	//XXX Should fill users from backup file
 	private void fillUsersSet(){
 		users = new HashMap<>();
-		users.put(new User("Anjo", "a", new int[]{20, 20, 20, 20, 20}), false);
+		users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);
 		users.put(new User("Bart", "b", new int[]{21, 21, 21, 21, 21}), false);
 		users.put(new User("Cleo", "c"), false);
 		users.put(new User("Dirk", "d", new int[]{32, 32, 32, 32, 32}), false);
@@ -50,24 +53,23 @@ public class UserManagement{
 		return Collections.unmodifiableSet(instance.users.keySet());
 	}
 	
-	public static synchronized boolean addUser(String username, String password){
+	public static synchronized User addUser(String username, String password){
 		// Check if there isn't already a user with the given username; username must be unique
 		for(User user : instance.users.keySet()){
 			if(user.getUsername() == username){
-				return false;
+				return null;
 			}
 		}
 		
-		// Return true if the user was created
-		int userAmount = instance.users.size();
-		instance.users.put(new User(username, password), true);
-		return (instance.users.size() == userAmount++);
+		// Return true if the user was created and logged in
+		instance.users.put(new User(username, password), false);
+		return userLogin(username, password);
 	}
 	
-	public static synchronized Map<String, Double> getUserRatings(){
-		Map<String, Double> ratings = new HashMap<>();
+	public static synchronized Set<RatingWrapper> getUserRatings(){
+		Set<RatingWrapper> ratings = new HashSet<>();
 		for(User user : instance.users.keySet()){
-			ratings.put(user.getUsername(), user.getRating());
+			ratings.add(new RatingWrapper(user.getUsername(), user.getRating()));
 		}
 		
 		return ratings;

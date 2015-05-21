@@ -15,11 +15,11 @@ public class GameField{
 	
 	public GameField(int averageRating){
 		// Create sides
-		int[] zeroxs = new int[]{ 0, 0, (int)(3.46 * Side.LENGTH) };
-		int[] perxs = new int[]{ 0, 2, -2 };
-		for(int i = 0; i < this.sides.length; i++){
-			this.sides[i] = new Side(Player.Colour.values()[i], zeroxs[i], perxs[i]);
-		}
+		Point leftBottom = new Point(0, 0), rightBottom = new Point(Side.LENGTH, 0), top = new Point(Side.LENGTH/2, (int)(1.73 * Side.LENGTH));
+		this.sides[0] = new Side(Player.Colour.values()[0], leftBottom, rightBottom);
+		this.sides[1] = new Side(Player.Colour.values()[1], top, leftBottom);
+		this.sides[2] = new Side(Player.Colour.values()[2], rightBottom, top);
+		
 		
 		// Create puck
 		int randomAngle = (int) Math.round(Math.random() * 360);
