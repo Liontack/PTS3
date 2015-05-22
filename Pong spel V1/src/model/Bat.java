@@ -14,7 +14,7 @@ public class Bat{
 	
 	
 	public Bat(int goalLength){
-		this.maximumGoalPosition = goalLength - (2 * Bat.LENGTH_PERCENT_OF_SIDE_LENGTH);
+		this.maximumGoalPosition = goalLength - (Bat.LENGTH_PERCENT_OF_SIDE_LENGTH);
 		this.positionInGoal = this.maximumGoalPosition / 2;
 	}
 	
@@ -25,7 +25,7 @@ public class Bat{
 	}
 	
 	public int getLength(){
-		return (Bat.LENGTH_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
+		return Bat.LENGTH_PERCENT_OF_SIDE_LENGTH * Side.LENGTH / 100;
 	}
 
 	public void moveLeft(){
@@ -42,12 +42,17 @@ public class Bat{
 		Point a = points[0];
 		Point b = points[1];
 		
+		// If the puck is not near the bat, return false
+		if((puck.getPosition().x <= a.x - (puck.getDiameter() / 2) || puck.getPosition().x >= b.x + (puck.getDiameter() / 2))){
+			return false;
+		}
+		
 		int y_perx = (b.y - a.y)/(b.x - a.x);
 		int y_on0x = a.y - (y_perx * a.x);
 		
 		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
 		
-		return (y_px > puck.getPosition().y + (puck.getDiameter()/2) && colour == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && colour != Player.Colour.RED);
+		return (y_px > puck.getPosition().y - (puck.getDiameter()/2) && colour == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && colour != Player.Colour.RED);
 	}
 	
 	private Point[] getPoints(Point goalA, Point goalB){
@@ -56,9 +61,9 @@ public class Bat{
 		int y_on0x = goalA.y - (y_perx * goalA.x);
 		
 		// Calculate the new coordinates
-		double batAx = goalA.x + ((Math.sqrt((goalB.x - goalA.x) + (goalB.y - goalA.y))/(goalB.x - goalA.x)) * (this.positionInGoal - (.5 * this.getLength())));
+		double batAx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) - (this.getLength() / 2);
 		double batAy = (y_perx * batAx) + y_on0x;
-		double batBx = goalA.x + ((Math.sqrt((goalB.x - goalA.x) + (goalB.y - goalA.y))/(goalB.x - goalA.x)) * (this.positionInGoal + (.5 * this.getLength())));
+		double batBx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) + (this.getLength() / 2);
 		double batBy = (y_perx * batBx) + y_on0x;
 		
 		// Create and return points

@@ -7,7 +7,7 @@ import java.awt.Point;
 public class Puck{
 	
 	public static final int DIAMETER_PERCENT_OF_SIDE_LENGTH = 4;
-	public static final int DEFAULT_VELOCITY = 2;
+	public static final int DEFAULT_VELOCITY = 4;
 	
 	private int velocity;
 	private int angle;// [0; 360>
@@ -16,7 +16,7 @@ public class Puck{
 	
 	
 	public Puck(int angle, Point position, int averageRating){
-		this.setVelocity(averageRating * DEFAULT_VELOCITY);
+		this.setVelocity(Math.max(1, (int)(((double)averageRating / 40.00) * (2 * Puck.DEFAULT_VELOCITY))));
 		this.setAngle(angle);
 		this.position = position;
 	}

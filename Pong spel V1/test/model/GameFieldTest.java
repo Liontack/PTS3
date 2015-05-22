@@ -33,7 +33,7 @@ public class GameFieldTest{
 		
 		gamefield.startUpdaterThread();
 		try{
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}catch(InterruptedException e){
 			fail("Test did not run as expected");
 		}

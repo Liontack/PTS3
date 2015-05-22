@@ -15,7 +15,7 @@ public class BarricadeTest{
 		Barricade barricadeBig = new Barricade(new Point(20, 20), 40);
 		assertEquals(barricadeBig.getDiameter(), Barricade.DIAMETER_PERCENT_MAX);
 		Barricade barricade = new Barricade(new Point(20, 20), 18);
-		assertTrue(barricade.getDiameter() < Barricade.DIAMETER_PERCENT_MAX - Barricade.DIAMETER_PERCENT_MIN);
+		assertTrue(barricade.getDiameter() < Barricade.DIAMETER_PERCENT_MIN + ((double)(Barricade.DIAMETER_PERCENT_MAX - Barricade.DIAMETER_PERCENT_MIN) / 2.0));
 	}
 	
 	@Test

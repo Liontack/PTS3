@@ -27,7 +27,8 @@ public class Goal{
 	}
 	
 	public int getGoalLength(){
-		return (Goal.LENGTH_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
+		//return (Goal.LENGTH_PERCENT_OF_SIDE_LENGTH / 100) * Side.LENGTH;
+		return (int) this.a.distance(this.b);
 	}
 	
 	public boolean isInGoal(Side side, Puck puck){
@@ -36,7 +37,12 @@ public class Goal{
 		
 		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
 		
-		if((y_px > puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() != Player.Colour.RED)){
+		// If the puck is not near the goal, return false
+		if((puck.getPosition().x <= a.x - (puck.getDiameter() / 2) || puck.getPosition().x >= b.x + (puck.getDiameter() / 2))){
+			return false;
+		}
+		
+		if((y_px >= puck.getPosition().y - (puck.getDiameter()/2) && side.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() != Player.Colour.RED)){
 			return !this.bat.hit(puck, this.a, this.b, side.getColour());
 		}else{
 			return false;

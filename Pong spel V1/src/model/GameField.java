@@ -31,7 +31,8 @@ public class GameField{
 		this.puck = new Puck(randomAngle, this.getRandomPosition(), averageRating);
 		
 		// Create barricades
-		for(int i = 0; i < averageRating * 5; i++){
+		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
+		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
 		}
 	}
@@ -72,6 +73,11 @@ public class GameField{
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
 				update();
+				try{
+					Thread.sleep(500);
+				}catch(InterruptedException exception){
+					exception.printStackTrace();
+				}
 			}
 		});
 		updaterThread.start();
@@ -89,7 +95,7 @@ public class GameField{
 		for(Side side : this.sides){
 			switch(side.isAboveLine(puck)){
 				case OVER_LINE:
-					// Adjust puck's angle
+					// Adjust puck's angle (Not tested)
 					int m = (int)Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
 					int newAngle = m - (puck.getAngle() + 360 - m);
 					while(newAngle >= 360){

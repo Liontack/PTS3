@@ -12,9 +12,7 @@ public class PuckTest{
 	public void testProperties(){
 		int angle1 = 90;
 		Point p1 = new Point(5, 15);
-		int averageRating1 = 20;
-		Puck puck1 = new Puck(angle1, p1, averageRating1);
-		assertEquals(averageRating1 * Puck.DEFAULT_VELOCITY, puck1.getVelocity());
+		Puck puck1 = new Puck(angle1, p1, 20);
 		assertEquals(p1, puck1.getPosition());
 		assertEquals(angle1, puck1.getAngle());
 		assertEquals(Puck.DIAMETER_PERCENT_OF_SIDE_LENGTH * Side.LENGTH / 100, puck1.getDiameter());
@@ -39,6 +37,16 @@ public class PuckTest{
 	}
 	
 	@Test
+	public void testVelocity(){
+		Puck puckSlow = new Puck(0, null, 0);
+		Puck puckAverage = new Puck(0, null, 20);
+		Puck puckFast = new Puck(0, null, 40);
+		assertTrue(puckSlow.getVelocity() < Puck.DEFAULT_VELOCITY);
+		assertTrue(puckAverage.getVelocity() == Puck.DEFAULT_VELOCITY);
+		assertTrue(puckFast.getVelocity() > Puck.DEFAULT_VELOCITY && puckFast.getVelocity() <= Puck.DEFAULT_VELOCITY * 2);
+	}
+	
+	@Test
 	public void testMove(){
 		int angle0 = 0;
 		int angle90 = 90;
@@ -48,12 +56,11 @@ public class PuckTest{
 		
 		puck1.move();
 		assertTrue(puck1.getPosition().distance(startPoint) == puck1.getVelocity());
-		assertEquals(puck1.getPosition(), new Point(12, 10));
+		assertEquals(puck1.getPosition(), new Point(10 + (1 * Puck.DEFAULT_VELOCITY), 10));
 		puck1.move();
-		assertEquals(puck1.getPosition(), new Point(14, 10));
+		assertEquals(puck1.getPosition(), new Point(10 + (2 * Puck.DEFAULT_VELOCITY), 10));
 		puck1.setAngle(angle90);
 		puck1.move();
-		assertEquals(puck1.getPosition(), new Point(14, 12));
-		// XXX More tests for Puck.move
+		assertEquals(puck1.getPosition(), new Point(10 + (2 * Puck.DEFAULT_VELOCITY), 10 + (1 * Puck.DEFAULT_VELOCITY)));
 	}
 }

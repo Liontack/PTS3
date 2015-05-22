@@ -30,31 +30,32 @@ public class GoalTest{
 	@Test
 	public void testInGoal(){
 		Point p0_0 = new Point(0, 0);
-		Point p8_0 = new Point(8, 0);
-		Point p8_8 = new Point(8, 8);
-		Side sideH = new Side(Colour.RED, p0_0, p8_0);
-		Side sideD = new Side(Colour.BLUE, p0_0, p8_8);
+		Point p1_0 = new Point(100, 0);
+		Point p1_1 = new Point(100, 100);
+		Side sideH = new Side(Colour.RED, p0_0, p1_0);
+		Side sideD = new Side(Colour.BLUE, p0_0, p1_1);
 		
-		Point p8_3 = new Point(8, 3);
-		Puck puck_8Down = new Puck(270, p8_3, 0);
-		assertFalse(sideH.getGoal().isInGoal(sideH, puck_8Down));
-		puck_8Down.move();
-		assertFalse(sideH.getGoal().isInGoal(sideH, puck_8Down));
-		puck_8Down.move();
-		assertFalse(sideH.getGoal().isInGoal(sideH, puck_8Down));
-		puck_8Down.move();
-		puck_8Down = null;
+		Point pNotAboveGoal = new Point(105, 4);
+		Puck puckDown_notInGoal = new Puck(270, pNotAboveGoal, 20);
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		puckDown_notInGoal.move();
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		puckDown_notInGoal.move();
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		puckDown_notInGoal.move();
+		puckDown_notInGoal = null;
 		
-		Point p4_4 = new Point(4, 4);
-		Puck puck_4Down = new Puck(270, p4_4, 0);
-		assertFalse(sideH.getGoal().isInGoal(sideH, puck_4Down));
-		puck_4Down.move();
-		assertFalse(sideH.getGoal().isInGoal(sideH, puck_4Down));
-		puck_4Down.move();
-		assertTrue(sideH.getGoal().isInGoal(sideH, puck_4Down));
+		Point pAboveGoal = new Point(70, 4);
+		Puck puckDown_inGoal = new Puck(280, pAboveGoal, 20);
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		puckDown_inGoal.move();
+		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		puckDown_inGoal.move();
+		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		puckDown_inGoal = null;
 		
 		Point p4_0 = new Point(4, 0);
-		Puck puck_4Up = new Puck(90, p4_0, 0);
+		Puck puck_4Up = new Puck(90, p4_0, 20);
 		assertFalse(sideD.getGoal().isInGoal(sideD, puck_4Up));
 		puck_4Up.move();
 		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
@@ -63,7 +64,7 @@ public class GoalTest{
 		puck_4Up.move();
 		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
 		puck_4Up.move();
-		assertFalse(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
 		
 	}
 	

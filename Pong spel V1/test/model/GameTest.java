@@ -2,8 +2,6 @@ package model;
 
 import static org.junit.Assert.*;
 
-import java.util.Set;
-
 import org.junit.Test;
 
 public class GameTest{
@@ -19,9 +17,8 @@ public class GameTest{
 		assertFalse(game.isReadyToPlay());
 		assertFalse(game.startGame());
 		
-		Player player_ai = game.addPlayer(true);
+		game.addPlayer(true);
 		
-		int a = game.getPlayers().size();
 		assertTrue(game.getPlayers().size() == 1);
 		assertNull(game.getScorer());
 		assertFalse(game.isReadyToPlay());
