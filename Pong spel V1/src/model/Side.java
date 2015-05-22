@@ -73,7 +73,7 @@ public class Side{
 		g.setColor(Color.black);
 		g.drawLine(a.x, a.y, b.x, b.y);
 		
-		this.goal.draw(g);
+		this.goal.draw(g, this.colour);
 	}
 	
 }

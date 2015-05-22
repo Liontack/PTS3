@@ -1,13 +1,21 @@
 package model;
 
+import java.awt.Color;
+
 public class Player{
 	
 	private static final int START_POINTS = 20;
 	
 	public enum Colour{
-		RED,
-		BLUE,
-		GREEN
+		RED(Color.red),
+		BLUE(Color.blue),
+		GREEN(Color.green);
+		
+		public final Color drawColor;
+		Colour(Color drawColor){
+			this.drawColor = drawColor;
+		}
+		
 	}
 	
 	

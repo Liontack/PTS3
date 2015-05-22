@@ -37,19 +37,23 @@ public class Goal{
 		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
 		
 		if((y_px > puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() != Player.Colour.RED)){
-			return !this.bat.hit(puck);
+			return !this.bat.hit(puck, this.a, this.b, side.getColour());
 		}else{
 			return false;
 		}
 	}
 	
+	public int gety_perx(){
+		return (b.y - a.y)/(b.x - a.x);
+	}
 	
 	
-	public void draw(Graphics g){
+	
+	public void draw(Graphics g, Player.Colour colour){
 		g.setColor(Color.white);
 		g.drawLine(a.x, a.y, b.x, b.y);
 		
-		this.bat.draw(g);
+		this.bat.draw(g, this.a, this.b, colour);
 	}
 	
 }
