@@ -11,9 +11,14 @@ public class GameField{
 	private final Puck puck;
 	private final Set<Barricade> barricades = new HashSet<>();
 	
+	private Game game;
+	private Thread updaterThread;
 	
 	
-	public GameField(int averageRating){
+	
+	public GameField(Game game, int averageRating){
+		this.game = game;
+		
 		// Create sides
 		Point leftBottom = new Point(0, 0), rightBottom = new Point(Side.LENGTH, 0), top = new Point(Side.LENGTH/2, (int)(1.73 * Side.LENGTH));
 		this.sides[0] = new Side(Player.Colour.values()[0], leftBottom, rightBottom);
@@ -64,11 +69,39 @@ public class GameField{
 	
 	
 	public void startUpdaterThread(){
-		//TODO GameField --> updater thread
+		updaterThread = new Thread(new Runnable(){
+			public void run(){
+				update();
+			}
+		});
+		updaterThread.start();
+	}
+	
+	public void stopUpdaterThread(){
+		this.updaterThread.interrupt();
 	}
 	
 	private void update(){
-		//XXX used in updater thread
+		// Move the puck
+		this.puck.move();
+		
+		// Check for collisions with the puck
+		for(Side side : this.sides){
+			switch(side.isAboveLine(puck)){
+				case OVER_LINE:
+					// Adjust puck's angle
+					int m = (int)Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
+					int newAngle = m - (puck.getAngle() + 360 - m);
+					while(newAngle >= 360){
+						newAngle -= 360;
+					}
+					this.puck.setAngle(newAngle);
+					break;
+				case IN_GOAL:
+					game.increaseRound(side.getColour());
+					break;
+			}
+		}
 	}
 	
 	

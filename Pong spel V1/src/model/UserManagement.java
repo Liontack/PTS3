@@ -48,7 +48,16 @@ public class UserManagement{
 	public static synchronized void userLogout(User user){
 		instance.users.put(user, false);
 	}
-
+	
+	public static synchronized User getUserOfPlayer(Player player){
+		for(User user : UserManagement.getUsers()){
+			if(user.getPlayer() == player){
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	public static synchronized Set<User> getUsers(){
 		return Collections.unmodifiableSet(instance.users.keySet());
 	}

@@ -43,7 +43,7 @@ public class Game{
 				}
 				averageRating /= this.players.length;
 				averageRating /= 40;// XXX averageRatings should be used correct
-				this.gameField = new GameField((int)averageRating);
+				this.gameField = new GameField(this, (int)averageRating);
 			}
 			
 			return this.isReadyToPlay();
@@ -61,7 +61,7 @@ public class Game{
 	}
 	
 	/**
-	 * Checks if there 3 players joined
+	 * Checks if 3 players joined
 	 * @return	True if there are 3 players, otherwise false
 	 */
 	public boolean isReadyToPlay(){
@@ -91,9 +91,18 @@ public class Game{
 		return this.scorer;
 	}
 	
-	public void increaseRound(){
-		//TODO Game --> increase round
+	public void increaseRound(Player.Colour scoredInGoalOf){
 		if(started){
+			// Change player's scores
+			for(Player player : this.players){
+				if(player.getColour() == scoredInGoalOf){
+					player.setPoints(player.getPoints() - 2);
+				}else if(player == this.scorer){
+					player.setPoints(player.getPoints() + 2);
+				}
+			}
+			
+			// Increase the round
 			if(this.currentRound == Game.ROUND_AMOUNT){
 				this.finish();
 			}
@@ -102,7 +111,15 @@ public class Game{
 	}
 	
 	private void finish(){
-		//TODO Game --> finish
+		// Make this instance unusable
+		this.gameField.stopUpdaterThread();
+		this.gameField = null;
+		
+		// Add the player's scores to their user's point list
+		for(Player player : this.players){
+			User user = UserManagement.getUserOfPlayer(player);
+			user.addNewRecentPoints(player.getPoints());
+		}
 	}
 	
 	/**
