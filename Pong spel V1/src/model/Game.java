@@ -1,9 +1,7 @@
 package model;
 
 import java.awt.Graphics;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +42,11 @@ public class Game{
 				averageRating /= this.players.length;
 				averageRating /= 40;// XXX averageRatings should be used correct
 				this.gameField = new GameField(this, (int)averageRating);
+				
+				// Give every player an bat to play with
+				for(Player player : this.players){
+					player.setBat(gameField.getSide(player.getColour()).getGoal().getBat());
+				}
 			}
 			
 			return this.isReadyToPlay();
@@ -84,7 +87,9 @@ public class Game{
 	}
 	
 	public Set<Player> getPlayers(){
-		return new HashSet<Player>(Arrays.asList(this.players));
+		Set<Player> players = new HashSet<Player>(Arrays.asList(this.players));
+		players.remove(null);
+		return players;
 	}
 	
 	public Player getScorer(){
@@ -101,6 +106,9 @@ public class Game{
 					player.setPoints(player.getPoints() + 2);
 				}
 			}
+			
+			// Reset the scorer
+			this.scorer = null;
 			
 			// Increase the round
 			if(this.currentRound == Game.ROUND_AMOUNT){
@@ -131,7 +139,7 @@ public class Game{
 			for(int i = 0; i < this.players.length; i++){
 				if(this.players[i] == null){
 					Player.Colour colour = Player.Colour.values()[i];
-					Player newPlayer = new Player(colour, gameField.getSide(colour).getGoal().getBat(), ai);
+					Player newPlayer = new Player(colour, ai);
 					this.players[i] = newPlayer; 
 					return newPlayer;
 				}
@@ -165,6 +173,7 @@ public class Game{
 			}
 		}
 	}
+	
 	
 	
 	public void draw(Graphics g){

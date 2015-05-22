@@ -16,7 +16,7 @@ public class UserTest{
 	public void testPlayer(){
 		User anjo = new User("anjo", "wachtwoord");
 		assertNull(anjo.getPlayer());
-		anjo.setPlayer(new Player(Player.Colour.RED, new Bat(0), false));
+		anjo.setPlayer(new Player(Player.Colour.RED, false));
 		assertNotNull(anjo.getPlayer());
 		anjo.clearPlayer();
 		assertNull(anjo.getPlayer());

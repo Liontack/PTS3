@@ -22,7 +22,7 @@ public class UserManagement{
 		fillUsersSet();
 	}
 	
-	//XXX Should fill users from backup file
+	//XXX Should fill users from backup file (serialized)
 	private void fillUsersSet(){
 		users = new HashMap<>();
 		users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);

@@ -19,6 +19,9 @@ public class GameManagement{
 	
 	
 	public static boolean joinGame(User user){
+		if(user.getPlayer() != null){
+			return false;
+		}
 		for(Game game : instance.games){
 			if(!game.isReadyToPlay()){
 				Player player = game.addPlayer(false);

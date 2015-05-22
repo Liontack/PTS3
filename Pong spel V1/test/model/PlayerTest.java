@@ -11,18 +11,20 @@ public class PlayerTest{
 		Bat bat = new Bat(0);
 		Player.Colour colour = Player.Colour.values()[0];
 		boolean isAI = true;
-		Player player = new Player(colour, bat, isAI);
+		Player player = new Player(colour, isAI);
 		
-		assertEquals(player.getBat(), bat);
 		assertEquals(player.getColour(), colour);
 		assertEquals(player.isAI(), isAI);
 		assertNull(player.getPowerUp(0));
 		
+		assertNull(player.getBat());
+		player.setBat(bat);
+		assertEquals(player.getBat(), bat);
 	}
 	
 	@Test
 	public void testPowerUps(){
-		Player player = new Player(Player.Colour.values()[0], new Bat(0), false);
+		Player player = new Player(Player.Colour.values()[0], false);
 		PowerUp boost1 = new PowerUp(PowerUp.Kind.PUCK_BOOST);
 		PowerUp boost2 = new PowerUp(PowerUp.Kind.PUCK_BOOST);
 		PowerUp updown = new PowerUp(PowerUp.Kind.UPSIDE_DOWN);
