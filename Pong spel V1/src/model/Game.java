@@ -124,7 +124,7 @@ public class Game{
 	
 	/**
 	 * Add a new player to this game; only if not started
-	 * @return	True the player which was created and added or null if it couldn't
+	 * @return	The player which was created and added or null if it couldn't
 	 */
 	public Player addPlayer(boolean ai){
 		if(!this.started){
