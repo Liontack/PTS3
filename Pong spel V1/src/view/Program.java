@@ -12,12 +12,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import model.Game;
+import model.Player;
 import model.User;
 
 public class Program{
 	
 	// Logged in user
 	public static User loggedInUser = null;
+	
+	// The game this loggedInUser is in
+	public static Game activeGame = null;
+	
+	// The offline player, if no one is logged in
+	public static Player offlinePlayer = null;
+	
+	
 	
 	// Window specifications
 	public static String title = "Pong spel";

@@ -40,7 +40,7 @@ public class Game{
 					}
 				}
 				averageRating /= this.players.length;
-				averageRating /= 40;// XXX averageRatings should be used correct
+				averageRating /= 40;
 				this.gameField = new GameField(this, (int)averageRating);
 				
 				// Give every player an bat to play with
@@ -177,7 +177,9 @@ public class Game{
 	
 	
 	public void draw(Graphics g){
-		this.gameField.draw(g);
+		if(this.gameField != null){
+			this.gameField.draw(g);
+		}
 	}
 	
 }

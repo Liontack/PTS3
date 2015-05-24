@@ -5,6 +5,10 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
+import view.Program;
+
 public class GameField{
 	
 	private final Side[] sides = new Side[3];
@@ -20,7 +24,8 @@ public class GameField{
 		this.game = game;
 		
 		// Create sides
-		Point leftBottom = new Point(0, 0), rightBottom = new Point(Side.LENGTH, 0), top = new Point(Side.LENGTH/2, (int)(1.73 * Side.LENGTH));
+		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
+		Point leftBottom = new Point(0, height), rightBottom = new Point(Side.LENGTH, height), top = new Point(Side.LENGTH / 2, 0);
 		this.sides[0] = new Side(Player.Colour.values()[0], leftBottom, rightBottom);
 		this.sides[1] = new Side(Player.Colour.values()[1], top, leftBottom);
 		this.sides[2] = new Side(Player.Colour.values()[2], rightBottom, top);
@@ -57,13 +62,14 @@ public class GameField{
 	}
 	
 	private Point getRandomPosition(){
-		Point point;
-		do{
-			int randomX = (int) Math.round(Math.random() * Side.LENGTH);
-			int randomY = (int) Math.round(Math.random() * Side.LENGTH);
-			point = new Point(randomX, randomY);
-		}while(!this.sides[0].isAboveLine(point) || this.sides[1].isAboveLine(point) || this.sides[2].isAboveLine(point));
+		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
+		int randomY = (int) Math.round(Math.random() * Side.LENGTH);
+		Point point = new Point(randomX, randomY);
 		
+		// If the point falls above the left side, transform so it will fall under the right side
+		if(!this.sides[1].isAboveLine(point)){
+			point = new Point(point.x + (Side.LENGTH / 2), Side.LENGTH - point.y);
+		}
 		return point;
 	}
 	
@@ -108,6 +114,9 @@ public class GameField{
 					break;
 			}
 		}
+		
+		// Update the Game screen
+		((JPanel)Program.getActivePanel()).repaint();
 	}
 	
 	

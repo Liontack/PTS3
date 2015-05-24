@@ -57,8 +57,8 @@ public class Bat{
 	
 	private Point[] getPoints(Point goalA, Point goalB){
 		// Construct the goal line y=ax+b
-		int y_perx = (goalB.y - goalA.y)/(goalB.x - goalA.x);
-		int y_on0x = goalA.y - (y_perx * goalA.x);
+		double y_perx = ((double)(goalB.y - goalA.y)) / ((double)(goalB.x - goalA.x));
+		double y_on0x = goalA.y - (y_perx * goalA.x);
 		
 		// Calculate the new coordinates
 		double batAx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) - (this.getLength() / 2);

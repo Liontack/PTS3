@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 //TODO create Player ai, which moves his bat
+//TODO let a player move his bat through the keyboard
 public class Player{
 	
 	private static final int START_POINTS = 20;

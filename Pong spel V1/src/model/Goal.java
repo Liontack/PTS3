@@ -56,7 +56,7 @@ public class Goal{
 	
 	
 	public void draw(Graphics g, Player.Colour colour){
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.drawLine(a.x, a.y, b.x, b.y);
 		
 		this.bat.draw(g, this.a, this.b, colour);

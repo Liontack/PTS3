@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import comparator.RatingWrapper;
+import model.Game;
+import model.Player;
 import model.UserManagement;
 
 @SuppressWarnings("serial")
@@ -67,6 +69,18 @@ public class StartScreen extends JPanel{
 			public void mouseReleased(MouseEvent event){
 				// Go directly to the game screen
 				Program.switchToPanel(GameScreen.class);
+				
+				Game offlineGame = new Game();
+				Program.activeGame = offlineGame;
+				Player offlinePlayer = offlineGame.addPlayer(false);
+				if(Program.loggedInUser != null){
+					Program.loggedInUser.setPlayer(offlinePlayer);
+				}else{
+					Program.offlinePlayer = offlinePlayer;
+				}
+				offlineGame.addPlayer(true);
+				offlineGame.addPlayer(true);
+				offlineGame.startGame();
 			}
 		});
 		this.add(playGameOffline);

@@ -6,7 +6,7 @@ import java.awt.Point;
 
 public class Side{
 	
-	public final static int LENGTH = 100;
+	public final static int LENGTH = 500;
 	public final static int THICKNESS = 1;
 	
 	
@@ -23,14 +23,14 @@ public class Side{
 		this.colour = colour;
 		
 		// Create goal at the centre of this side
-		int goal_ax = a.x + ((Goal.LENGTH_PERCENT_OF_SIDE_LENGTH/Side.LENGTH/2)*(b.x-a.x));
-		int goal_bx = b.x - ((Goal.LENGTH_PERCENT_OF_SIDE_LENGTH/Side.LENGTH/2)*(b.x-a.x));
+		double goal_ax = a.x + ((50 - Goal.LENGTH_PERCENT_OF_SIDE_LENGTH / 2) * (b.x-a.x) / 100);
+		double goal_bx = b.x - ((50 - Goal.LENGTH_PERCENT_OF_SIDE_LENGTH / 2) * (b.x-a.x) / 100);
 		
-		int perx = ((b.y - a.y)/(b.x - a.x));
+		double perx = ((double)(a.y - b.y)) / ((double)(a.x - b.x));
 		
-		int goal_ay = (perx * goal_ax) + (a.y - (perx * a.x));
-		int goal_by = (perx * goal_bx) + (a.y - (perx * a.x));
-		this.goal = new Goal(new Point(goal_ax, goal_ay), new Point(goal_bx, goal_by));
+		int goal_ay = (int) ((perx * goal_ax) + (a.y - (perx * a.x)));
+		int goal_by = (int) ((perx * goal_bx) + (a.y - (perx * a.x)));
+		this.goal = new Goal(new Point((int)goal_ax, goal_ay), new Point((int)goal_bx, goal_by));
 	}
 	
 	public Goal getGoal(){
@@ -70,7 +70,7 @@ public class Side{
 	
 	
 	public void draw(Graphics g){
-		g.setColor(Color.black);
+		g.setColor(this.colour.drawColor);
 		g.drawLine(a.x, a.y, b.x, b.y);
 		
 		this.goal.draw(g, this.colour);
