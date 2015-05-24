@@ -47,7 +47,7 @@ public class Puck{
 		if(angle >= 0 && angle < 360){
 			this.angle = angle;
 		}else{
-			throw new IllegalArgumentException("The puck's angle was not in the range of degrees");
+			throw new IllegalArgumentException("The puck's angle was not in the range of degrees; given:" + angle);
 		}
 	}
 	
@@ -60,7 +60,7 @@ public class Puck{
 	
 	public void draw(Graphics g){
 		g.setColor(Color.black);
-		g.drawOval(this.position.x, this.position.y, this.getDiameter(), this.getDiameter());
+		g.drawOval(this.position.x - (this.getDiameter() / 2), this.position.y - (this.getDiameter() / 2), this.getDiameter(), this.getDiameter());
 	}
 	
 }

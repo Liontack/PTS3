@@ -61,14 +61,15 @@ public class GameField{
 		return null;
 	}
 	
-	private Point getRandomPosition(){
+	Point getRandomPosition(){
+		int height = (int) Math.tan(Math.toRadians(60)) * (Side.LENGTH / 2);
 		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
-		int randomY = (int) Math.round(Math.random() * Side.LENGTH);
+		int randomY = (int) Math.round(Math.random() * height);
 		Point point = new Point(randomX, randomY);
 		
 		// If the point falls above the left side, transform so it will fall under the right side
 		if(!this.sides[1].isAboveLine(point)){
-			point = new Point(point.x + (Side.LENGTH / 2), Side.LENGTH - point.y);
+			point = new Point(point.x + (Side.LENGTH / 2), height - point.y);
 		}
 		return point;
 	}
@@ -106,6 +107,9 @@ public class GameField{
 					int newAngle = m - (puck.getAngle() + 360 - m);
 					while(newAngle >= 360){
 						newAngle -= 360;
+					}
+					while(newAngle < 0){
+						newAngle += 360;
 					}
 					this.puck.setAngle(newAngle);
 					break;
