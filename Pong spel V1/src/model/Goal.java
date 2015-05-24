@@ -49,8 +49,8 @@ public class Goal{
 		}
 	}
 	
-	public int gety_perx(){
-		return (b.y - a.y)/(b.x - a.x);
+	public double gety_perx(){
+		return ((double)(b.y - a.y)) / ((double)(b.x - a.x));
 	}
 	
 	

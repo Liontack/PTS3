@@ -107,6 +107,9 @@ public class Game{
 				}
 			}
 			
+			// Reset the puck's position and angle
+			this.gameField.setRandomPuck();
+			
 			// Reset the scorer
 			this.scorer = null;
 			
@@ -125,8 +128,12 @@ public class Game{
 		
 		// Add the player's scores to their user's point list
 		for(Player player : this.players){
-			User user = UserManagement.getUserOfPlayer(player);
-			user.addNewRecentPoints(player.getPoints());
+			if(!player.isAI()){
+				User user = UserManagement.getUserOfPlayer(player);
+				if(user != null){
+					user.addNewRecentPoints(player.getPoints());
+				}
+			}
 		}
 	}
 	

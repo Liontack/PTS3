@@ -29,9 +29,9 @@ public class GameFieldTest{
 	
 	@Test
 	public void testRandomPosition(){
-		int tests = 999;
+		int tests = 99;
 		GameField gamefield = new GameField(new Game(), 0);
-		while(tests-- < 0){
+		while(tests-- > 0){
 			Point p = gamefield.getRandomPosition();
 			assertTrue(p.toString() + " was not above red line", gamefield.getSide(Player.Colour.RED).isAboveLine(p));
 			assertFalse(p.toString() + " was not under blue line", gamefield.getSide(Player.Colour.BLUE).isAboveLine(p));

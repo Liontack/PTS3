@@ -5,7 +5,7 @@ import java.awt.Point;
 
 public class Side{
 	
-	public final static int LENGTH = 500;
+	public final static int LENGTH = 500;//XXX(testvalue=100)
 	public final static int THICKNESS = 1;
 	
 	
@@ -41,12 +41,12 @@ public class Side{
 	}
 
 	public PuckState isAboveLine(Puck puck){
-		int y_perx = (b.y - a.y)/(b.x - a.x);
-		int y_on0x = a.y - (y_perx * a.x);
+		double y_perx = ((double)(b.y - a.y)) / ((double)(b.x - a.x));
+		double y_on0x = a.y - (y_perx * a.x);
 		
-		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
+		double y_px = (y_perx * puck.getPosition().x) + y_on0x;
 		
-		if((y_px < puck.getPosition().y - (puck.getDiameter()/2) -.2 && this.getColour() == Player.Colour.RED) || (y_px >= puck.getPosition().y + (puck.getDiameter()/2) +.2 && this.getColour() != Player.Colour.RED)){
+		if((y_px > puck.getPosition().y - (puck.getDiameter()/2) -.2 && this.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) +.2 && this.getColour() != Player.Colour.RED)){
 			return PuckState.IN_FIELD;
 		}else{
 			if(this.goal.isInGoal(this, puck)){
@@ -58,12 +58,12 @@ public class Side{
 	}
 	
 	public boolean isAboveLine(Point point){
-		int y_perx = (b.y - a.y)/(b.x - a.x);
-		int y_on0x = a.y - (y_perx * a.x);
+		double y_perx = ((double)(b.y - a.y)) / ((double)(b.x - a.x));
+		double y_on0x = a.y - (y_perx * a.x);
 		
-		int y_px = (y_perx * point.x) + y_on0x;
+		double y_px = (y_perx * point.x) + y_on0x;
 		
-		return point.y > y_px;
+		return point.y < y_px;
 	}
 	
 	

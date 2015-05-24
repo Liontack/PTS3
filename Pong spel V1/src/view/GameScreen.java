@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +20,12 @@ public class GameScreen extends JPanel{
 	// Draw the game field
 	
 	public GameScreen(){
+		this.addFocusListener(new FocusAdapter(){
+			public void focusGained(FocusEvent fe){
+				initScreen();
+			}
+		});
+		
 		this.setLayout(null);
 		
 		// Init gui
@@ -36,6 +44,10 @@ public class GameScreen extends JPanel{
 		label_scorePlayer3.setForeground(Color.green);
 		this.add(label_scorePlayer3);
 		
+	}
+	
+	public void initScreen(){
+		Program.activeGame.getGameField().startUpdaterThread();
 	}
 	
 	public void paintComponent(Graphics g){

@@ -11,8 +11,10 @@ import view.Program;
 
 public class GameField{
 	
+	private int averageRating;
+	
 	private final Side[] sides = new Side[3];
-	private final Puck puck;
+	private Puck puck;
 	private final Set<Barricade> barricades = new HashSet<>();
 	
 	private Game game;
@@ -22,6 +24,7 @@ public class GameField{
 	
 	public GameField(Game game, int averageRating){
 		this.game = game;
+		this.averageRating = averageRating;
 		
 		// Create sides
 		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
@@ -32,8 +35,8 @@ public class GameField{
 		
 		
 		// Create puck
-		int randomAngle = (int) Math.round(Math.random() * 360);
-		this.puck = new Puck(randomAngle, this.getRandomPosition(), averageRating);
+		int randomAngle = (int) Math.round(Math.random() * 359);
+		this.puck = new Puck(90, this.getRandomPosition(), averageRating);
 		
 		// Create barricades
 		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
@@ -43,6 +46,11 @@ public class GameField{
 	}
 	
 	
+	
+	public void setRandomPuck(){
+		int randomAngle = (int) Math.round(Math.random() * 359);
+		this.puck = new Puck(randomAngle, this.getRandomPosition(), this.averageRating);
+	}
 	
 	public Puck getPuck(){
 		return this.puck;
@@ -62,13 +70,13 @@ public class GameField{
 	}
 	
 	Point getRandomPosition(){
-		int height = (int) Math.tan(Math.toRadians(60)) * (Side.LENGTH / 2);
+		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
 		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
-		int randomY = (int) Math.round(Math.random() * height);
+		int randomY = (int) Math.round(Math.random() * (height - 30));
 		Point point = new Point(randomX, randomY);
 		
 		// If the point falls above the left side, transform so it will fall under the right side
-		if(!this.sides[1].isAboveLine(point)){
+		if(this.sides[1].isAboveLine(point)){
 			point = new Point(point.x + (Side.LENGTH / 2), height - point.y);
 		}
 		return point;
@@ -79,11 +87,14 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
-				update();
-				try{
-					Thread.sleep(500);
-				}catch(InterruptedException exception){
-					exception.printStackTrace();
+				while(true){
+					update();
+					try{
+						Thread.sleep(50);
+					}catch(InterruptedException exception){
+						exception.printStackTrace();
+						break;
+					}
 				}
 			}
 		});
@@ -102,6 +113,7 @@ public class GameField{
 		for(Side side : this.sides){
 			switch(side.isAboveLine(puck)){
 				case OVER_LINE:
+					System.out.println("!!! Puck has gone over line " + side.getColour());
 					// Adjust puck's angle (Not tested)
 					int m = (int)Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
 					int newAngle = m - (puck.getAngle() + 360 - m);
@@ -114,6 +126,7 @@ public class GameField{
 					this.puck.setAngle(newAngle);
 					break;
 				case IN_GOAL:
+					System.out.println("!!! Puck has gone in goal " + side.getColour());
 					game.increaseRound(side.getColour());
 					break;
 			}
