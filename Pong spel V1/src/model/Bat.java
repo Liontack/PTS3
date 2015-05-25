@@ -5,16 +5,18 @@ import java.awt.Point;
 
 public class Bat{
 	
-	public final static int LENGTH_PERCENT_OF_SIDE_LENGTH = 8;
+	public final static int LENGTH_PERCENT_OF_SIDE_LENGTH = 10;
 	private final static int MOVE_SPEED = 2;
 
 	private int maximumGoalPosition;
+	private int minimumGoalPosition;
 	private int positionInGoal;
 	
 	
 	
 	public Bat(int goalLength){
-		this.maximumGoalPosition = goalLength - (Bat.LENGTH_PERCENT_OF_SIDE_LENGTH);
+		this.maximumGoalPosition = goalLength - (Bat.getLength() / 2);
+		this.minimumGoalPosition = Bat.getLength() / 2;
 		this.positionInGoal = this.maximumGoalPosition / 2;
 	}
 	
@@ -24,16 +26,16 @@ public class Bat{
 		return this.positionInGoal;
 	}
 	
-	public int getLength(){
+	public static int getLength(){
 		return Bat.LENGTH_PERCENT_OF_SIDE_LENGTH * Side.LENGTH / 100;
 	}
 
 	public void moveLeft(){
-		this.positionInGoal = Math.max(0, this.positionInGoal - MOVE_SPEED);
+		this.positionInGoal = Math.max(0, this.positionInGoal - MOVE_SPEED);//0?
 	}
 
 	public void moveRight(){
-		this.positionInGoal = Math.min(this.maximumGoalPosition, this.positionInGoal + MOVE_SPEED);
+		this.positionInGoal = Math.min(this.maximumGoalPosition - (Bat.getLength() / 2), this.positionInGoal + MOVE_SPEED);
 	}
 	
 	public boolean hit(Puck puck, Point goalA, Point goalB, Player.Colour colour){
@@ -70,12 +72,14 @@ public class Bat{
 		// Construct the goal line y=ax+b
 		double y_perx = ((double)(goalB.y - goalA.y)) / ((double)(goalB.x - goalA.x));
 		double y_on0x = goalA.y - (y_perx * goalA.x);
+		double lx_prime = ((goalB.x - goalA.x) * getLength() / this.maximumGoalPosition) / 2;
 		
 		// Calculate the new coordinates
-		double batAx = goalA.x + ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
+		double batAx = goalA.x + (this.positionInGoal * (goalB.x - goalA.x - lx_prime) / (this.maximumGoalPosition - this.minimumGoalPosition));
 		double batAy = (y_perx * batAx) + y_on0x;
-		double batBx = goalB.x - ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
+		double batBx = goalA.x + (this.positionInGoal * (goalB.x - goalA.x - lx_prime) / (this.maximumGoalPosition - this.minimumGoalPosition)) + lx_prime;
 		double batBy = (y_perx * batBx) + y_on0x;
+		System.out.println("Bat has ax: " + batAx + " and bx: " + batBx);
 		
 		// Create and return points
 		Point[] points = new Point[2];
@@ -94,7 +98,7 @@ public class Bat{
 		
 		// Draw line
 		g.setColor(colour.drawColor);
-		g.drawLine(a.x, a.y, b.x, b.y);
+		g.drawLine(a.x, a.y + 3, b.x, b.y + 3);//XXX Bat is misdrawn
 	}
 	
 }
