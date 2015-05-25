@@ -1,11 +1,12 @@
 package model;
 
 import java.awt.Color;
-//TODO create Player ai, which moves his bat
+
 //TODO let a player move his bat through the keyboard
 public class Player{
 	
 	private static final int START_POINTS = 20;
+	private static final int AI_REACTION_TIME = 100;
 	
 	public enum Colour{
 		RED(Color.red),
@@ -28,11 +29,18 @@ public class Player{
 	public PowerUp[] powerUps = new PowerUp[3];
 	private Bat bat;
 	
+	private Thread aiMoverThread;
+	
 	
 	
 	Player(Colour colour, boolean isAI){
 		this.colour = colour;
 		this.isAI = isAI;
+		
+		// Start a thread for this ai to move his bat
+		if(this.isAI){
+			this.startAiMoverThread();
+		}
 	}
 	public void setBat(Bat bat){
 		if(this.bat == null){
@@ -125,5 +133,48 @@ public class Player{
 		this.powerUps[nr].use();
 		this.removePowerUp(nr);
 	}
+	
+	
+	
+	private class AiMoverRunnable implements Runnable{
+		private Player ai;
+		
+		AiMoverRunnable(Player ai){
+			this.ai = ai;
+		}
+		
+		public void run(){
+			while(true){
+				if(ai.bat != null){
+					aiMover(ai.bat);
+				}
+				try{
+					Thread.sleep(Player.AI_REACTION_TIME);
+				}catch(InterruptedException exception){
+					System.out.println("Game ended");
+					break;
+				}
+			}
+		}
+	}
+	
+	private void startAiMoverThread(){
+		aiMoverThread = new Thread(new AiMoverRunnable(this));
+		aiMoverThread.start();
+	}
+	
+	public void stopAiMoverThread(){
+		this.aiMoverThread.interrupt();
+	}
+	
+	private void aiMover(Bat bat){
+		// Really dumb ai
+		if(Math.random() < 0.5){
+			bat.moveLeft();
+		}else{
+			bat.moveRight();
+		}
+	}
+	
 	
 }

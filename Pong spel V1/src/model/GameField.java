@@ -11,7 +11,7 @@ import view.Program;
 
 public class GameField{
 	
-	private static final int UPDATE_SPEED = 100;
+	private static final int UPDATE_SPEED = 10;
 	
 	private int averageRating;
 	
