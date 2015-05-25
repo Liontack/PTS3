@@ -61,9 +61,11 @@ public class Bat{
 		double y_on0x = goalA.y - (y_perx * goalA.x);
 		
 		// Calculate the new coordinates
-		double batAx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) - (this.getLength() / 2);
+		//double batAx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) - (this.getLength() / 2);
+		double batAx = goalA.x + ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
 		double batAy = (y_perx * batAx) + y_on0x;
-		double batBx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) + (this.getLength() / 2);
+		//double batBx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) + (this.getLength() / 2);
+		double batBx = goalB.x - ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
 		double batBy = (y_perx * batBx) + y_on0x;
 		
 		// Create and return points

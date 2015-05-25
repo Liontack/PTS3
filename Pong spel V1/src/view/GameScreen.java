@@ -15,10 +15,10 @@ public class GameScreen extends JPanel{
 	JLabel label_scorePlayer2 = new JLabel("0");
 	JLabel label_scorePlayer3 = new JLabel("0");
 	
-	// Draw the rectangles with power up information
-	
 	// Draw the game field
+	// Draw the rectangles with power up information; if supported
 	
+	//XXX I would like to see somewhat thicker sides, goals and bats
 	public GameScreen(){
 		this.addFocusListener(new FocusAdapter(){
 			public void focusGained(FocusEvent fe){

@@ -106,8 +106,6 @@ public class GameField{
 	}
 	
 	private void update(){
-		System.out.println("Puck's angle is " + this.puck.getAngle());
-		System.out.println("Puck's position is (" + this.puck.getPosition().x + "; " + this.puck.getPosition().y + ")");
 		// Move the puck
 		this.puck.move();
 		

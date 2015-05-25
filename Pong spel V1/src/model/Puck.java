@@ -8,9 +8,10 @@ public class Puck{
 	
 	public static final int DIAMETER_PERCENT_OF_SIDE_LENGTH = 4;
 	public static final int DEFAULT_VELOCITY = 4;
+	private static final double significance = 10000.000000;
 	
 	private int velocity;
-	private int angle;// [0; 360>
+	private double angle;// [0; 360>
 	private Point position;
 	
 	
@@ -18,7 +19,7 @@ public class Puck{
 	public Puck(int angle, Point position, int averageRating){
 		this.setVelocity(Math.max(1, (int)(((double)averageRating / 40.00) * (2 * Puck.DEFAULT_VELOCITY))));
 		this.setAngle(angle);
-		this.position = position;
+		this.position = new Point((int)(position.x * significance), (int)(position.y * significance));
 	}
 	
 	
@@ -28,10 +29,10 @@ public class Puck{
 	}
 	
 	public Point getPosition(){
-		return this.position;
+		return new Point((int)(position.x / significance), (int)(position.y / significance));
 	}
 	
-	public int getAngle(){
+	public double getAngle(){
 		return this.angle;
 	}
 	
@@ -43,7 +44,7 @@ public class Puck{
 		this.velocity = velocity;
 	}
 	
-	public void setAngle(int angle){
+	public void setAngle(double angle){
 		if(angle >= 0 && angle < 360){
 			this.angle = angle;
 		}else{
@@ -52,15 +53,20 @@ public class Puck{
 	}
 	
 	public void move(){
-		int newX = (int)(this.position.x + (Math.cos(Math.toRadians(this.angle)) * this.velocity));
-		int newY = (int)(this.position.y + (Math.sin(Math.toRadians(this.angle)) * this.velocity));
-		this.position = new Point(newX, newY);
+		double a = this.position.x/significance;
+		double b = Math.cos(Math.toRadians(this.angle));
+		double c = this.velocity;
+		double bc = b * c;
+		double abc = a + bc;
+		double newX = ((double)(this.position.x/significance) + (double)((double)Math.cos(Math.toRadians(this.angle)) * (double)this.velocity));
+		double newY = ((double)(this.position.y/significance) + (double)((double)Math.sin(Math.toRadians(this.angle)) * (double)this.velocity));
+		this.position = new Point((int)(newX * significance), (int)(newY * significance));
 	}
 	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.black);
-		g.drawOval(this.position.x - (this.getDiameter() / 2), this.position.y - (this.getDiameter() / 2), this.getDiameter(), this.getDiameter());
+		g.drawOval(this.getPosition().x - (this.getDiameter() / 2), this.getPosition().y - (this.getDiameter() / 2), this.getDiameter(), this.getDiameter());
 	}
 	
 }

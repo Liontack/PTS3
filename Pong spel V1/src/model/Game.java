@@ -121,7 +121,7 @@ public class Game{
 		}
 	}
 	
-	private void finish(){
+	private void finish(){//TODO Game.finish gives errors
 		// Make this instance unusable
 		this.gameField.stopUpdaterThread();
 		this.gameField = null;
