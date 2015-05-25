@@ -32,17 +32,29 @@ public class Goal{
 	}
 	
 	public boolean isInGoal(Side side, Puck puck){
-		int y_perx = (b.y - a.y)/(b.x - a.x);
-		int y_on0x = a.y - (y_perx * a.x);
+		// Calculate the perpendicular lines through a and b
+		double Py_perx = this.gety_perx() * -1;
+		double Pa__y_on0x = a.y - (Py_perx * a.x);
+		double Pb__y_on0x = b.y - (Py_perx * b.x);
 		
-		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
+		double ya_on_px = (Py_perx * puck.getPosition().x) + Pa__y_on0x;
+		double yb_on_px = (Py_perx * puck.getPosition().x) + Pb__y_on0x;
 		
-		// If the puck is not near the goal, return false
-		if((puck.getPosition().x <= a.x - (puck.getDiameter() / 2) || puck.getPosition().x >= b.x + (puck.getDiameter() / 2))){
-			return false;
+		// If the puck is in between those two lines return true
+		boolean inbetween = false;
+		switch(side.getColour()){
+			case RED:
+				inbetween = (puck.getPosition().x > a.x && puck.getPosition().x < b.x);
+				break;
+			case BLUE:
+				inbetween = puck.getPosition().y < yb_on_px && puck.getPosition().y > ya_on_px;
+				break;
+			case GREEN:
+				inbetween = puck.getPosition().y < ya_on_px && puck.getPosition().y > yb_on_px;
+				break;
 		}
 		
-		if((y_px >= puck.getPosition().y - (puck.getDiameter()/2) && side.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && side.getColour() != Player.Colour.RED)){
+		if(inbetween){
 			return !this.bat.hit(puck, this.a, this.b, side.getColour());
 		}else{
 			return false;

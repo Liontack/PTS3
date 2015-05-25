@@ -42,17 +42,28 @@ public class Bat{
 		Point a = points[0];
 		Point b = points[1];
 		
-		// If the puck is not near the bat, return false
-		if((puck.getPosition().x <= a.x - (puck.getDiameter() / 2) || puck.getPosition().x >= b.x + (puck.getDiameter() / 2))){
-			return false;
+		// Calculate the perpendicular lines through a and b
+		double Py_perx = (((double)(b.y - a.y)) / ((double)(b.x - a.x))) * -1;
+		double Pa__y_on0x = a.y - (Py_perx * a.x);
+		double Pb__y_on0x = b.y - (Py_perx * b.x);
+		
+		double ya_on_px = (Py_perx * puck.getPosition().x) + Pa__y_on0x;
+		double yb_on_px = (Py_perx * puck.getPosition().x) + Pb__y_on0x;
+		
+		// If the puck is in between those two lines return true
+		boolean inbetween = false;
+		switch(colour){
+			case RED:
+				inbetween = (puck.getPosition().x > a.x && puck.getPosition().x < b.x);
+				break;
+			case BLUE:
+				inbetween = puck.getPosition().y < yb_on_px && puck.getPosition().y > ya_on_px;
+				break;
+			case GREEN:
+				inbetween = puck.getPosition().y < ya_on_px && puck.getPosition().y > yb_on_px;
+				break;
 		}
-		
-		int y_perx = (b.y - a.y)/(b.x - a.x);
-		int y_on0x = a.y - (y_perx * a.x);
-		
-		int y_px = (y_perx * puck.getPosition().x) + y_on0x;
-		
-		return (y_px > puck.getPosition().y - (puck.getDiameter()/2) && colour == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) && colour != Player.Colour.RED);
+		return inbetween;
 	}
 	
 	private Point[] getPoints(Point goalA, Point goalB){
@@ -61,10 +72,8 @@ public class Bat{
 		double y_on0x = goalA.y - (y_perx * goalA.x);
 		
 		// Calculate the new coordinates
-		//double batAx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) - (this.getLength() / 2);
 		double batAx = goalA.x + ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
 		double batAy = (y_perx * batAx) + y_on0x;
-		//double batBx = goalA.x + this.getLength()/2 + (this.positionInGoal * (goalB.x - goalA.x - this.getLength()) / this.maximumGoalPosition) + (this.getLength() / 2);
 		double batBx = goalB.x - ((50 - ((Bat.LENGTH_PERCENT_OF_SIDE_LENGTH))) * (goalB.x-goalA.x) / 100);
 		double batBy = (y_perx * batBx) + y_on0x;
 		

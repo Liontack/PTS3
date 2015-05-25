@@ -59,7 +59,7 @@ public class Side{
 				((y_b < puck.getPosition().y) && this.getColour() == Player.Colour.BLUE)){
 			return PuckState.IN_FIELD;
 		}else{
-			if(this.goal.isInGoal(this, puck)){//TODO in goal does not work
+			if(this.goal.isInGoal(this, puck)){
 				return PuckState.IN_GOAL;
 			}else{
 				return PuckState.OVER_LINE;

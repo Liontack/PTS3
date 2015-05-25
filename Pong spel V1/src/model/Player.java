@@ -10,7 +10,7 @@ public class Player{
 	public enum Colour{
 		RED(Color.red),
 		BLUE(Color.blue),
-		GREEN(Color.green);
+		GREEN(Color.green.darker());
 		
 		public final Color drawColor;
 		Colour(Color drawColor){

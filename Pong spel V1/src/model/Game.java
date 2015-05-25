@@ -96,7 +96,7 @@ public class Game{
 		return this.scorer;
 	}
 	
-	public void increaseRound(Player.Colour scoredInGoalOf){
+	public void increaseRound(Player.Colour scoredInGoalOf){//XXX add a little time off before the next round
 		if(started){
 			// Change player's scores
 			for(Player player : this.players){

@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Player;
@@ -26,9 +25,6 @@ public class GameScreen extends JPanel{
 				initScreen();
 			}
 		});
-		
-		this.setLayout(null);
-		
 	}
 	
 	public void initScreen(){
