@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 
-//TODO let a player move his bat through the keyboard
 public class Player{
 	
 	private static final int START_POINTS = 20;
@@ -175,6 +174,5 @@ public class Player{
 			bat.moveRight();
 		}
 	}
-	
 	
 }

@@ -79,7 +79,6 @@ public class Bat{
 		double batAy = (y_perx * batAx) + y_on0x;
 		double batBx = goalA.x + (this.positionInGoal * (goalB.x - goalA.x - lx_prime) / (this.maximumGoalPosition - this.minimumGoalPosition)) + lx_prime;
 		double batBy = (y_perx * batBx) + y_on0x;
-		System.out.println("Bat has ax: " + batAx + " and bx: " + batBx);
 		
 		// Create and return points
 		Point[] points = new Point[2];

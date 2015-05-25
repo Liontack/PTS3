@@ -7,6 +7,8 @@ import java.awt.event.FocusEvent;
 
 import javax.swing.JPanel;
 
+import keyboard.BatController;
+
 import model.Game;
 import model.Player;
 import model.User;
@@ -26,6 +28,8 @@ public class GameScreen extends JPanel{
 				initScreen();
 			}
 		});
+
+		this.addKeyListener(new BatController());
 	}
 	
 	public void initScreen(){

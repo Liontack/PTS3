@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import keyboard.BatController;
+
 import view.Program;
 import view.StartScreen;
 
@@ -155,6 +157,9 @@ public class Game{
 				player.stopAiMoverThread();
 			}
 		}
+		
+		// Remove the bat from the controller
+		BatController.resetBat();
 		
 		// Announce game over, wait a bit, and redirect to the start screen
 		Program.setFeedback("Game over", Color.cyan);
