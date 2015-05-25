@@ -7,6 +7,7 @@ import java.awt.event.FocusEvent;
 
 import javax.swing.JPanel;
 
+import model.Game;
 import model.Player;
 import model.User;
 import model.UserManagement;
@@ -40,7 +41,7 @@ public class GameScreen extends JPanel{
 			
 			// Also draw some strings XXX I would like to only update these strings on notification (observable)
 			g.setColor(Color.black);
-			g.drawString("Ronde " + Program.activeGame.getCurrentRound(), 8, 16);
+			g.drawString("Ronde " + Program.activeGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
 			int i = 0;
 			for(Player player : Program.activeGame.getPlayers()){
 				g.setColor(player.getColour().drawColor);

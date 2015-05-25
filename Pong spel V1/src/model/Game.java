@@ -1,9 +1,13 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import view.Program;
+import view.StartScreen;
 
 public class Game{
 	
@@ -96,7 +100,7 @@ public class Game{
 		return this.scorer;
 	}
 	
-	public void increaseRound(Player.Colour scoredInGoalOf){//XXX add a little time off before the next round
+	public void increaseRound(Player.Colour scoredInGoalOf){
 		if(started){
 			// Change player's scores
 			for(Player player : this.players){
@@ -108,7 +112,9 @@ public class Game{
 			}
 			
 			// Reset the puck's position and angle
-			this.gameField.setRandomPuck();
+			try{
+				this.gameField.setRandomPuck();
+			}catch(NullPointerException exception){}
 			
 			// Reset the scorer
 			this.scorer = null;
@@ -116,15 +122,26 @@ public class Game{
 			// Increase the round
 			if(this.currentRound == Game.ROUND_AMOUNT){
 				this.finish();
+				return;
 			}
 			this.currentRound++;
+			
+			// Announce the next round
+			Program.setFeedback("Volgende ronde begint zo", Color.cyan);
+
+			// Wait a bit
+			try{
+				Thread.sleep(5000);
+			}catch(InterruptedException exception){}
 		}
 	}
 	
-	private void finish(){//TODO Game.finish gives errors
+	private void finish(){
 		// Make this instance unusable
-		this.gameField.stopUpdaterThread();
-		this.gameField = null;
+		if(this.gameField != null){
+			this.gameField.stopUpdaterThread();
+			this.gameField = null;
+		}
 		
 		// Add the player's scores to their user's point list
 		for(Player player : this.players){
@@ -133,8 +150,22 @@ public class Game{
 				if(user != null){
 					user.addNewRecentPoints(player.getPoints());
 				}
+			}else{
+				// Turn the ai movers off
+				player.stopAiMoverThread();
 			}
 		}
+		
+		// Announce game over, wait a bit, and redirect to the start screen
+		Program.setFeedback("Game over", Color.cyan);
+		new Thread(new Runnable(){
+			public void run(){
+				try{
+					Thread.sleep(5000);
+				}catch(InterruptedException exception){}
+				Program.switchToPanel(StartScreen.class);
+			}
+		}).start();
 	}
 	
 	/**

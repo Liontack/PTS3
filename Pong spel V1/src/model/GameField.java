@@ -11,7 +11,7 @@ import view.Program;
 
 public class GameField{
 	
-	private static final int UPDATE_SPEED = 10;
+	private static final int UPDATE_SPEED = 100;
 	
 	private int averageRating;
 	
@@ -39,7 +39,7 @@ public class GameField{
 		// Create puck
 		int randomAngle = (int) Math.round(Math.random() * 359);//XXX set the randomangle to an angle always to the middle of the field (2 places)
 		/*XXX*/this.puck = new Puck(randomAngle, this.getRandomPosition(), averageRating);
-		this.puck = new Puck(180, new Point(250, 250), averageRating);
+		this.puck = new Puck(180, new Point(250, 290), averageRating);
 		
 		// Create barricades
 		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
@@ -83,7 +83,7 @@ public class GameField{
 			point = new Point(point.x + (Side.LENGTH / 2), height - point.y);
 		}
 		
-		//XXX check if it is near(20) the blue or green line, yes--> do this again
+		//XXX check if it is near(20) the blue or green line, yes--> do this again ;;;;; or ;;;; give an random position in circle in middle
 		
 		return point;
 	}
@@ -98,7 +98,7 @@ public class GameField{
 					try{
 						Thread.sleep(GameField.UPDATE_SPEED);
 					}catch(InterruptedException exception){
-						exception.printStackTrace();
+						System.out.println("Game ended");
 						break;
 					}
 				}
@@ -119,7 +119,7 @@ public class GameField{
 		for(Side side : this.sides){
 			switch(side.isAboveLine(puck)){
 				case OVER_LINE:
-					System.out.println("Puck has gone over line " + side.getColour());
+					System.out.println("Puck hit " + side.getColour() + " side");
 					// Adjust puck's angle (Not tested)
 					double alpha = Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
 					//double newAngle = m - (puck.getAngle() + 360 - m);
@@ -134,7 +134,7 @@ public class GameField{
 					this.puck.move();
 					break;
 				case IN_GOAL:
-					System.out.println("Puck has gone in goal " + side.getColour());
+					System.out.println("Puck went in " + side.getColour() + " goal");
 					game.increaseRound(side.getColour());
 					break;
 			}
