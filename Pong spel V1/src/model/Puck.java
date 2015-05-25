@@ -53,11 +53,6 @@ public class Puck{
 	}
 	
 	public void move(){
-		double a = this.position.x/significance;
-		double b = Math.cos(Math.toRadians(this.angle));
-		double c = this.velocity;
-		double bc = b * c;
-		double abc = a + bc;
 		double newX = ((double)(this.position.x/significance) + (double)((double)Math.cos(Math.toRadians(this.angle)) * (double)this.velocity));
 		double newY = ((double)(this.position.y/significance) + (double)((double)Math.sin(Math.toRadians(this.angle)) * (double)this.velocity));
 		this.position = new Point((int)(newX * significance), (int)(newY * significance));

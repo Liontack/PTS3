@@ -11,6 +11,8 @@ import view.Program;
 
 public class GameField{
 	
+	private static final int UPDATE_SPEED = 10;
+	
 	private int averageRating;
 	
 	private final Side[] sides = new Side[3];
@@ -90,7 +92,7 @@ public class GameField{
 				while(true){
 					update();
 					try{
-						Thread.sleep(25);//XXX update speed
+						Thread.sleep(GameField.UPDATE_SPEED);
 					}catch(InterruptedException exception){
 						exception.printStackTrace();
 						break;
