@@ -36,7 +36,7 @@ public class GameField{
 		
 		// Create puck
 		int randomAngle = (int) Math.round(Math.random() * 359);
-		this.puck = new Puck(90, this.getRandomPosition(), averageRating);
+		this.puck = new Puck(randomAngle, this.getRandomPosition(), averageRating);
 		
 		// Create barricades
 		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
@@ -90,7 +90,7 @@ public class GameField{
 				while(true){
 					update();
 					try{
-						Thread.sleep(50);
+						Thread.sleep(25);//XXX update speed
 					}catch(InterruptedException exception){
 						exception.printStackTrace();
 						break;
@@ -106,6 +106,8 @@ public class GameField{
 	}
 	
 	private void update(){
+		System.out.println("Puck's angle is " + this.puck.getAngle());
+		System.out.println("Puck's position is (" + this.puck.getPosition().x + "; " + this.puck.getPosition().y + ")");
 		// Move the puck
 		this.puck.move();
 		
@@ -115,8 +117,9 @@ public class GameField{
 				case OVER_LINE:
 					System.out.println("!!! Puck has gone over line " + side.getColour());
 					// Adjust puck's angle (Not tested)
-					int m = (int)Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
-					int newAngle = m - (puck.getAngle() + 360 - m);
+					double alpha = Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
+					//double newAngle = m - (puck.getAngle() + 360 - m);
+					double newAngle = (2 * alpha) - puck.getAngle() + 360;
 					while(newAngle >= 360){
 						newAngle -= 360;
 					}
@@ -124,6 +127,7 @@ public class GameField{
 						newAngle += 360;
 					}
 					this.puck.setAngle(newAngle);
+					this.puck.move();
 					break;
 				case IN_GOAL:
 					System.out.println("!!! Puck has gone in goal " + side.getColour());

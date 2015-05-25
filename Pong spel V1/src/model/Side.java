@@ -44,12 +44,22 @@ public class Side{
 		double y_perx = ((double)(b.y - a.y)) / ((double)(b.x - a.x));
 		double y_on0x = a.y - (y_perx * a.x);
 		
-		double y_px = (y_perx * puck.getPosition().x) + y_on0x;
+		double y_r = (y_perx * puck.getPosition().x) + y_on0x;
 		
-		if((y_px > puck.getPosition().y - (puck.getDiameter()/2) -.2 && this.getColour() == Player.Colour.RED) || (y_px <= puck.getPosition().y + (puck.getDiameter()/2) +.2 && this.getColour() != Player.Colour.RED)){
+		// Calculations for a non-red side
+		double angleBeta = Math.toDegrees(Math.atan(this.goal.gety_perx()));
+		double angleAlpha = 90 - angleBeta;
+		double k = (puck.getDiameter() ) / (Math.cos(Math.toRadians(angleAlpha)));
+		// Now i can construct the line y=ax+b(+-)k and check the puck position on that line
+		double y_g = (y_perx * puck.getPosition().x) + y_on0x + k;
+		double y_b = (y_perx * puck.getPosition().x) + y_on0x - k;
+		
+		if((y_r > puck.getPosition().y + (puck.getDiameter()/2) && this.getColour() == Player.Colour.RED) ||
+				((y_g < puck.getPosition().y) && this.getColour() == Player.Colour.GREEN) ||
+				((y_b < puck.getPosition().y) && this.getColour() == Player.Colour.BLUE)){
 			return PuckState.IN_FIELD;
 		}else{
-			if(this.goal.isInGoal(this, puck)){
+			if(this.goal.isInGoal(this, puck)){//TODO in goal does not work
 				return PuckState.IN_GOAL;
 			}else{
 				return PuckState.OVER_LINE;
