@@ -33,7 +33,7 @@ public class Game{
 	 * Start this game with the 3 joined players; only if not started
 	 * @return	True if the game could be started or false if the game has not yet 3 players
 	 */
-	public boolean startGame(){//XXX announce the first round and wait a bit; in startThread?
+	public boolean startGame(){
 		if(!this.started){
 			this.started = this.isReadyToPlay();
 			
@@ -41,8 +41,10 @@ public class Game{
 			if(this.started){
 				double averageRating = 0;
 				for(User user : UserManagement.getUsers()){
-					if(this.containsPlayer(user.getPlayer())){
-						averageRating += user.getRating();
+					if(user != null){
+						if(this.containsPlayer(user.getPlayer())){
+							averageRating += user.getRating();
+						}
 					}
 				}
 				averageRating /= this.players.length;

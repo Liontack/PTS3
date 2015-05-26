@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 
-public class User{
+public class User implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private static final double INITIAL_RATING = 15.0;
 	
@@ -11,7 +13,7 @@ public class User{
 	private final String password;
 	private int[] mostRecentPoints = new int[5];// index 0 contains the most recent points, domain is [0;40]
 	
-	private Player player;
+	private transient Player player;
 	
 	
 	

@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import model.Game;
 import model.Player;
 import model.User;
+import model.UserManagement;
 
 public class Program{
 	
@@ -138,6 +139,7 @@ public class Program{
 	}
 	
 	public static void close(){
+		UserManagement.saveUsersSet();
 		mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
 	}
 	

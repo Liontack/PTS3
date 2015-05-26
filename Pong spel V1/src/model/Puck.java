@@ -36,7 +36,7 @@ public class Puck{
 		return this.angle;
 	}
 	
-	public int getDiameter(){
+	public static int getDiameter(){
 		return (Puck.DIAMETER_PERCENT_OF_SIDE_LENGTH * Side.LENGTH / 100);
 	}
 	
@@ -62,7 +62,7 @@ public class Puck{
 	
 	public void draw(Graphics g){
 		g.setColor(Color.black);
-		g.drawOval(this.getPosition().x - (this.getDiameter() / 2), this.getPosition().y - (this.getDiameter() / 2), this.getDiameter(), this.getDiameter());
+		g.drawOval(this.getPosition().x - (Puck.getDiameter() / 2), this.getPosition().y - (Puck.getDiameter() / 2), Puck.getDiameter(), Puck.getDiameter());
 	}
 	
 }

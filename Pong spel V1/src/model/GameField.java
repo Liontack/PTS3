@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
@@ -40,7 +41,8 @@ public class GameField{
 		this.setRandomPuck();
 		
 		// Create barricades
-		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
+		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (4.00 - 0.00)));
+		nBarricades = 4;//XXX
 		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
 		}
@@ -49,7 +51,7 @@ public class GameField{
 	
 	
 	public void setRandomPuck(){
-		Point randomPosition = this.getRandomPosition();
+		Point randomPosition = this.getRandomPositionInCenter();
 		Point center = this.getCenter();
 		double dy = (randomPosition.y - center.y);
 		double dx = (randomPosition.x - center.x);
@@ -90,18 +92,41 @@ public class GameField{
 		return null;
 	}
 	
-	Point getRandomPosition(){
-		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
-		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
-		int randomY =  20 + (int) Math.round(Math.random() * (height - 40));
-		Point point = new Point(randomX, randomY);
-		
-		// If the point falls above the left side, transform so it will fall under the right side
-		if(this.sides[1].isAboveLine(point)){
-			point = new Point(point.x + (Side.LENGTH / 2), height - point.y);
+	Point getRandomPositionInCenter(){
+		boolean hitBarricade = true;
+		Point point = null;
+		while(hitBarricade){
+			hitBarricade = false;
+			double randomAngle = Math.random() * 360;
+			double randomLength = 10 + (Math.random() * Side.LENGTH / 8);
+			point = new Point(this.getCenter().x + (int)(Math.cos(randomAngle) * randomLength), this.getCenter().y + (int)(Math.sin(randomAngle) * randomLength));
+			
+			for(Barricade barricade : this.barricades){
+				if(barricade.getPosition().distance(point) < (barricade.getDiameter() + Puck.getDiameter()) / 2){
+					hitBarricade = true;
+					break;
+				}
+			}
 		}
 		
-		//XXX check if it is near(20) the blue or green line, yes--> do this again ;;;;; or ;;;; give an random position in circle in middle
+		return point;
+	}
+	
+	Point getRandomPosition(){
+		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2) - 45;
+		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
+		int randomY = (int) Math.round(Math.random() * height);
+		Point point = new Point(randomX, randomY);
+		
+		if(this.sides[1].isAboveLine(point)){
+			point = new Point(point.x + Side.LENGTH / 2, height - point.y);
+		}
+		if(this.sides[1].getYonX(point.x) + 20 >= point.y){
+			point.y += 20;
+		}
+		if(this.sides[2].getYonX(point.x) + 20 >= point.y){
+			point.y += 20;
+		}
 		
 		return point;
 	}
@@ -111,6 +136,15 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
+				// Announce the first round
+				Program.setFeedback("Eerste ronde begint zo", Color.cyan);
+
+				// Wait a bit
+				try{
+					Thread.sleep(3000);
+				}catch(InterruptedException exception){}
+				
+				// Keep updating, until the thread gets interrupted
 				while(true){
 					update();
 					try{
@@ -136,11 +170,12 @@ public class GameField{
 		// Check for collisions with the puck
 		for(Side side : this.sides){
 			switch(side.isAboveLine(puck)){
+				case HIT_BAT:
+					game.setScorer(side.getColour());
 				case OVER_LINE:
 					System.out.println("Puck hit " + side.getColour() + " side");
 					// Adjust puck's angle (Not tested)
 					double alpha = Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
-					//double newAngle = m - (puck.getAngle() + 360 - m);
 					double newAngle = (2 * alpha) - puck.getAngle() + 360;
 					while(newAngle >= 360){
 						newAngle -= 360;
@@ -157,7 +192,26 @@ public class GameField{
 					break;
 			}
 		}
-		//TODO(low) also check for collisions with barricades
+		// Check for collisions with barricades
+		for(Barricade barricade : this.barricades){
+			if(barricade.hit(this.puck)){
+				// TODO Adjust puck's angle (Not tested)
+				if(puck.getPosition().x < barricade.getPosition().x){
+					if(puck.getPosition().y < barricade.getPosition().y){
+						
+					}else if(puck.getPosition().y > barricade.getPosition().y){
+						
+					}
+				}else if(puck.getPosition().x > barricade.getPosition().x){
+					if(puck.getPosition().y < barricade.getPosition().y){
+						
+					}else if(puck.getPosition().y > barricade.getPosition().y){
+						
+					}
+				}
+				this.puck.setAngle(0);
+			}
+		}
 		
 		// Update the Game screen
 		((JPanel)Program.getActivePanel()).repaint();

@@ -31,7 +31,7 @@ public class Goal{
 		return (int) this.a.distance(this.b);
 	}
 	
-	public boolean isInGoal(Side side, Puck puck){
+	public PuckState isInGoal(Side side, Puck puck){
 		// Calculate the perpendicular lines through a and b
 		double Py_perx = this.gety_perx() * -1;
 		double Pa__y_on0x = a.y - (Py_perx * a.x);
@@ -55,10 +55,14 @@ public class Goal{
 		}
 		
 		if(inbetween){
-			return !this.bat.hit(puck, this.a, this.b, side.getColour());
-		}else{
-			return false;
+			if(this.bat.hit(puck, this.a, this.b, side.getColour())){
+				return PuckState.HIT_BAT;
+			}else{
+				return PuckState.IN_GOAL;
+			}
 		}
+		
+		return PuckState.NOT_IN_GOAL;
 	}
 	
 	public double gety_perx(){

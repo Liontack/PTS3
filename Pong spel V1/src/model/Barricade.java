@@ -27,15 +27,19 @@ public class Barricade{
 		return this.diameterPercentOfSideLength * Side.LENGTH / 100;
 	}
 	
+	public Point getPosition(){
+		return this.position;
+	}
+	
 	public boolean hit(Puck puck){
-		return puck.getPosition().distance(this.position) <= ( (puck.getDiameter() + this.getDiameter()) / 2);
+		return puck.getPosition().distance(this.position) <= ( (Puck.getDiameter() + this.getDiameter()) / 2);
 	}
 	
 	
 	
 	public void draw(Graphics g){
 		g.setColor(Color.black);
-		g.fillOval(this.position.x, this.position.y, this.getDiameter(), this.getDiameter());
+		g.fillOval(this.position.x - (this.getDiameter() / 2), this.position.y - (this.getDiameter() / 2), this.getDiameter(), this.getDiameter());
 	}
 	
 }
