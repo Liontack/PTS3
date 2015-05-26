@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -23,28 +24,37 @@ public class UserManagement{
 	
 	
 	private UserManagement(){
-		fillUsersSet();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void fillUsersSet(){
+	public static void fillUsersSet(){
 		try{
 			ObjectInputStream reader = new ObjectInputStream(new FileInputStream("users.data"));
-			this.users = (Map<User, Boolean>) reader.readObject();
+			instance.users = new HashMap<>();
+			while(true){
+				try{
+					User user = (User) reader.readObject();
+					instance.users.put(user, false);
+				}catch(Exception exception){
+					break;
+				}
+			}
 		}catch(Exception exception){}
-		
-		/*users = new HashMap<>();
-		users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);
-		users.put(new User("Bart", "b", new int[]{21, 21, 21, 21, 21}), false);
-		users.put(new User("Cleo", "c"), false);
-		users.put(new User("Dirk", "d", new int[]{32, 32, 32, 32, 32}), false);
-		users.put(new User("Echo", "e", new int[]{10, 10, 10, 10, 10}), false);*/
+		/*
+		instance.users = new HashMap<>();
+		instance.users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);
+		instance.users.put(new User("Bart", "b", new int[]{21, 21, 21, 21, 21}), false);
+		instance.users.put(new User("Cleo", "c"), false);
+		instance.users.put(new User("Dirk", "d", new int[]{32, 32, 32, 32, 32}), false);
+		instance.users.put(new User("Echo", "e", new int[]{10, 10, 10, 10, 10}), false);
+		*/
 	}
 	
 	public static void saveUsersSet(){
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.data"));
-			out.writeObject(instance.users);
+			for(User user : instance.users.keySet()){
+				out.writeObject(user);
+			}
 			out.close();
 		}catch(IOException exception){}
 	}
