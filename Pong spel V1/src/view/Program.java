@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import keyboard.BatController;
-
 import model.Game;
 import model.Player;
 import model.User;

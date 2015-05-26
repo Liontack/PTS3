@@ -16,7 +16,7 @@ public class Puck{
 	
 	
 	
-	public Puck(int angle, Point position, int averageRating){
+	public Puck(double angle, Point position, int averageRating){
 		this.setVelocity(Math.max(1, (int)(((double)averageRating / 40.00) * (2 * Puck.DEFAULT_VELOCITY))));
 		this.setAngle(angle);
 		this.position = new Point((int)(position.x * significance), (int)(position.y * significance));
@@ -57,6 +57,7 @@ public class Puck{
 		double newY = ((double)(this.position.y/significance) + (double)((double)Math.sin(Math.toRadians(this.angle)) * (double)this.velocity));
 		this.position = new Point((int)(newX * significance), (int)(newY * significance));
 	}
+	
 	
 	
 	public void draw(Graphics g){

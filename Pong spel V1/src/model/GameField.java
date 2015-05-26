@@ -37,9 +37,7 @@ public class GameField{
 		
 		
 		// Create puck
-		int randomAngle = (int) Math.round(Math.random() * 359);//XXX set the randomangle to an angle always to the middle of the field (2 places)
-		/*XXX*/this.puck = new Puck(randomAngle, this.getRandomPosition(), averageRating);
-		this.puck = new Puck(180, new Point(250, 290), averageRating);
+		this.setRandomPuck();
 		
 		// Create barricades
 		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
@@ -51,8 +49,28 @@ public class GameField{
 	
 	
 	public void setRandomPuck(){
-		int randomAngle = (int) Math.round(Math.random() * 359);
-		this.puck = new Puck(randomAngle, this.getRandomPosition(), this.averageRating);
+		Point randomPosition = this.getRandomPosition();
+		Point center = this.getCenter();
+		double dy = (randomPosition.y - center.y);
+		double dx = (randomPosition.x - center.x);
+		double angle;
+		if(dx == 0){
+			angle = ((dy > 0) ? 90 : 270 );
+		}else{
+			double a = dy / dx;
+			angle = Math.toDegrees(Math.atan(a / 1));
+			if(dx > 0){
+				angle += 180;
+			}else if(dx < 0 && dy > 0){
+				angle += 360;
+			}
+		}
+		this.puck = new Puck(angle, randomPosition, this.averageRating);
+	}
+	
+	private Point getCenter(){
+		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
+		return new Point(Side.LENGTH / 2, height / 2);
 	}
 	
 	public Puck getPuck(){

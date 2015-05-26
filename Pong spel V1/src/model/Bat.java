@@ -6,7 +6,7 @@ import java.awt.Point;
 public class Bat{
 	
 	public final static int LENGTH_PERCENT_OF_SIDE_LENGTH = 10;
-	private final static int MOVE_SPEED = 2;
+	private final static int MOVE_SPEED = 4;
 
 	private int maximumGoalPosition;
 	private int minimumGoalPosition;

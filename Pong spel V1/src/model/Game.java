@@ -17,7 +17,7 @@ public class Game{
 	
 	
 	
-	private int currentRound = 1;
+	private int currentRound = 0;
 	private boolean started = false;
 	private GameField gameField;
 	private Player[] players = new Player[3];
@@ -33,7 +33,7 @@ public class Game{
 	 * Start this game with the 3 joined players; only if not started
 	 * @return	True if the game could be started or false if the game has not yet 3 players
 	 */
-	public boolean startGame(){
+	public boolean startGame(){//XXX announce the first round and wait a bit; in startThread?
 		if(!this.started){
 			this.started = this.isReadyToPlay();
 			
@@ -53,6 +53,7 @@ public class Game{
 				for(Player player : this.players){
 					player.setBat(gameField.getSide(player.getColour()).getGoal().getBat());
 				}
+				
 			}
 			
 			return this.isReadyToPlay();
@@ -133,7 +134,7 @@ public class Game{
 
 			// Wait a bit
 			try{
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 			}catch(InterruptedException exception){}
 		}
 	}
