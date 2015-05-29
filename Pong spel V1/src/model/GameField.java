@@ -42,7 +42,6 @@ public class GameField{
 		
 		// Create barricades
 		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (4.00 - 0.00)));
-		nBarricades = 4;//XXX
 		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
 		}
@@ -138,7 +137,7 @@ public class GameField{
 			public void run(){
 				// Announce the first round
 				Program.setFeedback("Eerste ronde begint zo", Color.cyan);
-
+				
 				// Wait a bit
 				try{
 					Thread.sleep(3000);
@@ -195,21 +194,17 @@ public class GameField{
 		// Check for collisions with barricades
 		for(Barricade barricade : this.barricades){
 			if(barricade.hit(this.puck)){
-				// TODO Adjust puck's angle (Not tested)
-				if(puck.getPosition().x < barricade.getPosition().x){
-					if(puck.getPosition().y < barricade.getPosition().y){
-						
-					}else if(puck.getPosition().y > barricade.getPosition().y){
-						
-					}
-				}else if(puck.getPosition().x > barricade.getPosition().x){
-					if(puck.getPosition().y < barricade.getPosition().y){
-						
-					}else if(puck.getPosition().y > barricade.getPosition().y){
-						
-					}
+				// Adjust puck's angle (Not tested)
+				double a = (double)(barricade.getPosition().y - this.puck.getPosition().y) / (double)(barricade.getPosition().x - this.puck.getPosition().x);
+				double angleToBarricade = Math.toDegrees(Math.atan(a));
+				if(barricade.getPosition().x < this.puck.getPosition().x){
+					angleToBarricade -= 180;
 				}
-				this.puck.setAngle(0);
+				double newAngle = angleToBarricade - 180;
+				while(newAngle < 0){
+					newAngle += 360;
+				}
+				this.puck.setAngle(newAngle);
 			}
 		}
 		

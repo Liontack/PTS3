@@ -6,8 +6,8 @@ import java.awt.Point;
 
 public class Barricade{
 	
-	public static final int DIAMETER_PERCENT_MIN = 5;
-	public static final int DIAMETER_PERCENT_MAX = 10;
+	public static final int DIAMETER_PERCENT_MIN = 2;
+	public static final int DIAMETER_PERCENT_MAX = 5;
 	
 	
 	

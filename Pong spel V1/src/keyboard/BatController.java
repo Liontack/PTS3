@@ -3,6 +3,8 @@ package keyboard;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JPanel;
+
 import view.Program;
 
 import model.Bat;
@@ -17,6 +19,9 @@ public class BatController extends KeyAdapter{
 		}else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D){
 			bat().moveRight();
 		}
+		
+		// Update the Game screen
+		((JPanel)Program.getActivePanel()).repaint();
 	}
 	
 	private static Bat bat = null;

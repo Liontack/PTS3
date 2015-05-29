@@ -2,6 +2,10 @@ package model;
 
 import java.awt.Color;
 
+import javax.swing.JPanel;
+
+import view.Program;
+
 public class Player{
 	
 	private static final int START_POINTS = 20;
@@ -173,6 +177,9 @@ public class Player{
 		}else{
 			bat.moveRight();
 		}
+
+		// Update the Game screen
+		((JPanel)Program.getActivePanel()).repaint();
 	}
 	
 }
