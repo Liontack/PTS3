@@ -22,8 +22,8 @@ public class BarricadeTest{
 	public void testHit(){
 		Barricade barricade = new Barricade(new Point(20, 20), 0);
 		Puck puck1 = new Puck(0, new Point(20 + (barricade.getDiameter() / 2), 20), 0);
-		Puck puck2 = new Puck(0, new Point(20 + (barricade.getDiameter() / 2) + puck1.getDiameter(), 20), 0);
-		Puck puck3 = new Puck(0, new Point(20, 20 + (barricade.getDiameter() / 2) + puck1.getDiameter()), 0);
+		Puck puck2 = new Puck(0, new Point(20 + (barricade.getDiameter() / 2) + Puck.getDiameter(), 20), 0);
+		Puck puck3 = new Puck(0, new Point(20, 20 + (barricade.getDiameter() / 2) + Puck.getDiameter()), 0);
 		
 		assertTrue(barricade.hit(puck1));
 		assertFalse(barricade.hit(puck2));

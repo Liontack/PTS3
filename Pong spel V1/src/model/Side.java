@@ -5,7 +5,7 @@ import java.awt.Point;
 
 public class Side{
 	
-	public final static int LENGTH = 500;//XXX(testvalue=100)
+	public final static int LENGTH = 500;//XXX(test=100)(run=500)
 	public final static int THICKNESS = 1;
 	
 	

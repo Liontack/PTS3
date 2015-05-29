@@ -41,7 +41,7 @@ public class GameField{
 		this.setRandomPuck();
 		
 		// Create barricades
-		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (4.00 - 0.00)));
+		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
 		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
 		}
@@ -113,18 +113,22 @@ public class GameField{
 	
 	Point getRandomPosition(){
 		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2) - 45;
-		int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
-		int randomY = (int) Math.round(Math.random() * height);
-		Point point = new Point(randomX, randomY);
+		Point point = null;
 		
-		if(this.sides[1].isAboveLine(point)){
-			point = new Point(point.x + Side.LENGTH / 2, height - point.y);
-		}
-		if(this.sides[1].getYonX(point.x) + 20 >= point.y){
-			point.y += 20;
-		}
-		if(this.sides[2].getYonX(point.x) + 20 >= point.y){
-			point.y += 20;
+		boolean wrongPoint = true;
+		while(wrongPoint){
+			wrongPoint = false;
+			int randomX = (int) Math.round(Math.random() * Side.LENGTH / 2);
+			int randomY = (int) Math.round(Math.random() * height);
+			point = new Point(randomX, randomY);
+			
+			if(this.sides[1].isAboveLine(point)){
+				point = new Point(point.x + Side.LENGTH / 2, height - point.y);
+			}
+			if((point.x < (Side.LENGTH / 2) && this.sides[1].getYonX(point.x) + 20 >= point.y) ||
+					(point.x > (Side.LENGTH / 2) && this.sides[2].getYonX(point.x) + 20 >= point.y)){
+				wrongPoint = true;
+			}
 		}
 		
 		return point;

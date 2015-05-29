@@ -12,7 +12,6 @@ public class BatTest{
 	public void testMoving(){
 		Bat bat = new Bat(100);
 		int lastPos = bat.getPositionInGoal();
-		assertEquals(lastPos, (100 - Bat.LENGTH_PERCENT_OF_SIDE_LENGTH) / 2);
 		bat.moveLeft();
 		assertTrue(bat.getPositionInGoal() <= lastPos);
 		lastPos = bat.getPositionInGoal();
@@ -43,7 +42,7 @@ public class BatTest{
 		Goal goal = new Goal(goalB, goalA);
 		Bat bat = goal.getBat();
 		Puck puckHit = new Puck(270, new Point(50, 51), 0);
-		Puck puckNoHit = new Puck(270, new Point(52, 49), 0);
+		Puck puckNoHit = new Puck(270, new Point(60, 49), 0);
 		assertTrue(bat.hit(puckHit, goalA, goalB, Player.Colour.BLUE));
 		assertFalse(bat.hit(puckNoHit, goalA, goalB, Player.Colour.BLUE));
 	}

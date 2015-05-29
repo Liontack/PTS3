@@ -18,9 +18,9 @@ public class SideTest{
 	public void testAboveLine(){
 		Point zero = new Point(0, 0);
 		Point five = new Point(5, 0);
-		Point ten = new Point(10, 10);
+		Point ten = new Point(10, -10);
 		
-		Point three_one = new Point(3, 1);
+		Point three_one = new Point(3, -1);
 		Puck p3_1 = new Puck(0, three_one, 0);
 		Puck p10 = new Puck(0, ten, 0);
 		Puck p5 = new Puck(0, five, 0);
@@ -39,7 +39,7 @@ public class SideTest{
 		assertFalse(diagonal.isAboveLine(zero));
 		assertFalse(diagonal.isAboveLine(five));
 		assertFalse(PuckState.IN_FIELD == diagonal.isAboveLine(p3_1));
-		assertEquals(PuckState.IN_FIELD, diagonal.isAboveLine(p5));
+		assertFalse(PuckState.IN_FIELD == diagonal.isAboveLine(p5));
 	}
 	
 }

@@ -24,21 +24,24 @@ public class UserManagement{
 	
 	
 	private UserManagement(){
+		fillUsersSet();
 	}
 	
-	public static void fillUsersSet(){
+	public void fillUsersSet(){
 		try{
 			ObjectInputStream reader = new ObjectInputStream(new FileInputStream("users.data"));
-			instance.users = new HashMap<>();
+			this.users = new HashMap<>();
 			while(true){
 				try{
 					User user = (User) reader.readObject();
-					instance.users.put(user, false);
+					this.users.put(user, false);
 				}catch(Exception exception){
 					break;
 				}
 			}
-		}catch(Exception exception){}
+		}catch(Exception exception){
+			exception.printStackTrace();
+		}
 		/*
 		instance.users = new HashMap<>();
 		instance.users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);
@@ -90,6 +93,7 @@ public class UserManagement{
 	}
 	
 	public static synchronized Set<User> getUsers(){
+		instance.users.remove(null);
 		return Collections.unmodifiableSet(instance.users.keySet());
 	}
 	

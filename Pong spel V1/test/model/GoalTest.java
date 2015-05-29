@@ -21,10 +21,10 @@ public class GoalTest{
 		Goal goalD2 = new Goal(p0_0, p4_5);
 		Goal goalD3 = new Goal(p4_5, p0_8);
 		
-		assertEquals(goalH.gety_perx(), 0);
-		assertEquals(goalD1.gety_perx(), -1);
-		assertEquals(goalD2.gety_perx(), (5/4));
-		assertEquals(goalD3.gety_perx(), -(3/4));
+		assertEquals(goalH.gety_perx(), 0, 1.000);
+		assertEquals(goalD1.gety_perx(), -1, 1.000);
+		assertEquals(goalD2.gety_perx(), (5/4), 1.000);
+		assertEquals(goalD3.gety_perx(), -(3/4), 1.000);
 	}
 	
 	@Test
@@ -37,34 +37,34 @@ public class GoalTest{
 		
 		Point pNotAboveGoal = new Point(105, 4);
 		Puck puckDown_notInGoal = new Puck(270, pNotAboveGoal, 20);
-		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal) == PuckState.IN_GOAL);
 		puckDown_notInGoal.move();
-		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal) == PuckState.IN_GOAL);
 		puckDown_notInGoal.move();
-		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal));
+		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_notInGoal) == PuckState.IN_GOAL);
 		puckDown_notInGoal.move();
 		puckDown_notInGoal = null;
 		
-		Point pAboveGoal = new Point(70, 4);
+		Point pAboveGoal = new Point(65, 4);
 		Puck puckDown_inGoal = new Puck(280, pAboveGoal, 20);
-		assertFalse(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal) == PuckState.IN_GOAL);
 		puckDown_inGoal.move();
-		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal) == PuckState.IN_GOAL);
 		puckDown_inGoal.move();
-		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal));
+		assertTrue(sideH.getGoal().isInGoal(sideH, puckDown_inGoal) == PuckState.IN_GOAL);
 		puckDown_inGoal = null;
 		
-		Point p4_0 = new Point(4, 0);
+		Point p4_0 = new Point(35, 30);
 		Puck puck_4Up = new Puck(90, p4_0, 20);
-		assertFalse(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up) == PuckState.IN_GOAL);
 		puck_4Up.move();
-		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up) == PuckState.IN_GOAL);
 		puck_4Up.move();
-		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up) == PuckState.IN_GOAL);
 		puck_4Up.move();
-		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up) == PuckState.IN_GOAL);
 		puck_4Up.move();
-		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up));
+		assertTrue(sideD.getGoal().isInGoal(sideD, puck_4Up) == PuckState.IN_GOAL);
 		
 	}
 	
