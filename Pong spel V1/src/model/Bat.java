@@ -97,7 +97,29 @@ public class Bat{
 		
 		// Draw line
 		g.setColor(colour.drawColor);
-		g.drawLine(a.x, a.y + 3, b.x, b.y + 3);//XXX Bat is misdrawn
+		//g.drawLine(a.x, a.y, b.x, b.y);
+		
+		double y_perx = ((double)(goalB.y - goalA.y)) / ((double)(goalB.x - goalA.x));
+		int thickness = 6;
+		switch(colour){
+			case RED:
+				Point rc = new Point(a.x, a.y + thickness);
+				Point rd = new Point(b.x, b.y + thickness);
+				g.fillPolygon(new int[]{ a.x, b.x, rd.x, rc.x }, new int[]{ a.y, b.y, rd.y, rc.y }, 4);
+				break;
+			case BLUE:
+				double alpha = Math.toDegrees(Math.atan(y_perx / 1)) + 360;
+				Point bc = new Point((int)(a.x + (Math.cos(alpha) * thickness * 1.4)), (int)(a.y + (Math.sin(alpha) * thickness * 1.4)));
+				Point bd = new Point((int)(b.x + (Math.cos(alpha) * thickness * 1.4)), (int)(b.y + (Math.sin(alpha) * thickness * 1.4)));
+				g.fillPolygon(new int[]{ a.x + 1, b.x + 1, bd.x + 1, bc.x + 1 }, new int[]{ a.y, b.y, bd.y, bc.y }, 4);
+				break;
+			case GREEN:
+				double g_alpha = Math.toDegrees(Math.atan(y_perx / 1)) + 360;
+				Point gc = new Point((int)(a.x + (Math.cos(g_alpha) * thickness * 1)), (int)(a.y + (Math.sin(g_alpha) * thickness * 1)));
+				Point gd = new Point((int)(b.x + (Math.cos(g_alpha) * thickness * 1)), (int)(b.y + (Math.sin(g_alpha) * thickness * 1)));
+				g.fillPolygon(new int[]{ a.x - 1, b.x - 1, gd.x - 1, gc.x - 1 }, new int[]{ a.y, b.y, gd.y, gc.y }, 4);
+				break;
+		}
 	}
 	
 }

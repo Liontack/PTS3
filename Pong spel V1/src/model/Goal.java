@@ -73,7 +73,28 @@ public class Goal{
 	
 	public void draw(Graphics g, Player.Colour colour){
 		g.setColor(Color.black);
-		g.drawLine(a.x, a.y, b.x, b.y);
+		//g.drawLine(a.x, a.y, b.x, b.y);
+		
+		int thickness = 10;
+		switch(colour){
+			case RED:
+				Point rc = new Point(a.x, a.y + thickness);
+				Point rd = new Point(b.x, b.y + thickness);
+				g.fillPolygon(new int[]{ a.x, b.x, rd.x, rc.x }, new int[]{ a.y, b.y, rd.y, rc.y }, 4);
+				break;
+			case BLUE:
+				double alpha = Math.toDegrees(Math.atan(this.gety_perx() / 1)) + 360;
+				Point bc = new Point((int)(a.x + (Math.cos(alpha) * thickness * 1.4)), (int)(a.y + (Math.sin(alpha) * thickness * 1.4)));
+				Point bd = new Point((int)(b.x + (Math.cos(alpha) * thickness * 1.4)), (int)(b.y + (Math.sin(alpha) * thickness * 1.4)));
+				g.fillPolygon(new int[]{ a.x, b.x, bd.x, bc.x }, new int[]{ a.y, b.y, bd.y, bc.y }, 4);
+				break;
+			case GREEN:
+				double g_alpha = Math.toDegrees(Math.atan(this.gety_perx() / 1)) + 360;
+				Point gc = new Point((int)(a.x + (Math.cos(g_alpha) * thickness * 1)), (int)(a.y + (Math.sin(g_alpha) * thickness * 1)));
+				Point gd = new Point((int)(b.x + (Math.cos(g_alpha) * thickness * 1)), (int)(b.y + (Math.sin(g_alpha) * thickness * 1)));
+				g.fillPolygon(new int[]{ a.x, b.x, gd.x, gc.x }, new int[]{ a.y, b.y, gd.y, gc.y }, 4);
+				break;
+		}
 		
 		this.bat.draw(g, this.a, this.b, colour);
 	}

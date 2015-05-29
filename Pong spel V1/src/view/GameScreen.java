@@ -21,7 +21,6 @@ public class GameScreen extends JPanel{
 	// Draw the game field
 	// Draw the rectangles with power up information; if supported
 	
-	//XXX I would like to see somewhat thicker sides, goals and bats
 	public GameScreen(){
 		this.addFocusListener(new FocusAdapter(){
 			public void focusGained(FocusEvent fe){
@@ -43,7 +42,7 @@ public class GameScreen extends JPanel{
 		if(Program.activeGame != null){
 			Program.activeGame.draw(g);
 			
-			// Also draw some strings XXX I would like to only update these strings on notification (observable)
+			// Also draw some strings
 			g.setColor(Color.black);
 			g.drawString("Ronde " + Program.activeGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
 			int i = 0;
