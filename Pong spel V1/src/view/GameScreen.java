@@ -59,10 +59,10 @@ public class GameScreen extends JPanel{
 							username = "Anoniem";
 							break;
 						case BLUE:
-							username = "Robot 1";
+							username = "Robot A";
 							break;
 						case GREEN:
-							username = "Robot 2";
+							username = "Robot B";
 							break;
 					}
 				}

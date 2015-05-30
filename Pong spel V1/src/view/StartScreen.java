@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -27,7 +28,7 @@ public class StartScreen extends JPanel{
 		private JTable userRatingsTable;
 	private JButton playGameOnline = new JButton("Speel spel online");
 	private JButton playGameOffline = new JButton("Speel spel offline");
-	private JButton logOut = new JButton("Uitloggen en afsluiten");
+	private JButton logOut = new JButton("Afsluiten");
 	
 	public StartScreen(){
 		this.addFocusListener(new FocusAdapter(){
@@ -89,11 +90,23 @@ public class StartScreen extends JPanel{
 		logOut.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 7 / 10);
 		logOut.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
-				// Log out
-				UserManagement.userLogout(Program.loggedInUser);
-				
-				// Close application
-				Program.close();
+				if(Program.loggedInUser != null){
+					// Let the user know, he really is logged out
+					Program.setFeedback("Gebruiker " + Program.loggedInUser.getUsername() + " uitgelogd.", Color.green);
+					
+					// Log out
+					UserManagement.userLogout(Program.loggedInUser);
+					
+					// Close application after a delay of 5 seconds
+					new Thread(new Runnable(){
+						public void run(){
+							try{
+								Thread.sleep(4000);
+							}catch(InterruptedException e){}
+							Program.close();
+						}
+					}).start();
+				}
 			}
 		});
 		this.add(logOut);
@@ -118,8 +131,10 @@ public class StartScreen extends JPanel{
 		// Recognize user and say hello
 		if(Program.loggedInUser == null){
 			welcomeUser.setText("");
+			logOut.setText("Afsluiten");
 		}else{
 			welcomeUser.setText("Hallo " + Program.loggedInUser.getUsername());
+			logOut.setText("Uitloggen en Afsluiten");
 		}
 	}
 	

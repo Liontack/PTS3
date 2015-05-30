@@ -85,7 +85,6 @@ public class LoginScreen extends JPanel{
 					// Try to log in
 					Program.loggedInUser = UserManagement.userLogin(input_username.getText(), new String(input_password.getPassword()));
 					if(Program.loggedInUser != null){
-						Program.switchToPanel(StartScreen.class);//XXX ~Go to PreGameScreen at iteration 2
 						Program.setFeedback("Gebruiker ingelogd", Color.green);
 					}else{
 						input_password.setText("");
@@ -96,11 +95,12 @@ public class LoginScreen extends JPanel{
 					// Try to registrate
 					Program.loggedInUser = UserManagement.addUser(input_username.getText(), new String(input_password.getPassword()));
 					if(Program.loggedInUser != null){
-						Program.setFeedback("Gebruiker aangemaakt", Color.green);
+						Program.setFeedback("Gebruiker aangemaakt en ingelogd", Color.green);
 					}else{
-						Program.setFeedback("Gebruikersnaam bestaat al", Color.red);
+						Program.setFeedback("Gebruiker niet aangemaakt; gebruikersnaam bestaat al", Color.red);
 					}
 				}
+				Program.switchToPanel(StartScreen.class);//XXX ~Go to PreGameScreen at iteration 2
 			}
 		});
 		this.add(btn_logIn);
