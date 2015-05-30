@@ -100,7 +100,7 @@ public class LoginScreen extends JPanel{
 						Program.setFeedback("Gebruiker niet aangemaakt; gebruikersnaam bestaat al", Color.red);
 					}
 				}
-				Program.switchToPanel(StartScreen.class);//XXX ~Go to PreGameScreen at iteration 2
+				Program.switchToPanel(StartScreen.class);
 			}
 		});
 		this.add(btn_logIn);

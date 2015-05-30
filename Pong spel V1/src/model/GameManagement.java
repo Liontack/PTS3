@@ -53,16 +53,6 @@ public class GameManagement{
 		return false;
 	}
 	
-	/* XXX ~GameManagement add and remove listeners at iteration 2
-	private void addListener(Gui){
-		
-	}
-	
-	private void removeListener(Gui){
-		
-	}
-	*/
-	
 	public void draw(Game game, Graphics g){
 		game.draw(g);
 	}

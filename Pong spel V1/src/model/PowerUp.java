@@ -21,7 +21,6 @@ public class PowerUp{
 		return this.kind;
 	}
 	
-	//XXX(low) By the use of a power up, nothing happens
 	public void use(){
 		switch(this.kind){
 			case UPSIDE_DOWN:
