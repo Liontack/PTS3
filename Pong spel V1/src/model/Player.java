@@ -177,7 +177,7 @@ public class Player{
 		}else{
 			bat.moveRight();
 		}
-		
+
 		// Update the Game screen
 		((JPanel)Program.getActivePanel()).repaint();
 	}
