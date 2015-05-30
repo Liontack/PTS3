@@ -37,11 +37,11 @@ public class GameManagement extends UnicastRemoteObject implements IGameVoorBeve
 	
 	
 	
-	public static boolean joinGame(User user){
+	public boolean joinGame(User user) throws RemoteException{
 		if(user.getPlayer() != null){
 			return false;
 		}
-		for(Game game : instance.games){
+		for(Game game : this.games){
 			if(!game.isReadyToPlay()){
 				Player player = game.addPlayer(false);
 				user.setPlayer(player);
@@ -63,7 +63,7 @@ public class GameManagement extends UnicastRemoteObject implements IGameVoorBeve
 	
 	
 	
-	public static boolean startGame(Player player){
+	public boolean startGame(Player player) throws RemoteException{
 		for(Game game : instance.games){
 			if(game.getPlayers().contains(player)){
 				return game.startGame();
@@ -82,9 +82,21 @@ public class GameManagement extends UnicastRemoteObject implements IGameVoorBeve
 		
 	}
 	
+	public void moveBat(Player player, boolean left) throws RemoteException{
+		if(left){
+			player.getBat().moveLeft();
+		}else{
+			player.getBat().moveRight();
+		}
+	}
+	
+	public void userPowerUp(Player player, int nr){
+		player.getPowerUp(nr).use();
+	}
 	
 	
-	public void draw(Game game, Graphics g){
+	
+	public void draw(Game game, Graphics g) throws RemoteException{
 		game.draw(g);
 	}
 	

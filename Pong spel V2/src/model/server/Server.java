@@ -10,8 +10,8 @@ import model.GameManagement;
 import model.UserManagement;
 
 public class Server{
-
-    public static void main(String[] args){
+	
+	public static void main(String[] args){
         try{
         	InetAddress localhost = InetAddress.getLocalHost();
             System.out.println("Server: Started and open on IP address: " + localhost.getHostAddress());
@@ -35,7 +35,7 @@ public class Server{
         }
     }
     
-    private void createRegistry() {
+    private void createRegistry(){
         try{
             registry = LocateRegistry.createRegistry(registryPort);
             System.out.println("Server: Registry created on port number " + registryPort);
@@ -46,7 +46,7 @@ public class Server{
         }
     }
     
-    private void bindManagersUsingRegistry() {
+    private void bindManagersUsingRegistry(){
         try{
             registry.rebind("gameManagement", gameManagement);
             registry.rebind("userManagement", userManagement);
