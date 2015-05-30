@@ -5,27 +5,47 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import model.interfaces.IBeveiligdVoorClient;
+import model.interfaces.IOnbeveiligdVoorClient;
+
 import comparator.RatingWrapper;
 
 
 
-public class UserManagement{
-	
-	private final static UserManagement instance = new UserManagement();
+public class UserManagement extends UnicastRemoteObject implements IOnbeveiligdVoorClient, IBeveiligdVoorClient{
+	private static final long serialVersionUID = 1L;
+
+	private static UserManagement instance;
 	
 	private Map<User, Boolean> users;
 	
 	
 	
-	private UserManagement(){
+	private UserManagement() throws RemoteException{
 		fillUsersSet();
 	}
+	
+	public static UserManagement getInstance(){
+		if(UserManagement.instance == null){
+			try{
+				instance = new UserManagement();
+			}catch(RemoteException ex){
+				System.err.println("The UserManagement instance was not created due to an remote exception");
+				ex.printStackTrace();
+			}
+		}
+		return UserManagement.instance;
+	}
+	
+	
 	
 	public void fillUsersSet(){
 		try{

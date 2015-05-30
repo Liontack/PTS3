@@ -1,19 +1,38 @@
 package model;
 
 import java.awt.Graphics;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameManagement{
-	
-	private final static GameManagement instance = new GameManagement();
+import model.interfaces.IGameVoorBeveiliging;
+
+import view.GameScreen;
+
+public class GameManagement extends UnicastRemoteObject implements IGameVoorBeveiliging{
+	private static final long serialVersionUID = 1L;
+
+	private static GameManagement instance;
 	
 	private Set<Game> games = new HashSet<>();
 	
 	
 	
-	private GameManagement(){
+	private GameManagement() throws RemoteException{
 		
+	}
+	
+	public static GameManagement getInstance(){
+		if(GameManagement.instance == null){
+			try{
+				instance = new GameManagement();
+			}catch(RemoteException ex){
+				System.err.println("The GameManagement instance was not created due to an remote exception");
+				ex.printStackTrace();
+			}
+		}
+		return GameManagement.instance;
 	}
 	
 	
@@ -53,15 +72,17 @@ public class GameManagement{
 		return false;
 	}
 	
-	/* XXX ~GameManagement add and remove listeners at iteration 2
-	private void addListener(Gui){
+	
+	
+	private void addListener(GameScreen gameScreen){
 		
 	}
 	
-	private void removeListener(Gui){
+	private void removeListener(GameScreen gameScreen){
 		
 	}
-	*/
+	
+	
 	
 	public void draw(Game game, Graphics g){
 		game.draw(g);
