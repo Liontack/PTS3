@@ -42,14 +42,6 @@ public class UserManagement{
 		}catch(Exception exception){
 			exception.printStackTrace();
 		}
-		/*
-		instance.users = new HashMap<>();
-		instance.users.put(new User("Anjo", "a", new int[]{20, 10, 20, 10, 12}), false);
-		instance.users.put(new User("Bart", "b", new int[]{21, 21, 21, 21, 21}), false);
-		instance.users.put(new User("Cleo", "c"), false);
-		instance.users.put(new User("Dirk", "d", new int[]{32, 32, 32, 32, 32}), false);
-		instance.users.put(new User("Echo", "e", new int[]{10, 10, 10, 10, 10}), false);
-		*/
 	}
 	
 	public static void saveUsersSet(){
