@@ -47,14 +47,14 @@ public class Server{
     }
     
     private void bindManagersUsingRegistry(){
-        try{
+        /*try{
             registry.rebind("gameManagement", gameManagement);
             registry.rebind("userManagement", userManagement);
             System.out.println("SERVER: managers are bound to effectenBeurs");
         }catch(RemoteException ex){
             System.err.println("Server: Cannot bind managers");
             ex.printStackTrace();
-        }
+        }*/
     }
     
 }

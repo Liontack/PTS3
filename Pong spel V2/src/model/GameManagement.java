@@ -1,47 +1,36 @@
 package model;
 
 import java.awt.Graphics;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.interfaces.IGameVoorBeveiliging;
-
 import view.GameScreen;
 
-public class GameManagement extends UnicastRemoteObject implements IGameVoorBeveiliging{
-	private static final long serialVersionUID = 1L;
-
+public class GameManagement{
 	private static GameManagement instance;
 	
 	private Set<Game> games = new HashSet<>();
 	
 	
 	
-	private GameManagement() throws RemoteException{
+	private GameManagement(){
 		
 	}
 	
 	public static GameManagement getInstance(){
 		if(GameManagement.instance == null){
-			try{
-				instance = new GameManagement();
-			}catch(RemoteException ex){
-				System.err.println("The GameManagement instance was not created due to an remote exception");
-				ex.printStackTrace();
-			}
+			instance = new GameManagement();
 		}
 		return GameManagement.instance;
 	}
 	
 	
 	
-	public boolean joinGame(User user) throws RemoteException{
+	public static boolean joinGame(User user){
 		if(user.getPlayer() != null){
 			return false;
 		}
-		for(Game game : this.games){
+		for(Game game : GameManagement.instance.games){
 			if(!game.isReadyToPlay()){
 				Player player = game.addPlayer(false);
 				user.setPlayer(player);
@@ -56,15 +45,15 @@ public class GameManagement extends UnicastRemoteObject implements IGameVoorBeve
 		Player player = newGame.addPlayer(false);
 		user.setPlayer(player);
 		
-		instance.games.add(newGame);
+		GameManagement.instance.games.add(newGame);
 		
 		return player != null && newGame != null;
 	}
 	
 	
 	
-	public boolean startGame(Player player) throws RemoteException{
-		for(Game game : instance.games){
+	public static boolean startGame(Player player){
+		for(Game game : GameManagement.instance.games){
 			if(game.getPlayers().contains(player)){
 				return game.startGame();
 			}
@@ -82,21 +71,9 @@ public class GameManagement extends UnicastRemoteObject implements IGameVoorBeve
 		
 	}
 	
-	public void moveBat(Player player, boolean left) throws RemoteException{
-		if(left){
-			player.getBat().moveLeft();
-		}else{
-			player.getBat().moveRight();
-		}
-	}
-	
-	public void userPowerUp(Player player, int nr){
-		player.getPowerUp(nr).use();
-	}
 	
 	
-	
-	public void draw(Game game, Graphics g) throws RemoteException{
+	public static void draw(Game game, Graphics g){
 		game.draw(g);
 	}
 	

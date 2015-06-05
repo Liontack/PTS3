@@ -1,17 +1,12 @@
 package model;
 
 import java.awt.Color;
-import java.io.Serializable;
 
 import javax.swing.JPanel;
 
 import view.Program;
 
-public class Player implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
-	
-	
+public class Player{
 	private static final int START_POINTS = 20;
 	private static final int AI_REACTION_TIME = 100;
 	

@@ -5,42 +5,30 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import model.interfaces.IBeveiligdVoorClient;
-import model.interfaces.IOnbeveiligdVoorClient;
-
 import comparator.RatingWrapper;
 
 
 
-public class UserManagement extends UnicastRemoteObject implements IOnbeveiligdVoorClient, IBeveiligdVoorClient{
-	private static final long serialVersionUID = 1L;
-
+public class UserManagement{
 	private static UserManagement instance;
 	
 	private Map<User, Boolean> users;
 	
 	
 	
-	private UserManagement() throws RemoteException{
+	private UserManagement(){
 		fillUsersSet();
 	}
 	
 	public static UserManagement getInstance(){
 		if(UserManagement.instance == null){
-			try{
-				instance = new UserManagement();
-			}catch(RemoteException ex){
-				System.err.println("The UserManagement instance was not created due to an remote exception");
-				ex.printStackTrace();
-			}
+			instance = new UserManagement();
 		}
 		return UserManagement.instance;
 	}
@@ -126,7 +114,7 @@ public class UserManagement extends UnicastRemoteObject implements IOnbeveiligdV
 	
 	public static synchronized Set<RatingWrapper> getUserRatings(){
 		Set<RatingWrapper> ratings = new HashSet<>();
-		for(User user : instance.users.keySet()){
+		for(User user : UserManagement.getInstance().users.keySet()){
 			if(user != null){
 				ratings.add(new RatingWrapper(user.getUsername(), user.getRating()));
 			}

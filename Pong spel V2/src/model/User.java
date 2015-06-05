@@ -1,12 +1,9 @@
 package model;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 
-public class User implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
+public class User{
 	private static final double INITIAL_RATING = 15.0;
 	
 	private final String username; // Unique
