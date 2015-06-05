@@ -12,7 +12,7 @@ import view.Program;
 
 public class GameField{
 	
-	private static final int UPDATE_SPEED = 10;
+	private static final int UPDATE_SPEED_MS = 10;
 	
 	private int averageRating;
 	
@@ -151,7 +151,7 @@ public class GameField{
 				while(true){
 					update();
 					try{
-						Thread.sleep(GameField.UPDATE_SPEED);
+						Thread.sleep(GameField.UPDATE_SPEED_MS);
 					}catch(InterruptedException exception){
 						System.out.println("Game ended");
 						break;

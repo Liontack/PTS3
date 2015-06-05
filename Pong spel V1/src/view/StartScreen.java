@@ -106,6 +106,8 @@ public class StartScreen extends JPanel{
 							Program.close();
 						}
 					}).start();
+				}else{
+					Program.close();
 				}
 			}
 		});

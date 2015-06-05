@@ -5,7 +5,7 @@ import java.awt.Point;
 
 public class Side{
 	
-	public final static int LENGTH = 500;
+	public final static int LENGTH = 100;
 	
 	
 	
