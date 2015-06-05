@@ -179,7 +179,6 @@ public class Player{
 		if(this.AI_TIMES_REOCCURING == 0){
 			AI_TIMES_REOCCURING = AI_TIMES_REOCCURING_MIN + (int) Math.floor(Math.random() * (AI_TIMES_REOCCURING_MAX - AI_TIMES_REOCCURING_MIN));
 			AI_RANDOM_DIRECTION = (int) Math.floor(Math.random() * 3);
-			System.out.println(AI_RANDOM_DIRECTION);
 		}else{
 			AI_TIMES_REOCCURING--;
 		}

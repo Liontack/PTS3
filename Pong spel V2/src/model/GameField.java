@@ -13,6 +13,8 @@ import view.Program;
 public class GameField{
 	
 	private static final int UPDATE_SPEED = 10;
+	private static final int MIN_BARRICADES = 10;
+	private static final int MAX_BARRICADES = 10;
 	
 	private int averageRating;
 	
@@ -41,7 +43,7 @@ public class GameField{
 		this.setRandomPuck();
 		
 		// Create barricades
-		int nBarricades = (int)Math.round(0.00 + (((double)averageRating / 40.00) * (5.00 - 0.00)));
+		int nBarricades = (int)Math.round(MIN_BARRICADES + (((double)averageRating / Player.MAX_RATING) * (MAX_BARRICADES - MIN_BARRICADES)));
 		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
 		}
