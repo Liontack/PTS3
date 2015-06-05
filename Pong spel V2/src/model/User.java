@@ -14,7 +14,7 @@ public class User{
 	
 	
 	
-	//XXX(low) Creating user with password like this, doesn't feel save
+	//XXX Creating user with password like this, doesn't feel save
 	User(String username, String password, int[] mostRecentPoints){
 		this(username, password);
 		for(int i = 0; i < Math.min(mostRecentPoints.length, this.mostRecentPoints.length); i++){

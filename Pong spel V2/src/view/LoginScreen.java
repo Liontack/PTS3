@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -19,10 +20,15 @@ public class LoginScreen extends JPanel{
 	
 	// User interface objects
 	private JButton btn_register = new JButton("Registreer");
+	
+	private JLabel lbl_action = new JLabel("Inloggen");
+	
 	private JLabel lbl_username = new JLabel("Gebruikersnaam");
 	private JTextField input_username = new JTextField();
 	private JLabel lbl_password = new JLabel("Wachtwoord");
 	private JPasswordField input_password = new JPasswordField();
+	private JLabel lbl_password_again = new JLabel("Wachtwoord");
+	private JPasswordField input_password_again = new JPasswordField();
 	private JButton btn_logIn = new JButton("Log in");
 	
 	// The action to perform when hitting the submit button
@@ -50,15 +56,28 @@ public class LoginScreen extends JPanel{
 				if(action == Action.LOGIN){
 					action = Action.REGISTRATE;
 					btn_register.setText("Login");
+					lbl_action.setText("Registreren");
 					btn_logIn.setText("Registreer");
+					
+					lbl_password_again.setVisible(true);
+					input_password_again.setVisible(true);
 				}else{
 					action = Action.LOGIN;
 					btn_register.setText("Registreer");
+					lbl_action.setText("Inloggen");
 					btn_logIn.setText("Log in");
+					
+					lbl_password_again.setVisible(false);
+					input_password_again.setVisible(false);
 				}
 			}
 		});
 		this.add(btn_register);
+		
+		lbl_action.setSize(300, 50);
+		lbl_action.setLocation((Program.windowSize.width * 1 / 2) - lbl_action.getWidth(), Program.windowSize.height * 1 / 10);
+		lbl_action.setFont(new Font("arial", Font.BOLD, 40));
+		this.add(lbl_action);
 		
 		lbl_username.setSize(200, 25);
 		lbl_username.setLocation((Program.windowSize.width * 1 / 2) - lbl_username.getWidth(), Program.windowSize.height * 3 / 10);
@@ -75,9 +94,19 @@ public class LoginScreen extends JPanel{
 		input_password.setSize(200, 25);
 		input_password.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 4 / 10);
 		this.add(input_password);
+
+		lbl_password_again.setSize(200, 25);
+		lbl_password_again.setLocation((Program.windowSize.width * 1 / 2) - lbl_username.getWidth(), Program.windowSize.height * 5 / 10);
+		lbl_password_again.setVisible(false);
+		this.add(lbl_password_again);
+		
+		input_password_again.setSize(200, 25);
+		input_password_again.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 5 / 10);
+		input_password_again.setVisible(false);
+		this.add(input_password_again);
 		
 		btn_logIn.setSize(200, 25);
-		btn_logIn.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 5 / 10);
+		btn_logIn.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 6 / 10);
 		btn_logIn.addMouseListener(new MouseAdapter(){
 			public void mouseReleased(MouseEvent event){
 				// If the user requested a login
@@ -92,6 +121,12 @@ public class LoginScreen extends JPanel{
 					}
 				// If the user requested a registration
 				}else if(action == Action.REGISTRATE){
+					// First check if both password inputs are equal
+					if(!input_password.getPassword().equals(input_password_again.getPassword())){
+						Program.setFeedback("Wachtwoorden komen niet overeen", Color.red);
+						return;
+					}
+					
 					// Try to registrate
 					Program.loggedInUser = UserManagement.addUser(input_username.getText(), new String(input_password.getPassword()));
 					if(Program.loggedInUser != null){

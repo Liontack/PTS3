@@ -10,3 +10,5 @@ bin\
 \.metadata\
 
 *.class
+/Pong spel V2/nbproject/private/
+/Pong spel V2/build/

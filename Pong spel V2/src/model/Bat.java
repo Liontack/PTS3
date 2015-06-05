@@ -31,7 +31,7 @@ public class Bat{
 	}
 
 	public void moveLeft(){
-		this.positionInGoal = Math.max(0, this.positionInGoal - MOVE_SPEED);//0?
+		this.positionInGoal = Math.max(0, this.positionInGoal - MOVE_SPEED);
 	}
 
 	public void moveRight(){

@@ -17,7 +17,7 @@ public class Barricade{
 	
 	
 	public Barricade(Point position, int averageRating){
-		this.diameterPercentOfSideLength = (DIAMETER_PERCENT_MIN + (int)(((double)averageRating / 40.00) * (DIAMETER_PERCENT_MAX - DIAMETER_PERCENT_MIN)));
+		this.diameterPercentOfSideLength = (DIAMETER_PERCENT_MIN + (int)(((double)averageRating / Player.MAX_RATING) * (DIAMETER_PERCENT_MAX - DIAMETER_PERCENT_MIN)));
 		this.position = position;
 	}
 	

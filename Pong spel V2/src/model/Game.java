@@ -47,7 +47,7 @@ public class Game{
 					}
 				}
 				averageRating /= this.players.length;
-				averageRating /= 40;
+				averageRating /= Player.MAX_RATING;
 				this.gameField = new GameField(this, (int)averageRating);
 				
 				// Give every player an bat to play with
@@ -55,6 +55,7 @@ public class Game{
 					player.setBat(gameField.getSide(player.getColour()).getGoal().getBat());
 				}
 				
+				this.currentRound = 1;
 			}
 			
 			return this.isReadyToPlay();

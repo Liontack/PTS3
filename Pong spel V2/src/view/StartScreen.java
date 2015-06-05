@@ -26,8 +26,8 @@ public class StartScreen extends JPanel{
 	private JLabel welcomeUser = new JLabel("");
 	private JScrollPane userRatings = new JScrollPane();
 		private JTable userRatingsTable;
-	private JButton playGameOnline = new JButton("Speel spel online");
-	private JButton playGameOffline = new JButton("Speel spel offline");
+	private JButton playGameOnline = new JButton("Multiplayer");
+	private JButton playGameOffline = new JButton("Single player");
 	private JButton logOut = new JButton("Afsluiten");
 	
 	public StartScreen(){

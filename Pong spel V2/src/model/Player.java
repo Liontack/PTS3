@@ -7,8 +7,12 @@ import javax.swing.JPanel;
 import view.Program;
 
 public class Player{
+	public static final double MAX_RATING = 40.00;
 	private static final int START_POINTS = 20;
 	private static final int AI_REACTION_TIME = 100;
+	private static final int AI_TIMES_REOCCURING_MIN = 5;
+	private static final int AI_TIMES_REOCCURING_MAX = 10;
+	private int AI_TIMES_REOCCURING, AI_RANDOM_DIRECTION;
 	
 	public enum Colour{
 		RED(Color.red),
@@ -170,11 +174,23 @@ public class Player{
 	}
 	
 	private void aiMover(Bat bat){
-		// Really dumb ai
-		if(Math.random() < 0.5){
-			bat.moveLeft();
+		// Smoother AI
+		// Go to random direction {Left, Right, Stay} for random time (x * reaction time)
+		if(this.AI_TIMES_REOCCURING == 0){
+			AI_TIMES_REOCCURING = AI_TIMES_REOCCURING_MIN + (int) Math.floor(Math.random() * (AI_TIMES_REOCCURING_MAX - AI_TIMES_REOCCURING_MIN));
+			AI_RANDOM_DIRECTION = (int) Math.floor(Math.random() * 3);
+			System.out.println(AI_RANDOM_DIRECTION);
 		}else{
-			bat.moveRight();
+			AI_TIMES_REOCCURING--;
+		}
+		switch(AI_RANDOM_DIRECTION){
+			case 0: // Left
+				bat.moveLeft();
+				break;
+			case 1: // Right
+				bat.moveRight();
+				break;
+			case 2: // Stay
 		}
 		
 		// Update the Game screen
