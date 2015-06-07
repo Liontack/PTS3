@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -50,8 +52,8 @@ public class LoginScreen extends JPanel{
 		
 		btn_register.setSize(100, 25);
 		btn_register.setLocation(Program.windowSize.width - btn_register.getWidth() - 8, 8);
-		btn_register.addMouseListener(new MouseAdapter(){
-			public void mouseReleased(MouseEvent event){
+		btn_register.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				// Switch between the login and registrate function 
 				if(action == Action.LOGIN){
 					action = Action.REGISTRATE;
@@ -107,8 +109,8 @@ public class LoginScreen extends JPanel{
 		
 		btn_logIn.setSize(200, 25);
 		btn_logIn.setLocation((Program.windowSize.width * 1 / 2), Program.windowSize.height * 6 / 10);
-		btn_logIn.addMouseListener(new MouseAdapter(){
-			public void mouseReleased(MouseEvent event){
+		btn_logIn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				// If the user requested a login
 				if(action == Action.LOGIN){
 					// Try to log in

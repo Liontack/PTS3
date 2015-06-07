@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -48,8 +50,8 @@ public class StartScreen extends JPanel{
 		// East side
 		playGameOnline.setSize(200, 50);
 		playGameOnline.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 2 / 10);
-		playGameOnline.addMouseListener(new MouseAdapter(){
-			public void mouseReleased(MouseEvent event){
+		playGameOnline.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				// Go to a next screen, dependent on whether there is someone logged in
 				if(Program.loggedInUser == null){
 					Program.switchToPanel(LoginScreen.class);
@@ -66,8 +68,8 @@ public class StartScreen extends JPanel{
 		
 		playGameOffline.setSize(200, 50);
 		playGameOffline.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 4 / 10);
-		playGameOffline.addMouseListener(new MouseAdapter(){
-			public void mouseReleased(MouseEvent event){
+		playGameOffline.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				// Go directly to the game screen
 				Program.switchToPanel(GameScreen.class);
 				
@@ -88,8 +90,8 @@ public class StartScreen extends JPanel{
 		
 		logOut.setSize(200, 50);
 		logOut.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 7 / 10);
-		logOut.addMouseListener(new MouseAdapter(){
-			public void mouseReleased(MouseEvent event){
+		logOut.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				if(Program.loggedInUser != null){
 					// Let the user know, he really is logged out
 					Program.setFeedback("Gebruiker " + Program.loggedInUser.getUsername() + " uitgelogd.", Color.green);
