@@ -8,6 +8,7 @@ public class GameTest{
 	
 	@Test
 	public void test(){
+		// A scenario of players joining and what the properties are
 		Game game = new Game();
 		
 		assertNull(game.getGameField());
@@ -32,7 +33,7 @@ public class GameTest{
 		
 		assertTrue(game.getPlayers().size() == 3);
 		assertTrue(game.isReadyToPlay());
-
+		
 		game.removePlayer(player2);
 		
 		assertTrue(game.getPlayers().size() == 2);
@@ -45,6 +46,7 @@ public class GameTest{
 		assertTrue(game.getPlayers().size() == 3);
 		assertTrue(game.isReadyToPlay());
 		assertTrue(game.startGame());
+		assertTrue(game.getCurrentRound() == 1);
 		
 		assertNotNull(game.getGameField());
 		assertNotNull(player3.getBat());
@@ -62,7 +64,7 @@ public class GameTest{
 			game.increaseRound(player4.getColour());
 		}catch(NullPointerException exception){}// Because the program did't set the feedbackpanel
 		
-		assertTrue(game.getCurrentRound() == 1);
+		assertTrue(game.getCurrentRound() == 2);
 		assertTrue(player3.getPoints() > 20);
 		assertTrue(player4.getPoints() < 20);
 		assertNull(game.getScorer());

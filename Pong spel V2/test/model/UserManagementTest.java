@@ -7,6 +7,7 @@ public class UserManagementTest{
 	
 	@Test
 	public void testAdd(){
+		// Test the registration of users
 		int userAmount = UserManagement.getUsers().size();
 		assertNotNull(UserManagement.addUser("Programmer", "root"));
 		assertEquals(++userAmount, UserManagement.getUsers().size());
@@ -18,6 +19,7 @@ public class UserManagementTest{
 	
 	@Test
 	public void testLogin(){
+		// Test the login of users
 		assertNull(UserManagement.userLogin("Person a", "a"));
 		User a = UserManagement.addUser("Person a", "a");
 		assertNull(UserManagement.userLogin("Person a", "a"));
@@ -32,6 +34,7 @@ public class UserManagementTest{
 	
 	@Test
 	public void testRatings(){
+		// Test if each user is producing an RatingWrapper
 		assertEquals(UserManagement.getUsers().size(), UserManagement.getUserRatings().size());
 		UserManagement.addUser("test person for ratings", "r");
 		assertEquals(UserManagement.getUsers().size(), UserManagement.getUserRatings().size());

@@ -11,12 +11,14 @@ public class GameFieldTest{
 	
 	@Test
 	public void testProperties(){
+		// Test if a new gamefield has some properties
 		GameField gamefield = new GameField(new Game(), 0);
 		assertNotNull(gamefield.getPuck());
 		assertEquals(gamefield.getBarricades().size(), 0);
 		assertNotNull(gamefield.getSide(Player.Colour.values()[0]));
 		assertNotNull(gamefield.getSide(Player.Colour.values()[Player.Colour.values().length - 1]));
 		
+		// Test whether the average rating influences the number of barricades correctly
 		gamefield = new GameField(new Game(), 40);
 		assertEquals(gamefield.getBarricades().size(), 5);
 		
@@ -29,6 +31,7 @@ public class GameFieldTest{
 	
 	@Test
 	public void testRandomPosition(){
+		// Test if a random point is within the gamefield
 		int tests = 99;
 		GameField gamefield = new GameField(new Game(), 0);
 		while(tests-- > 0){
@@ -41,6 +44,7 @@ public class GameFieldTest{
 	
 	@Test
 	public void testUpdaterThread(){
+		// Test whether the updater thread influences the position of the puck
 		GameField gamefield = new GameField(new Game(), 0);
 		Point puckPosition = gamefield.getPuck().getPosition();
 		

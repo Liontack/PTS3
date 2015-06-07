@@ -14,8 +14,8 @@ import view.Program;
 public class GameField{
 	
 	private static final int UPDATE_SPEED = 10;
-	private static final int MIN_BARRICADES = 10;
-	private static final int MAX_BARRICADES = 10;
+	private static final int MIN_BARRICADES = 0;
+	private static final int MAX_BARRICADES = 5;
 	
 	private int averageRating;
 	

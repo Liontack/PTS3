@@ -13,6 +13,7 @@ public class GameManagementTest{
 		User c = UserManagement.addUser("c", "c");
 		User d = UserManagement.addUser("d", "d");
 		
+		// Test when players can join a game
 		assertTrue(GameManagement.joinGame(a));
 		assertTrue(GameManagement.joinGame(b));
 		assertTrue(GameManagement.joinGame(c));

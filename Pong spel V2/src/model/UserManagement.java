@@ -55,7 +55,7 @@ public class UserManagement{
 	public static void saveUsersSet(){
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.data"));
-			for(User user : instance.users.keySet()){
+			for(User user : getInstance().users.keySet()){
 				out.writeObject(user);
 			}
 			out.close();
@@ -66,10 +66,10 @@ public class UserManagement{
 	
 	public static synchronized User userLogin(String username, String password){
 		// Login if the username and password are correct and the user wasn't yet logged in
-		for(User user : instance.users.keySet()){
+		for(User user : getInstance().users.keySet()){
 			if(user != null){
-				if(instance.users.get(user) != true && user.getUsername().toLowerCase().equals(username.toLowerCase()) && user.equalsPassword(password)){
-					instance.users.put(user, true);
+				if(getInstance().users.get(user) != true && user.getUsername().toLowerCase().equals(username.toLowerCase()) && user.equalsPassword(password)){
+					getInstance().users.put(user, true);
 					return user;
 				}
 			}
@@ -78,7 +78,7 @@ public class UserManagement{
 	}
 	
 	public static synchronized void userLogout(User user){
-		instance.users.put(user, false);
+		getInstance().users.put(user, false);
 	}
 	
 	public static synchronized User getUserOfPlayer(Player player){
@@ -93,13 +93,13 @@ public class UserManagement{
 	}
 	
 	public static synchronized Set<User> getUsers(){
-		instance.users.remove(null);
-		return Collections.unmodifiableSet(instance.users.keySet());
+		getInstance().users.remove(null);
+		return Collections.unmodifiableSet(getInstance().users.keySet());
 	}
 	
 	public static synchronized User addUser(String username, String password){
 		// Check if there isn't already a user with the given username; username must be unique
-		for(User user : instance.users.keySet()){
+		for(User user : getInstance().users.keySet()){
 			if(user != null){
 				if(user.getUsername().equals(username)){
 					return null;
@@ -124,7 +124,7 @@ public class UserManagement{
 	}
 	
 	public static synchronized boolean isUserLoggedIn(User user){
-		return instance.users.get(user);
+		return getInstance().users.get(user);
 	}
 	
 }

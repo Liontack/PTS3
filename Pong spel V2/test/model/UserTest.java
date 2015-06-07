@@ -7,6 +7,7 @@ public class UserTest{
 	
 	@Test
 	public void testFields(){
+		// Test the username and password fields
 		User anjo = new User("anjo", "wachtwoord");
 		assertEquals("anjo", anjo.getUsername());
 		assertTrue(anjo.equalsPassword("wachtwoord"));
@@ -14,6 +15,7 @@ public class UserTest{
 	
 	@Test
 	public void testPlayer(){
+		// Test the player property
 		User anjo = new User("anjo", "wachtwoord");
 		assertNull(anjo.getPlayer());
 		anjo.setPlayer(new Player(Player.Colour.RED, false));
@@ -24,6 +26,7 @@ public class UserTest{
 	
 	@Test
 	public void testRating(){
+		// Test the rating property with adding points
 		User anjo = new User("anjo", "ww", new int[]{ 20, 20, 21 });
 		assertTrue(15.0 == anjo.getRating());
 		anjo.addNewRecentPoints(22);

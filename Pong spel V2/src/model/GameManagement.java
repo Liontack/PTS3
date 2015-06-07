@@ -30,7 +30,7 @@ public class GameManagement{
 		if(user.getPlayer() != null){
 			return false;
 		}
-		for(Game game : GameManagement.instance.games){
+		for(Game game : GameManagement.getInstance().games){
 			if(!game.isReadyToPlay()){
 				Player player = game.addPlayer(false);
 				user.setPlayer(player);
@@ -45,7 +45,7 @@ public class GameManagement{
 		Player player = newGame.addPlayer(false);
 		user.setPlayer(player);
 		
-		GameManagement.instance.games.add(newGame);
+		GameManagement.getInstance().games.add(newGame);
 		
 		return player != null && newGame != null;
 	}
@@ -53,7 +53,7 @@ public class GameManagement{
 	
 	
 	public static boolean startGame(Player player){
-		for(Game game : GameManagement.instance.games){
+		for(Game game : GameManagement.getInstance().games){
 			if(game.getPlayers().contains(player)){
 				return game.startGame();
 			}

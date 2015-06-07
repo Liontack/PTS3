@@ -10,6 +10,7 @@ public class PuckTest{
 	
 	@Test
 	public void testProperties(){
+		// Test some properties of the puck
 		int angle1 = 90;
 		Point p1 = new Point(5, 15);
 		Puck puck1 = new Puck(angle1, p1, 20);
@@ -19,6 +20,7 @@ public class PuckTest{
 		
 		
 		
+		// Test setting the puck's angle
 		puck1.setAngle(359);
 		assertEquals(puck1.getAngle(), 359, 1.000);
 		
