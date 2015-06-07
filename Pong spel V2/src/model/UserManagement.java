@@ -101,7 +101,7 @@ public class UserManagement{
 		// Check if there isn't already a user with the given username; username must be unique
 		for(User user : instance.users.keySet()){
 			if(user != null){
-				if(user.getUsername() == username){
+				if(user.getUsername().equals(username)){
 					return null;
 				}
 			}

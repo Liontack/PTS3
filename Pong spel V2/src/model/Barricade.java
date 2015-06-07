@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+
 public class Barricade{
 	
 	public static final int DIAMETER_PERCENT_MIN = 2;

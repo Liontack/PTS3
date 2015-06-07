@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+
 public class BarricadeTest{
 	
 	@Test

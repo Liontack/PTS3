@@ -1,9 +1,15 @@
 package model;
 
+import java.io.Serializable;
+import java.security.Key;
 import java.util.Arrays;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
-public class User{
+
+@SuppressWarnings("serial")
+public class User implements Serializable{
 	private static final double INITIAL_RATING = 15.0;
 	
 	private final String username; // Unique
@@ -14,7 +20,6 @@ public class User{
 	
 	
 	
-	//XXX Creating user with password like this, doesn't feel save
 	User(String username, String password, int[] mostRecentPoints){
 		this(username, password);
 		for(int i = 0; i < Math.min(mostRecentPoints.length, this.mostRecentPoints.length); i++){
@@ -24,7 +29,7 @@ public class User{
 	
 	User(String username, String password){
 		this.username = username;
-		this.password = password;
+		this.password = User.encrypt(password);
 		Arrays.fill(this.mostRecentPoints, -1);
 	}
 	
@@ -36,7 +41,7 @@ public class User{
 	}
 	
 	public boolean equalsPassword(String password){
-		return this.password.equals(password);
+		return this.password.equals(User.encrypt(password));
 	}
 	
 	/**
@@ -77,6 +82,21 @@ public class User{
 	
 	public void clearPlayer(){
 		this.player = null;
+	}
+	
+	
+	
+	private static final String key = "Bar12345Bar12345";
+	private static String encrypt(String string){
+		try{
+			Key cipherKey = new SecretKeySpec(User.key.getBytes(), "AES");
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.ENCRYPT_MODE, cipherKey);
+			return new String(cipher.doFinal(string.getBytes()));
+		}catch(Exception exception){
+			System.err.println("The string " + string + " was not encrypted.");
+			return string;
+		}
 	}
 	
 }

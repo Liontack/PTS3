@@ -118,11 +118,12 @@ public class LoginScreen extends JPanel{
 					}else{
 						input_password.setText("");
 						Program.setFeedback("Wachtwoord was onjuist", Color.red);
+						return;
 					}
 				// If the user requested a registration
 				}else if(action == Action.REGISTRATE){
 					// First check if both password inputs are equal
-					if(!input_password.getPassword().equals(input_password_again.getPassword())){
+					if(!equalCharArrays(input_password.getPassword(), input_password_again.getPassword())){
 						Program.setFeedback("Wachtwoorden komen niet overeen", Color.red);
 						return;
 					}
@@ -133,6 +134,7 @@ public class LoginScreen extends JPanel{
 						Program.setFeedback("Gebruiker aangemaakt en ingelogd", Color.green);
 					}else{
 						Program.setFeedback("Gebruiker niet aangemaakt; gebruikersnaam bestaat al", Color.red);
+						return;
 					}
 				}
 				Program.switchToPanel(PreGameScreen.class);
@@ -140,6 +142,18 @@ public class LoginScreen extends JPanel{
 		});
 		this.add(btn_logIn);
 		
+	}
+	
+	private boolean equalCharArrays(char[] array1, char[] array2){
+		if(array1.length == array2.length){
+			for(int i = 0; i < array1.length; i++){
+				if(array1[i] != array2[i]){
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public void initScreen(){

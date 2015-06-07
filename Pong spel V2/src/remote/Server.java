@@ -1,4 +1,4 @@
-package model.server;
+package remote;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
