@@ -9,14 +9,14 @@ import java.rmi.registry.Registry;
 import model.GameManagement;
 import model.UserManagement;
 
-public class Server{
+public class RmiServer{
 	
 	public static void main(String[] args){
         try{
         	InetAddress localhost = InetAddress.getLocalHost();
             System.out.println("Server: Started and open on IP address: " + localhost.getHostAddress());
             
-            new Server();
+            new RmiServer();
         }catch(UnknownHostException ex){}
     }
     
@@ -25,7 +25,7 @@ public class Server{
     private GameManagement gameManagement = null;
     private UserManagement userManagement = null;
     
-    private Server(){
+    private RmiServer(){
         createRegistry();
         gameManagement = GameManagement.getInstance();
 		userManagement = UserManagement.getInstance();

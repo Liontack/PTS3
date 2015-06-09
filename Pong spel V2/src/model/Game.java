@@ -2,6 +2,10 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,10 +16,12 @@ import view.Program;
 import view.StartScreen;
 
 public class Game{
-	public static int ROUND_AMOUNT = 10;
+	private static int NEXT_GAME_ID = 1;
+	public static int ROUND_AMOUNT = 2;
 	
 	
 	
+	private final int gameID;
 	private int currentRound = 0;
 	private boolean started = false;
 	private GameField gameField;
@@ -24,7 +30,9 @@ public class Game{
 	
 	
 	
-	public Game(){}
+	public Game(){
+		this.gameID = Game.NEXT_GAME_ID++;
+	}
 	
 	
 	
@@ -49,6 +57,8 @@ public class Game{
 				averageRating /= this.players.length;
 				averageRating /= Player.MAX_RATING;
 				this.gameField = new GameField(this, (int)averageRating);
+
+				serialize();
 				
 				// Give every player an bat to play with
 				for(Player player : this.players){
@@ -131,6 +141,9 @@ public class Game{
 			}
 			this.currentRound++;
 			
+			// Serialize
+			serialize();
+			
 			// Announce the next round
 			Program.setFeedback("Volgende ronde begint zo", Color.cyan);
 
@@ -174,6 +187,10 @@ public class Game{
 				Program.switchToPanel(StartScreen.class);
 			}
 		}).start();
+		
+		// Remove the serialized back up
+		this.removeSerializedBackup();
+		
 	}
 	
 	/**
@@ -186,7 +203,8 @@ public class Game{
 				if(this.players[i] == null){
 					Player.Colour colour = Player.Colour.values()[i];
 					Player newPlayer = new Player(colour, ai);
-					this.players[i] = newPlayer; 
+					this.players[i] = newPlayer;
+					serialize();
 					return newPlayer;
 				}
 			}
@@ -217,6 +235,55 @@ public class Game{
 				this.scorer = player;
 				break;
 			}
+		}
+	}
+	
+	
+	
+	public void serialize(){
+		// Serialize the following data, in the given order
+		//	Game:			currentRound
+		//	GameField:	all barricade positions each time an x and y int value
+		//	Player:		colour, isAI, points, all powerUps, username from user
+		try{
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game" + this.gameID + ".data"));
+			out.write(this.currentRound);
+			if(this.getGameField() != null){
+				for(Barricade barricade : this.getGameField().getBarricades()){
+					out.writeObject(barricade.getPosition().x);
+					out.writeObject(barricade.getPosition().y);
+				}
+			}
+			for(Player player : this.getPlayers()){
+				out.writeObject(player.getColour());
+				out.writeObject(player.isAI());
+				out.writeObject(player.getPoints());
+				for(PowerUp powerUp : player.getPowerUps()){
+					if(powerUp != null){
+						out.writeObject(powerUp.getKind());
+					}
+				}
+				
+				String username = "";
+				try{
+					username = UserManagement.getUserOfPlayer(player).getUsername();
+				}catch(NullPointerException exception){}
+				out.writeObject(username);
+			}
+			out.close();
+		}catch(IOException exception){}
+	}
+	
+	/* TODO(iteration 3) Deserialize Game from file
+	public Game deserialize(){
+		
+	}
+	*/
+	
+	public void removeSerializedBackup(){
+		File gameData = new File("game" + this.gameID + ".data");
+		if(gameData.exists()){
+			gameData.delete();
 		}
 	}
 	
