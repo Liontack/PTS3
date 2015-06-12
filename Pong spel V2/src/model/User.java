@@ -10,8 +10,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 @SuppressWarnings("serial")
 public class User implements Serializable{
+	private static int NEXT_USER_ID = 1;
 	private static final double INITIAL_RATING = 15.0;
 	
+	
+	
+	private final int id;
 	private final String username; // Unique
 	private final String password;
 	private int[] mostRecentPoints = new int[5];// index 0 contains the most recent points, domain is [0;40]
@@ -28,6 +32,7 @@ public class User implements Serializable{
 	}
 	
 	User(String username, String password){
+		this.id = User.NEXT_USER_ID++;
 		this.username = username;
 		this.password = User.encrypt(password);
 		Arrays.fill(this.mostRecentPoints, -1);
@@ -38,6 +43,10 @@ public class User implements Serializable{
 	
 	public String getUsername(){
 		return this.username;
+	}
+	
+	public int getID(){
+		return this.id;
 	}
 	
 	public boolean equalsPassword(String password){

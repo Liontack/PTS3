@@ -17,11 +17,11 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 2;
+	public static int ROUND_AMOUNT = 10;
 	
 	
 	
-	private final int gameID;
+	private final int id;
 	private int currentRound = 0;
 	private boolean started = false;
 	private GameField gameField;
@@ -31,10 +31,14 @@ public class Game{
 	
 	
 	public Game(){
-		this.gameID = Game.NEXT_GAME_ID++;
+		this.id = Game.NEXT_GAME_ID++;
 	}
 	
 	
+	
+	public int getID(){
+		return this.id;
+	}
 	
 	/**
 	 * Start this game with the 3 joined players; only if not started
@@ -73,7 +77,7 @@ public class Game{
 		return false;
 	}
 	
-	private boolean containsPlayer(Player player){
+	public boolean containsPlayer(Player player){
 		for(Player existingPlayer : this.players){
 			if(existingPlayer == player){
 				return true;
@@ -161,17 +165,21 @@ public class Game{
 			this.gameField = null;
 		}
 		
-		// Add the player's scores to their user's point list
-		for(Player player : this.players){
-			if(!player.isAI()){
-				User user = UserManagement.getUserOfPlayer(player);
-				if(user != null){
-					user.addNewRecentPoints(player.getPoints());
+		if(this != Program.offlineGame){
+			// Add the player's scores to their user's point list
+			for(Player player : this.players){
+				if(!player.isAI()){
+					User user = UserManagement.getUserOfPlayer(player);
+					if(user != null){
+						user.addNewRecentPoints(player.getPoints());
+					}
+				}else{
+					// Turn the ai movers off
+					player.stopAiMoverThread();
 				}
-			}else{
-				// Turn the ai movers off
-				player.stopAiMoverThread();
 			}
+		}else{
+			Program.offlineGame = null;
 		}
 		
 		// Remove the bat from the controller
@@ -246,7 +254,7 @@ public class Game{
 		//	GameField:	all barricade positions each time an x and y int value
 		//	Player:		colour, isAI, points, all powerUps, username from user
 		try{
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game" + this.gameID + ".data"));
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game" + this.id + ".data"));
 			out.write(this.currentRound);
 			if(this.getGameField() != null){
 				for(Barricade barricade : this.getGameField().getBarricades()){
@@ -281,7 +289,7 @@ public class Game{
 	*/
 	
 	public void removeSerializedBackup(){
-		File gameData = new File("game" + this.gameID + ".data");
+		File gameData = new File("game" + this.id + ".data");
 		if(gameData.exists()){
 			gameData.delete();
 		}

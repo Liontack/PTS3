@@ -1,6 +1,9 @@
 package comparator;
 
-public class RatingWrapper{
+import java.io.Serializable;
+
+public class RatingWrapper implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private String username;
 	private double rating;

@@ -8,8 +8,6 @@ import javax.swing.JPanel;
 import view.Program;
 
 import model.Bat;
-import model.Player;
-import model.UserManagement;
 
 public class BatController extends KeyAdapter{
 	
@@ -89,12 +87,13 @@ public class BatController extends KeyAdapter{
 			bat = Program.offlinePlayer.getBat();
 			return bat;
 		}else{
+			/*//Program.secured.moveBat(Program.userID, left);
 			for(Player player : Program.activeGame.getPlayers()){
 				if(UserManagement.getUserOfPlayer(player) == Program.loggedInUser){
 					bat = player.getBat();
 					return bat;
 				}
-			}
+			}*/
 		}
 		
 		return null;

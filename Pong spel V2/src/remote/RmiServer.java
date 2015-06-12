@@ -21,7 +21,7 @@ public class RmiServer{
     }
     
     private Registry registry = null;
-    private int registryPort = 1099;
+    public static int registryPort = 1099;
     private GameManagement gameManagement = null;
     private UserManagement userManagement = null;
     
@@ -38,23 +38,23 @@ public class RmiServer{
     private void createRegistry(){
         try{
             registry = LocateRegistry.createRegistry(registryPort);
-            System.out.println("Server: Registry created on port number " + registryPort);
+            System.out.println("SERVER: Registry created on port number " + registryPort);
         }catch(RemoteException ex){
-            System.err.println("Server: Cannot create registry");
-            System.err.println("Server: RemoteException: " + ex.getMessage());
+            System.err.println("SERVER: Cannot create registry");
+            System.err.println("SERVER: RemoteException: " + ex.getMessage());
             registry = null;
         }
     }
     
     private void bindManagersUsingRegistry(){
-        /*try{
-            registry.rebind("gameManagement", gameManagement);
-            registry.rebind("userManagement", userManagement);
-            System.out.println("SERVER: managers are bound to effectenBeurs");
+        try{
+            registry.rebind("secured", gameManagement);
+            registry.rebind("unsecured", userManagement);
+            System.out.println("SERVER: managers are bound to registry");
         }catch(RemoteException ex){
             System.err.println("Server: Cannot bind managers");
             ex.printStackTrace();
-        }*/
+        }
     }
     
 }

@@ -6,27 +6,44 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import remote.ISecured;
+import remote.IUnsecured;
+import remote.RmiServer;
+
 import model.Game;
 import model.Player;
-import model.User;
 import model.UserManagement;
 
 public class Program{
 	
 	// Logged in user
-	public static User loggedInUser = null;
+	public static String username = "";
+	public static int userID = 0;
 	
 	// The game this loggedInUser is in
-	public static Game activeGame = null;
+	public static int gameID;
 	
-	// The offline player, if no one is logged in
+	// The offline game and player, if no one is logged in
+	public static Game offlineGame = null;
 	public static Player offlinePlayer = null;
+	
+	
+	
+	// Server interfaces
+	public static Registry registry;
+	public static IUnsecured unsecured;
+	public static ISecured secured;
 	
 	
 	
@@ -47,7 +64,77 @@ public class Program{
                 createFrame();
             }
         });
+		
+		// Keep searching for the server until you found him
+		new Thread(new Runnable(){
+			public void run(){
+				System.out.println("Voer het ip adres van de server in");//XXX Better way to get ip address
+				Scanner scanner = new Scanner(System.in);
+			    String ipAddress = scanner.nextLine();
+				
+				while(registry == null){
+					registry = locateRegistry(ipAddress, RmiServer.registryPort);
+				}
+				
+		        if(registry != null){
+		            System.out.println("Client: Registry located");
+		            Program.unsecured = getUnsecuredInterface();
+		            Program.secured = getSecuredInterface();
+		        }else{
+		            System.out.println("Client: Cannot locate registry");    
+		        }
+		        
+			}
+		}).start();
 	}
+	
+	/*RMI METHODS*/
+	private static Registry locateRegistry(String ipAddress, int portNumber){
+        Registry reg = null;
+        
+        try{
+            reg = LocateRegistry.getRegistry(ipAddress, portNumber);
+        }catch(RemoteException ex){}
+        
+        return reg;
+    }
+    
+    private static IUnsecured getUnsecuredInterface(){
+        IUnsecured unsecured = null;
+        
+        try{
+            unsecured = (IUnsecured) registry.lookup("unsecured");
+        }catch(RemoteException ex){
+            System.out.println("Client: Cannot get unsecured");
+            System.out.println("Client: RemoteException: " + ex.getMessage());
+            unsecured = null;
+        }catch(NotBoundException ex){
+            System.out.println("Client: Cannot get unsecured");
+            System.out.println("Client: NotBoundException: " + ex.getMessage());
+            unsecured = null;
+        }
+        
+        return unsecured;
+    }
+    
+    private static ISecured getSecuredInterface(){
+        ISecured secured = null;
+        
+        try{
+            secured = (ISecured) registry.lookup("secured");
+        }catch(RemoteException ex){
+            System.out.println("Client: Cannot get secured");
+            System.out.println("Client: RemoteException: " + ex.getMessage());
+            secured = null;
+        }catch(NotBoundException ex){
+            System.out.println("Client: Cannot get secured");
+            System.out.println("Client: NotBoundException: " + ex.getMessage());
+            secured = null;
+        }
+        
+        return secured;
+    }
+	/*END RMI METHODS*/
 	
 	private static void createFrame(){
 		mainFrame = new JFrame();

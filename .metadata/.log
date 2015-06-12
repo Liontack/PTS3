@@ -1805,3 +1805,158 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY com.android.ide.eclipse.ddms 4 0 2015-04-17 09:00:50.858
 !MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-04-26 09:26:54.603 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-04-26 09:28:09.852
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-15 11:53:03.550 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-15 11:53:36.731
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-17 08:20:53.447 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-05-17 08:21:02.471
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-17 08:21:09.547
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-19 08:12:29.035 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-19 08:17:45.807
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-21 18:02:10.765 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-05-21 18:02:32.937
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-21 18:02:56.918
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2015-05-21 18:35:05.626
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+!SESSION 2015-05-24 15:16:41.064 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-05-24 15:17:17.881
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-24 15:17:55.313
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-26 06:34:59.875 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2015-05-26 06:35:36.359
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-26 06:36:01.172
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-30 08:12:12.025 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-30 08:12:37.116
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-05-30 14:26:50.447 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-05-30 14:27:03.995
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-06-02 04:28:57.499 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-06-02 04:48:15.251
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-06-05 12:01:11.285 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-06-05 12:02:22.427
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-06-06 19:55:52.212 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-06-06 19:56:11.856
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-06-09 05:32:08.948 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-06-09 05:32:59.306
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 
+!SESSION 2015-06-12 10:27:39.620 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2015-06-12 10:30:16.588
+!MESSAGE DDMS files not found: C:\Users\Luana\Desktop\Eclipse\eclipse\platform-tools\adb.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\hprof-conv.exe C:\Users\Luana\Desktop\Eclipse\eclipse\tools\traceview.bat 

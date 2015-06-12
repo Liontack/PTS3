@@ -1,3 +1,4 @@
-#Sun Apr 05 12:44:04 GMT 2015
+#Sun May 17 14:08:39 GMT 2015
 prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions/>\r\n
 eclipse.preferences.version=1
+//org.eclipse.debug.core.PREFERRED_DELEGATES/org.eclipse.jdt.junit.launchconfig=org.eclipse.jdt.junit.launchconfig,debug;org.eclipse.jdt.junit.launchconfig,run

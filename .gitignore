@@ -18,3 +18,7 @@ bin\
 *.xml
 *.class
 *.classpath
+*.log
+*.classpath
+*.class
+*.mf

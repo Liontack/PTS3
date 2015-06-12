@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.rmi.RemoteException;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,7 +18,6 @@ import javax.swing.JTable;
 import comparator.RatingWrapper;
 import model.Game;
 import model.Player;
-import model.UserManagement;
 
 @SuppressWarnings("serial")
 public class StartScreen extends JPanel{
@@ -51,7 +51,7 @@ public class StartScreen extends JPanel{
 		playGameOnline.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				// Go to a next screen, dependent on whether there is someone logged in
-				if(Program.loggedInUser == null){
+				if(Program.userID == 0){
 					Program.switchToPanel(LoginScreen.class);
 				}else{
 					Program.switchToPanel(PreGameScreen.class);
@@ -72,13 +72,9 @@ public class StartScreen extends JPanel{
 				Program.switchToPanel(GameScreen.class);
 				
 				Game offlineGame = new Game();
-				Program.activeGame = offlineGame;
+				Program.offlineGame = offlineGame;
 				Player offlinePlayer = offlineGame.addPlayer(false);
-				if(Program.loggedInUser != null){
-					Program.loggedInUser.setPlayer(offlinePlayer);
-				}else{
-					Program.offlinePlayer = offlinePlayer;
-				}
+				Program.offlinePlayer = offlinePlayer;
 				offlineGame.addPlayer(true);
 				offlineGame.addPlayer(true);
 				offlineGame.startGame();
@@ -90,12 +86,18 @@ public class StartScreen extends JPanel{
 		logOut.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 7 / 10);
 		logOut.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				if(Program.loggedInUser != null){
+				if(Program.userID != 0){
 					// Let the user know, he really is logged out
-					Program.setFeedback("Gebruiker " + Program.loggedInUser.getUsername() + " uitgelogd.", Color.green);
+					Program.setFeedback("Gebruiker " + Program.username + " uitgelogd.", Color.green);
 					
 					// Log out
-					UserManagement.userLogout(Program.loggedInUser);
+					try{
+						Program.unsecured.userLogout(Program.userID);
+						Program.userID = 0;
+						Program.username = "";
+					}catch(RemoteException exception){
+						System.err.println("User " + Program.username + " was not logged out");
+					}
 					
 					// Close application after a delay of 5 seconds
 					new Thread(new Runnable(){
@@ -117,7 +119,11 @@ public class StartScreen extends JPanel{
 	public void initScreen(){
 		// Reload the user rating table
 		Set<RatingWrapper> ratings = new TreeSet<>(new comparator.UserRating());
-		ratings.addAll(UserManagement.getUserRatings());
+		try{
+			ratings.addAll(Program.unsecured.getUserRatings());
+		}catch(RemoteException | NullPointerException exception){
+			System.err.println("The ratings were not retrieved from the server");
+		}
 		String[] columnNames = { "Username", "Rating" };
 		Object[][] data = new Object[ratings.size()][2];
 			int i = 0;
@@ -131,11 +137,11 @@ public class StartScreen extends JPanel{
 		userRatings.setViewportView(userRatingsTable);
 		
 		// Recognize user and say hello
-		if(Program.loggedInUser == null){
+		if(Program.username.isEmpty()){
 			welcomeUser.setText("");
 			logOut.setText("Afsluiten");
 		}else{
-			welcomeUser.setText("Hallo " + Program.loggedInUser.getUsername());
+			welcomeUser.setText("Hallo " + Program.username);
 			logOut.setText("Uitloggen en Afsluiten");
 		}
 	}

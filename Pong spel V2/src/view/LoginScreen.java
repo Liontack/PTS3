@@ -6,14 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import model.UserManagement;
 
 @SuppressWarnings("serial")
 public class LoginScreen extends JPanel{
@@ -112,8 +111,15 @@ public class LoginScreen extends JPanel{
 				// If the user requested a login
 				if(action == Action.LOGIN){
 					// Try to log in
-					Program.loggedInUser = UserManagement.userLogin(input_username.getText(), new String(input_password.getPassword()));
-					if(Program.loggedInUser != null){
+					try{
+						Program.userID = Program.unsecured.userLogin(input_username.getText(), new String(input_password.getPassword()));
+					}catch(RemoteException | NullPointerException exception){
+						System.err.println("Could not log in user");
+						Program.setFeedback("Gebruiker niet ingelogd, want er is geen connectie met de server", Color.red);
+						return;
+					}
+					if(Program.userID != 0){
+						Program.username = input_username.getText();
 						Program.setFeedback("Gebruiker ingelogd", Color.green);
 					}else{
 						input_password.setText("");
@@ -129,11 +135,18 @@ public class LoginScreen extends JPanel{
 					}
 					
 					// Try to registrate
-					Program.loggedInUser = UserManagement.addUser(input_username.getText(), new String(input_password.getPassword()));
-					if(Program.loggedInUser != null){
+					try{
+						Program.userID = Program.unsecured.registerUser(input_username.getText(), new String(input_password.getPassword()));
+					}catch(RemoteException | NullPointerException exception){
+						System.err.println("Could not register user");
+						Program.setFeedback("Gebruiker niet geregistreerd, want er is geen connectie met de server", Color.red);
+						return;
+					}
+					if(Program.userID != 0){
+						Program.username = input_username.getText();
 						Program.setFeedback("Gebruiker aangemaakt en ingelogd", Color.green);
 					}else{
-						Program.setFeedback("Gebruiker niet aangemaakt; gebruikersnaam bestaat al", Color.red);
+						Program.setFeedback("Gebruiker niet geregistreerd; gebruikersnaam bestaat al", Color.red);
 						return;
 					}
 				}

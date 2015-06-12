@@ -11,8 +11,6 @@ import keyboard.BatController;
 
 import model.Game;
 import model.Player;
-import model.User;
-import model.UserManagement;
 
 @SuppressWarnings("serial")
 public class GameScreen extends JPanel{
@@ -32,39 +30,38 @@ public class GameScreen extends JPanel{
 	}
 	
 	public void initScreen(){
-		Program.activeGame.getGameField().startUpdaterThread();
+		Program.offlineGame.getGameField().startUpdaterThread();
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
 		// Draw the game
-		if(Program.activeGame != null){
-			Program.activeGame.draw(g);
+		if(Program.offlineGame != null){
+			Program.offlineGame.draw(g);
 			
 			// Also draw some strings
 			g.setColor(Color.black);
-			g.drawString("Ronde " + Program.activeGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
+			g.drawString("Ronde " + Program.offlineGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
 			int i = 0;
-			for(Player player : Program.activeGame.getPlayers()){
+			for(Player player : Program.offlineGame.getPlayers()){
 				g.setColor(player.getColour().drawColor);
 				g.drawString(String.valueOf(player.getPoints()), 8, 40 + i);
 				String username = "";
-				User userOfPlayer = UserManagement.getUserOfPlayer(player);
-				if(userOfPlayer != null){
-					username = userOfPlayer.getUsername();
-				}else{
-					switch(player.getColour()){
-						case RED:
+				switch(player.getColour()){
+					case RED:
+						if(Program.username.isEmpty()){
 							username = "Anoniem";
-							break;
-						case BLUE:
-							username = "Robot A";
-							break;
-						case GREEN:
-							username = "Robot B";
-							break;
-					}
+						}else{
+							username = Program.username;
+						}
+						break;
+					case BLUE:
+						username = "Robot A";
+						break;
+					case GREEN:
+						username = "Robot B";
+						break;
 				}
 				g.drawString(username, 30, 40 + i);
 				i += 16;
