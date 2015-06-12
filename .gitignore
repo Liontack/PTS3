@@ -12,3 +12,9 @@ bin\
 *.class
 /Pong spel V2/nbproject/private/
 /Pong spel V2/build/
+*.log
+*.log
+*.index
+*.xml
+*.class
+*.classpath
