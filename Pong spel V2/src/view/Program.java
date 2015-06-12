@@ -64,28 +64,6 @@ public class Program{
                 createFrame();
             }
         });
-		
-		// Keep searching for the server until you found him
-		new Thread(new Runnable(){
-			public void run(){
-				System.out.println("Voer het ip adres van de server in");//XXX Better way to get ip address
-				Scanner scanner = new Scanner(System.in);
-			    String ipAddress = scanner.nextLine();
-				
-				while(registry == null){
-					registry = locateRegistry(ipAddress, RmiServer.registryPort);
-				}
-				
-		        if(registry != null){
-		            System.out.println("Client: Registry located");
-		            Program.unsecured = getUnsecuredInterface();
-		            Program.secured = getSecuredInterface();
-		        }else{
-		            System.out.println("Client: Cannot locate registry");    
-		        }
-		        
-			}
-		}).start();
 	}
 	
 	/*RMI METHODS*/
@@ -156,6 +134,28 @@ public class Program{
 		mainFrame.add(feedbackPanel, BorderLayout.SOUTH);
 		// Init feedback label
 		feedbackPanel.add(label_feedback, BorderLayout.CENTER);
+		
+		// Keep searching for the server until you found him
+		new Thread(new Runnable(){
+			public void run(){
+				System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
+				Scanner scanner = new Scanner(System.in);
+			    String ipAddress = scanner.nextLine();
+				
+				while(registry == null){
+					registry = locateRegistry(ipAddress, RmiServer.registryPort);
+				}
+				
+		        if(registry != null){
+		            System.out.println("Client: Registry located");
+		            Program.unsecured = getUnsecuredInterface();
+		            Program.secured = getSecuredInterface();
+		        }else{
+		            System.out.println("Client: Cannot locate registry");    
+		        }
+		        
+			}
+		}).start();
 		
 	}
 	

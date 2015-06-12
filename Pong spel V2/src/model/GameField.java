@@ -153,6 +153,9 @@ public class GameField{
 				// Keep updating, until the thread gets interrupted
 				while(true){
 					game.serialize();
+					
+					GameManagement.informGameUpdate(game);
+					
 					update();
 					try{
 						Thread.sleep(GameField.UPDATE_SPEED);

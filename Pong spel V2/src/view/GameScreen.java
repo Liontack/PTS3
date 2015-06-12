@@ -4,8 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.beans.PropertyChangeEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
+
+import remote.BarricadePositions;
+import remote.GameUpdate;
+
+import fontys.observer.RemotePropertyListener;
 
 import keyboard.BatController;
 
@@ -13,7 +20,7 @@ import model.Game;
 import model.Player;
 
 @SuppressWarnings("serial")
-public class GameScreen extends JPanel{
+public class GameScreen extends JPanel implements RemotePropertyListener{
 	
 	// Draw the players score
 	// Draw the game field
@@ -25,7 +32,7 @@ public class GameScreen extends JPanel{
 				initScreen();
 			}
 		});
-
+		
 		this.addKeyListener(new BatController());
 	}
 	
@@ -70,4 +77,22 @@ public class GameScreen extends JPanel{
 		
 	}
 	
+	
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent event) throws RemoteException{
+		// If it is a BarricadePositions
+		if(event.getNewValue() instanceof BarricadePositions){
+			// Set the barricade positions
+			//TODO
+		}
+		
+		// If it is a GameUpdate
+		if(event.getNewValue() instanceof GameUpdate){
+			// Update game values for drawing purposes only
+			//TODO
+		}
+	}
+	//XXX duplicate (dummy) game object
+	//XXX aan- en afmelden op server updates
 }

@@ -1,9 +1,10 @@
 package remote;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ISecured extends Remote{
+import fontys.observer.RemotePublisher;
+
+public interface ISecured extends RemotePublisher{
 	
 	/**
 	 * Let user with userID join a game

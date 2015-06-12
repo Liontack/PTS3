@@ -8,15 +8,13 @@ public class GameUpdate implements Serializable{
 	public final int gameID;
 	public final int puckX;
 	public final int puckY;
-	public final int[] batXs;
-	public final int[] batYs;
+	public final int[] batPositions;
 	
-	public GameUpdate(int gameID, int puckX, int puckY, int[] xs, int[] ys){
+	public GameUpdate(int gameID, int puckX, int puckY, int[] batPositions){
 		this.gameID = gameID;
 		this.puckX = puckX;
 		this.puckY = puckY;
-		this.batXs = xs;
-		this.batYs = ys;
+		this.batPositions = batPositions;
 	}
 	
 }

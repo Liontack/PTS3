@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import remote.BarricadePositions;
+import remote.GameUpdate;
+import remote.PlayersInGameUpdate;
+
 import keyboard.BatController;
 
 import view.Program;
@@ -293,6 +297,44 @@ public class Game{
 		if(gameData.exists()){
 			gameData.delete();
 		}
+	}
+	
+	
+	
+	public GameUpdate getGameUpdate(){
+		int puckX = this.gameField.getPuck().getPosition().x;
+		int puckY = this.gameField.getPuck().getPosition().y;
+		
+		int[] batPositions = new int[this.players.length];
+		int i = 0;
+		for(Player player : this.players){
+			batPositions[i] = player.getBat().getPositionInGoal();
+			i++;
+		}
+		
+		return new GameUpdate(this.id, puckX, puckY, batPositions);
+	}
+	
+	public PlayersInGameUpdate getPlayersInGameUpdate(){
+		String[] usernames = new String[this.players.length];
+		for(int i = 0; i < this.players.length; i++){
+			usernames[i] = UserManagement.getUserOfPlayer(this.players[i]).getUsername();
+		}
+		
+		return new PlayersInGameUpdate(this.id, usernames);
+	}
+	
+	public BarricadePositions getBarricadePositions(){
+		int[] xs = new int[this.gameField.getBarricades().size()];
+		int[] ys = new int[this.gameField.getBarricades().size()];
+		int i = 0;
+		for(Barricade barricade : this.gameField.getBarricades()){
+			xs[i] = barricade.getPosition().x;
+			xs[i] = barricade.getPosition().y;
+			i++;
+		}
+		
+		return new BarricadePositions(this.id, xs, ys);
 	}
 	
 	
