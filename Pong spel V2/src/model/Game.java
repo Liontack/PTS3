@@ -226,19 +226,24 @@ public class Game{
 	
 	/**
 	 * Remove the player from this game; only if not started
+	 * It is always the case that the null values are at the end of the array
 	 * @param player	The player to remove
 	 * @return			True if the player was removed
 	 */
 	public boolean removePlayer(Player player){
+		boolean playerRemoved = false;
 		if(!started){
 			for(int i = 0; i < this.players.length; i++){
 				if(this.players[i] == player){
 					this.players[i] = null;
-					return true;
+					playerRemoved = true;
+				}else if(playerRemoved){
+					this.players[i - 1] = this.players[i];
+					this.players[i] = null;
 				}
 			}
 		}
-		return false;
+		return playerRemoved;
 	}
 	
 	public void setScorer(Player.Colour colour){
@@ -318,7 +323,11 @@ public class Game{
 	public PlayersInGameUpdate getPlayersInGameUpdate(){
 		String[] usernames = new String[this.players.length];
 		for(int i = 0; i < this.players.length; i++){
-			usernames[i] = UserManagement.getUserOfPlayer(this.players[i]).getUsername();
+			if(this.players[i] == null){
+				usernames[i] = "";
+			}else{
+				usernames[i] = UserManagement.getUserOfPlayer(this.players[i]).getUsername();
+			}
 		}
 		
 		return new PlayersInGameUpdate(this.id, usernames);

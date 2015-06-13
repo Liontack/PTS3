@@ -83,6 +83,9 @@ public class User implements Serializable{
 		}
 		// And place the new points at the front
 		this.mostRecentPoints[0] = points;
+		
+		// Also immediately save this
+		UserManagement.saveUsersSet();
 	}
 	
 	public void setPlayer(Player player){

@@ -23,7 +23,6 @@ import remote.RmiServer;
 
 import model.Game;
 import model.Player;
-import model.UserManagement;
 
 public class Program{
 	
@@ -116,7 +115,7 @@ public class Program{
 	
 	private static void createFrame(){
 		mainFrame = new JFrame();
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.setSize(windowSize.width + 6, windowSize.height + 28); // Additions for window borders
 		mainFrame.setTitle(title);
@@ -226,7 +225,6 @@ public class Program{
 	}
 	
 	public static void close(){
-		UserManagement.saveUsersSet();
 		mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
 	}
 	

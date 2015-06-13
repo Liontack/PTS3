@@ -1,33 +1,42 @@
 package view;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import remote.PlayersInGameUpdate;
-
-import fontys.observer.RemotePropertyListener;
+import remote.PreGameScreenReceiver;
 
 @SuppressWarnings("serial")
-public class PreGameScreen extends JPanel implements RemotePropertyListener{
+public class PreGameScreen extends JPanel{
 	
 	JButton btn_back = new JButton("Terug");
-	JLabel label_playername1 = new JLabel();
-	JLabel label_playername2 = new JLabel();
-	JLabel label_playername3 = new JLabel();
 	JButton btn_play = new JButton("Start spel");
 	
+	public String[] usernames = new String[]{};
+	
+	private PreGameScreenReceiver receiver;
+	
 	public PreGameScreen(){
+		this.addFocusListener(new FocusAdapter(){
+			public void focusGained(FocusEvent fe){
+				initScreen();
+			}
+		});
+		
 		this.setLayout(null);
 		
-		final PreGameScreen thisPreGameScreen = this;
+		try{
+			this.receiver = new PreGameScreenReceiver(this);
+		}catch(RemoteException exception){
+			System.err.println("This PreGameScreen could not initialize his receiver");
+		}
 		
 		// Init gui
 		btn_back.setSize(100, 25);
@@ -39,7 +48,7 @@ public class PreGameScreen extends JPanel implements RemotePropertyListener{
 				// Leave game and stop listening for updates
 				try{
 					Program.secured.leaveGame(Program.userID);
-					Program.secured.removeListener(thisPreGameScreen, "game" + Program.gameID);
+					Program.secured.removeListener(receiver, "game" + Program.gameID);
 					Program.gameID = 0;
 				}catch(RemoteException exception){
 					System.err.println("PreGameScreen: Could not leave game or stop listening to this game's updates");
@@ -48,28 +57,15 @@ public class PreGameScreen extends JPanel implements RemotePropertyListener{
 		});
 		this.add(btn_back);
 		
-		label_playername1.setSize(100, 25);
-		label_playername1.setLocation((Program.windowSize.width * 1 / 2) - (label_playername1.getWidth() * 1 / 2) , Program.windowSize.height * 2 / 10);
-		this.add(label_playername1);
-		
-		label_playername2.setSize(100, 25);
-		label_playername2.setLocation((Program.windowSize.width * 1 / 2) - (label_playername2.getWidth() * 1 / 2) , Program.windowSize.height * 4 / 10);
-		this.add(label_playername2);
-		
-		label_playername3.setSize(100, 25);
-		label_playername3.setLocation((Program.windowSize.width * 1 / 2) - (label_playername3.getWidth() * 1 / 2) , Program.windowSize.height * 6 / 10);
-		this.add(label_playername3);
-		
 		btn_play.setSize(200, 50);
 		btn_play.setLocation((Program.windowSize.width * 1 / 2) - (btn_play.getWidth() * 1 / 2) , Program.windowSize.height * 8 / 10);
-		btn_play.setEnabled(false);
 		btn_play.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				Program.switchToPanel(GameScreen.class);
 				
 				// Stop listening for updates
 				try{
-					Program.secured.removeListener(thisPreGameScreen, "game" + Program.gameID);
+					Program.secured.removeListener(receiver, "game" + Program.gameID);
 				}catch(RemoteException exception){
 					System.err.println("PreGameScreen: Could not stop listening to this game's updates");
 				}
@@ -79,28 +75,45 @@ public class PreGameScreen extends JPanel implements RemotePropertyListener{
 	}
 	
 	public void initScreen(){
-		btn_play.setEnabled(false);
+		repaint();
 		
-		// Join game and listen for updates
-		try{
-			Program.gameID = Program.secured.joinGame(Program.userID);
-			Program.secured.addListener(this, "game" + Program.gameID);
-		}catch(RemoteException exception){
-			System.err.println("PreGameScreen: Could not join game or listen to this game's updates");
+		if(Program.gameID == 0){
+			// Join game and listen for updates
+			try{
+				Program.gameID = Program.secured.joinGame(Program.userID);
+				Program.secured.addListener(receiver, "game" + Program.gameID);
+			}catch(RemoteException exception){
+				System.err.println("PreGameScreen: Could not join game or listen to this game's updates");
+			}
 		}
 	}
 	
 	
 	
-	@Override
-	public void propertyChange(PropertyChangeEvent event) throws RemoteException{
-		// Only do something with PlayersInGameUpdate
-		if(event.getNewValue() instanceof PlayersInGameUpdate){
-			// Update the names in the gui
-			PlayersInGameUpdate players = (PlayersInGameUpdate) event.getNewValue();
-			this.label_playername1.setText(players.usernames[0]);
-			this.label_playername2.setText(players.usernames[1]);
-			this.label_playername3.setText(players.usernames[2]);
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		
+		// The first player in this game may press the play button
+		if(this.usernames[0].equals(Program.username)){
+			boolean noEmptyNames = true;
+			for(String name : this.usernames){
+				if(name.isEmpty()){
+					noEmptyNames = false;
+					break;
+				}
+			}
+			this.btn_play.setEnabled(noEmptyNames);
+		}else{
+			this.btn_play.setEnabled(false);
+		}
+		
+		// Draw the usernames
+		int i = 1;
+		for(String username : this.usernames){
+			int left = (Program.windowSize.width * 1 / 2) - (50);
+			int top = Program.windowSize.height * (2 * i) / 10;
+			g.drawString(username, left, top);
+			i++;
 		}
 	}
 	

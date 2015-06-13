@@ -8,11 +8,10 @@ import java.util.Set;
 
 import fontys.observer.BasicPublisher;
 import fontys.observer.RemotePropertyListener;
-import fontys.observer.RemotePublisher;
 
 import remote.ISecured;
 
-public class GameManagement extends UnicastRemoteObject implements ISecured, RemotePublisher{
+public class GameManagement extends UnicastRemoteObject implements ISecured{
 	private static final long serialVersionUID = 1L;
 	
 	private static GameManagement instance;
@@ -131,13 +130,13 @@ public class GameManagement extends UnicastRemoteObject implements ISecured, Rem
 	
 	
 	// RemoteObservable part
-	private BasicPublisher basicPublisher = new BasicPublisher(new String[]{});
+	private BasicPublisher basicPublisher = new BasicPublisher(new String[]{  });
 	
 	@Override
 	public void addListener(RemotePropertyListener listener, String property) throws RemoteException{
 		this.basicPublisher.addListener(listener, property);
 		
-		int gameID = Integer.valueOf(property.split("game")[0]);
+		int gameID = Integer.valueOf(property.substring(4));
 		Game game = GameManagement.getGameByID(gameID);
 		
 		this.basicPublisher.inform(this, property, null, game.getPlayersInGameUpdate());
@@ -149,7 +148,9 @@ public class GameManagement extends UnicastRemoteObject implements ISecured, Rem
 	}
 	
 	public static void informGameUpdate(Game game){
-		GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, game.getGameUpdate());
+		try{
+			GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, game.getGameUpdate());
+		}catch(RuntimeException exception){}
 	}
 	
 }

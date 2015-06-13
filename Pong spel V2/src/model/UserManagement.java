@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,19 +45,22 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	
 	
 	public void fillUsersSet(){
-		try{
-			ObjectInputStream reader = new ObjectInputStream(new FileInputStream("users.data"));
-			this.users = new HashMap<>();
-			while(true){
-				try{
-					User user = (User) reader.readObject();
-					this.users.put(user, false);
-				}catch(Exception exception){
-					break;
+		this.users = new HashMap<>();
+		File file = new File("users.data");
+		if(file.exists()){
+			try{
+				ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file));
+				while(true){
+					try{
+						User user = (User) reader.readObject();
+						this.users.put(user, false);
+					}catch(Exception exception){
+						break;
+					}
 				}
+			}catch(Exception exception){
+				exception.printStackTrace();
 			}
-		}catch(Exception exception){
-			exception.printStackTrace();
 		}
 	}
 	
@@ -85,6 +89,10 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		
 		// Return true if the user was created and logged in
 		instance.users.put(new User(username, password), false);
+		
+		// Also save the new user
+		UserManagement.saveUsersSet();
+		
 		return userLogin(username, password);
 	}
 	
