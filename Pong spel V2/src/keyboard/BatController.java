@@ -26,7 +26,7 @@ public class BatController extends KeyAdapter{
 							
 							// Update the Game screen
 							((JPanel)Program.getActivePanel()).repaint();
-
+							
 							// Insert delay
 							try{
 								Thread.sleep(reactionSpeed);
@@ -87,7 +87,8 @@ public class BatController extends KeyAdapter{
 			bat = Program.offlinePlayer.getBat();
 			return bat;
 		}else{
-			/*//Program.secured.moveBat(Program.userID, left);
+			/*TODO remote bat controller
+			//Program.secured.moveBat(Program.userID, left);
 			for(Player player : Program.activeGame.getPlayers()){
 				if(UserManagement.getUserOfPlayer(player) == Program.loggedInUser){
 					bat = player.getBat();

@@ -9,7 +9,7 @@ public class GameTest{
 	@Test
 	public void test(){
 		// A scenario of players joining and what the properties are
-		Game game = new Game();
+		Game game = new Game(false);
 		
 		assertNull(game.getGameField());
 		assertTrue(game.getPlayers().size() == 0);

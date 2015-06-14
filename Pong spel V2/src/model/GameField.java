@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import remote.BarricadesState;
+
 
 import view.Program;
 
@@ -47,6 +49,30 @@ public class GameField{
 		int nBarricades = (int)Math.round(MIN_BARRICADES + (((double)averageRating / Player.MAX_RATING) * (MAX_BARRICADES - MIN_BARRICADES)));
 		for(int i = 0; i < nBarricades; i++){
 			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
+		}
+	}
+	
+	public GameField(Game game, BarricadesState state){
+		if(game.drawOnly){
+			this.game = game;
+			
+			// Create sides
+			int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
+			Point leftBottom = new Point(0, height), rightBottom = new Point(Side.LENGTH, height), top = new Point(Side.LENGTH / 2, 0);
+			this.sides[0] = new Side(Player.Colour.values()[0], leftBottom, rightBottom);
+			this.sides[1] = new Side(Player.Colour.values()[1], top, leftBottom);
+			this.sides[2] = new Side(Player.Colour.values()[2], rightBottom, top);
+			
+			
+			// Create puck
+			this.puck = new Puck(0, this.getCenter(), 0);
+			
+			// Create barricades
+			for(int i = 0; i < state.barricadeXs.length; i++){
+				barricades.add(new Barricade(new Point(state.barricadeXs[i], state.barricadeYs[i]), state.averageRating));
+			}
+		}else{
+			throw new RuntimeException("A non drawonly game tried to create a wrong gamefield");
 		}
 	}
 	
@@ -142,19 +168,23 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
-				// Announce the first round
-				Program.setFeedback("Eerste ronde begint zo", Color.cyan);
-				
-				// Wait a bit
-				try{
-					Thread.sleep(3000);
-				}catch(InterruptedException exception){}
+				if(Program.offlineGame != null){
+					// Announce the first round
+					Program.setFeedback("Eerste ronde begint zo", Color.cyan);
+					
+					// Wait a bit
+					try{
+						Thread.sleep(3000);
+					}catch(InterruptedException exception){}
+				}
 				
 				// Keep updating, until the thread gets interrupted
 				while(true){
 					game.serialize();
 					
-					GameManagement.informGameUpdate(game);
+					if(Program.offlineGame == null){
+						GameManagement.informGameUpdate(game);
+					}
 					
 					update();
 					try{
@@ -219,8 +249,10 @@ public class GameField{
 			}
 		}
 		
-		// Update the Game screen
-		((JPanel)Program.getActivePanel()).repaint();
+		if(Program.offlineGame != null){
+			// Update the Game screen
+			((JPanel)Program.getActivePanel()).repaint();
+		}
 	}
 	
 	

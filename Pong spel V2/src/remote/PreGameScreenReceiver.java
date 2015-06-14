@@ -5,10 +5,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import view.GameScreen;
 import view.PreGameScreen;
-import view.Program;
-
 import fontys.observer.RemotePropertyListener;
 
 public class PreGameScreenReceiver extends UnicastRemoteObject implements RemotePropertyListener, Serializable{
@@ -27,24 +24,14 @@ public class PreGameScreenReceiver extends UnicastRemoteObject implements Remote
 			// Update the names in the gui
 			PlayersInGameUpdate players = (PlayersInGameUpdate) event.getNewValue();
 			preGameScreen.usernames = players.usernames;
+			preGameScreen.setPlayButtonEnabled();
 			preGameScreen.repaint();
 		}
 		
 		// Go on to the game screen if an BarricadePositions is retrieved,
 		// this is send on game start
-		else if(event.getNewValue() instanceof BarricadePositions){
-
-			// Stop listening for updates
-			try{
-				Program.secured.removeListener(this, "game" + Program.gameID);
-			}catch(RemoteException exception){
-				System.err.println("PreGameScreen: Could not stop listening to this game's updates");
-			}
-			
-			// Go to GameScreen
-			if(Program.getActivePanel() == preGameScreen){
-				Program.switchToPanel(GameScreen.class);
-			}
+		else if(event.getNewValue() instanceof BarricadesState){
+			preGameScreen.gameIsStarted((BarricadesState) event.getNewValue());
 		}
 	}
 	

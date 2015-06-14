@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import remote.BarricadesState;
 import remote.ISecured;
 import remote.IUnsecured;
 import remote.RmiServer;
@@ -32,6 +33,7 @@ public class Program{
 	
 	// The game this loggedInUser is in
 	public static int gameID;
+	public static BarricadesState barricadesState;
 	
 	// The offline game and player, if no one is logged in
 	public static Game offlineGame = null;
@@ -115,7 +117,7 @@ public class Program{
 	
 	private static void createFrame(){
 		mainFrame = new JFrame();
-		mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.setSize(windowSize.width + 6, windowSize.height + 28); // Additions for window borders
 		mainFrame.setTitle(title);
@@ -137,9 +139,10 @@ public class Program{
 		// Keep searching for the server until you found him
 		new Thread(new Runnable(){
 			public void run(){
-				System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
+				/*System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
 				Scanner scanner = new Scanner(System.in);
-			    String ipAddress = scanner.nextLine();
+			    String ipAddress = scanner.nextLine();*/
+				String ipAddress = "192.168.2.4";
 				
 				while(registry == null){
 					registry = locateRegistry(ipAddress, RmiServer.registryPort);

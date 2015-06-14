@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import remote.BarricadePositions;
+import remote.BarricadesState;
 import remote.GameUpdate;
 import remote.PlayersInGameUpdate;
 
@@ -32,10 +33,12 @@ public class Game{
 	private Player[] players = new Player[3];
 	private Player scorer;
 	
+	public final boolean drawOnly;
 	
 	
-	public Game(){
+	public Game(boolean drawOnly){
 		this.id = Game.NEXT_GAME_ID++;
+		this.drawOnly = drawOnly;
 	}
 	
 	
@@ -49,23 +52,13 @@ public class Game{
 	 * @return	True if the game could be started or false if the game has not yet 3 players
 	 */
 	public boolean startGame(){
-		if(!this.started){
+		if(!this.started && !this.drawOnly){
 			this.started = this.isReadyToPlay();
 			
 			// Create the gameField with knowledge of the players
 			if(this.started){
-				double averageRating = 0;
-				for(User user : UserManagement.getUsers()){
-					if(user != null){
-						if(this.containsPlayer(user.getPlayer())){
-							averageRating += user.getRating();
-						}
-					}
-				}
-				averageRating /= this.players.length;
-				averageRating /= Player.MAX_RATING;
-				this.gameField = new GameField(this, (int)averageRating);
-
+				this.gameField = new GameField(this, this.getAverageRating());
+				
 				serialize();
 				
 				// Give every player an bat to play with
@@ -82,9 +75,11 @@ public class Game{
 	}
 	
 	public boolean containsPlayer(Player player){
-		for(Player existingPlayer : this.players){
-			if(existingPlayer == player){
-				return true;
+		if(!this.drawOnly){
+			for(Player existingPlayer : this.players){
+				if(existingPlayer == player){
+					return true;
+				}
 			}
 		}
 		return false;
@@ -96,9 +91,11 @@ public class Game{
 	 */
 	public boolean isReadyToPlay(){
 		int players = 0;
-		for(Player player : this.players){
-			if(player != null){
-				players++;
+		if(!this.drawOnly){
+			for(Player player : this.players){
+				if(player != null){
+					players++;
+				}
 			}
 		}
 		
@@ -114,6 +111,9 @@ public class Game{
 	}
 	
 	public Set<Player> getPlayers(){
+		if(this.drawOnly){
+			return null;
+		}
 		Set<Player> players = new HashSet<Player>(Arrays.asList(this.players));
 		players.remove(null);
 		return players;
@@ -124,8 +124,8 @@ public class Game{
 	}
 	
 	public void increaseRound(Player.Colour scoredInGoalOf){
-		if(started){
-			// Change player's scores
+		if(this.started && !this.drawOnly){
+			// Change player's scoresa
 			for(Player player : this.players){
 				if(player.getColour() == scoredInGoalOf){
 					player.setPoints(player.getPoints() - 2);
@@ -152,8 +152,10 @@ public class Game{
 			// Serialize
 			serialize();
 			
-			// Announce the next round
-			Program.setFeedback("Volgende ronde begint zo", Color.cyan);
+			if(this == Program.offlineGame){
+				// Announce the next round
+				Program.setFeedback("Volgende ronde begint zo", Color.cyan);
+			}
 
 			// Wait a bit
 			try{
@@ -186,23 +188,28 @@ public class Game{
 			Program.offlineGame = null;
 		}
 		
+		if(Program.offlineGame == null){
+			GameManagement.informGameFinished(this);
+		}
+		
 		// Remove the bat from the controller
 		BatController.resetBat();
 		
-		// Announce game over, wait a bit, and redirect to the start screen
-		Program.setFeedback("Game over", Color.cyan);
-		new Thread(new Runnable(){
-			public void run(){
-				try{
-					Thread.sleep(5000);
-				}catch(InterruptedException exception){}
-				Program.switchToPanel(StartScreen.class);
-			}
-		}).start();
+		if(this == Program.offlineGame){
+			// Announce game over, wait a bit, and redirect to the start screen
+			Program.setFeedback("Game over", Color.cyan);
+			new Thread(new Runnable(){
+				public void run(){
+					try{
+						Thread.sleep(5000);
+					}catch(InterruptedException exception){}
+					Program.switchToPanel(StartScreen.class);
+				}
+			}).start();
+		}
 		
 		// Remove the serialized back up
 		this.removeSerializedBackup();
-		
 	}
 	
 	/**
@@ -210,7 +217,7 @@ public class Game{
 	 * @return	The player which was created and added or null if it couldn't
 	 */
 	public Player addPlayer(boolean ai){
-		if(!this.started){
+		if(!this.started && !this.drawOnly){
 			for(int i = 0; i < this.players.length; i++){
 				if(this.players[i] == null){
 					Player.Colour colour = Player.Colour.values()[i];
@@ -247,80 +254,111 @@ public class Game{
 	}
 	
 	public void setScorer(Player.Colour colour){
-		for(Player player : this.players){
-			if(player.getColour() == colour){
-				this.scorer = player;
-				break;
+		if(!this.drawOnly){
+			for(Player player : this.players){
+				if(player.getColour() == colour){
+					this.scorer = player;
+					break;
+				}
 			}
 		}
+	}
+	
+	private int getAverageRating(){
+		double averageRating = 0;
+		for(User user : UserManagement.getUsers()){
+			if(user != null){
+				if(this.containsPlayer(user.getPlayer())){
+					averageRating += user.getRating();
+				}
+			}
+		}
+		averageRating /= this.players.length;
+		return (int)averageRating;
 	}
 	
 	
 	
 	public void serialize(){
-		// Serialize the following data, in the given order
-		//	Game:			currentRound
-		//	GameField:	all barricade positions each time an x and y int value
-		//	Player:		colour, isAI, points, all powerUps, username from user
-		try{
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game" + this.id + ".data"));
-			out.write(this.currentRound);
-			if(this.getGameField() != null){
-				for(Barricade barricade : this.getGameField().getBarricades()){
-					out.writeObject(barricade.getPosition().x);
-					out.writeObject(barricade.getPosition().y);
-				}
-			}
-			for(Player player : this.getPlayers()){
-				out.writeObject(player.getColour());
-				out.writeObject(player.isAI());
-				out.writeObject(player.getPoints());
-				for(PowerUp powerUp : player.getPowerUps()){
-					if(powerUp != null){
-						out.writeObject(powerUp.getKind());
+		if(!this.drawOnly){
+			// Serialize the following data, in the given order
+			//	Game:			currentRound
+			//	GameField:	all barricade positions each time an x and y int value
+			//	Player:		colour, isAI, points, all powerUps, username from user
+			try{
+				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("game" + this.id + ".data"));
+				out.write(this.currentRound);
+				if(this.getGameField() != null){
+					for(Barricade barricade : this.getGameField().getBarricades()){
+						out.writeObject(barricade.getPosition().x);
+						out.writeObject(barricade.getPosition().y);
 					}
 				}
-				
-				String username = "";
-				try{
-					username = UserManagement.getUserOfPlayer(player).getUsername();
-				}catch(NullPointerException exception){}
-				out.writeObject(username);
-			}
-			out.close();
-		}catch(IOException exception){}
+				for(Player player : this.getPlayers()){
+					out.writeObject(player.getColour());
+					out.writeObject(player.isAI());
+					out.writeObject(player.getPoints());
+					for(PowerUp powerUp : player.getPowerUps()){
+						if(powerUp != null){
+							out.writeObject(powerUp.getKind());
+						}
+					}
+					
+					String username = "";
+					try{
+						username = UserManagement.getUserOfPlayer(player).getUsername();
+					}catch(NullPointerException exception){}
+					out.writeObject(username);
+				}
+				out.close();
+			}catch(IOException exception){}
+		}
 	}
 	
 	/* TODO(iteration 3) Deserialize Game from file
 	public Game deserialize(){
-		
+		if(!this.drawOnly){
+			
+		}
 	}
 	*/
 	
 	public void removeSerializedBackup(){
-		File gameData = new File("game" + this.id + ".data");
-		if(gameData.exists()){
-			gameData.delete();
+		if(!this.drawOnly){
+			File gameData = new File("game" + this.id + ".data");
+			if(gameData.exists()){
+				gameData.delete();
+			}
 		}
 	}
 	
 	
 	
 	public GameUpdate getGameUpdate(){
+		if(this.drawOnly){
+			return null;
+		}
+		
 		int puckX = this.gameField.getPuck().getPosition().x;
 		int puckY = this.gameField.getPuck().getPosition().y;
 		
 		int[] batPositions = new int[this.players.length];
+		int[] playerPoints = new int[this.players.length];
 		int i = 0;
 		for(Player player : this.players){
 			batPositions[i] = player.getBat().getPositionInGoal();
+			playerPoints[i] = player.getPoints();
 			i++;
 		}
 		
-		return new GameUpdate(this.id, puckX, puckY, batPositions);
+		return new GameUpdate(this.id, this.currentRound, puckX, puckY, batPositions, playerPoints);
 	}
 	
 	public PlayersInGameUpdate getPlayersInGameUpdate(){
+		if(this.drawOnly){
+			return null;
+		}
+		
 		String[] usernames = new String[this.players.length];
 		for(int i = 0; i < this.players.length; i++){
 			if(this.players[i] == null){
@@ -333,17 +371,21 @@ public class Game{
 		return new PlayersInGameUpdate(this.id, usernames);
 	}
 	
-	public BarricadePositions getBarricadePositions(){
+	public BarricadesState getBarricadesState(){
+		if(this.drawOnly){
+			return null;
+		}
+		
 		int[] xs = new int[this.gameField.getBarricades().size()];
 		int[] ys = new int[this.gameField.getBarricades().size()];
 		int i = 0;
 		for(Barricade barricade : this.gameField.getBarricades()){
 			xs[i] = barricade.getPosition().x;
-			xs[i] = barricade.getPosition().y;
+			ys[i] = barricade.getPosition().y;
 			i++;
 		}
 		
-		return new BarricadePositions(this.id, xs, ys);
+		return new BarricadesState(this.id, xs, ys, this.getAverageRating());
 	}
 	
 	
@@ -353,5 +395,33 @@ public class Game{
 			this.gameField.draw(g);
 		}
 	}
+	
+	/* Draw only functions */
+	public void setBarricadesState(BarricadesState state){
+		if(this.drawOnly){
+			// Set the gamefield with this state, it will see this game is a drawonly
+			this.gameField = new GameField(this, state);
+		}
+	}
+	
+	public void setGameUpdate(GameUpdate update){
+		if(this.drawOnly){
+			if(this.gameField == null){
+				try{
+					Thread.sleep(100);
+				}catch(InterruptedException e){}
+			}
+			
+			// Set the positions of the puck and all bats
+			this.gameField.getPuck().setPosition(new Point(update.puckX, update.puckY));
+			for(int i = 0; i < update.batPositions.length; i++){
+				this.gameField.getSide(Player.Colour.values()[i]).getGoal().getBat().setPositionInGoal(update.batPositions[i]);
+			}
+			
+			// Set the currentRound
+			this.currentRound = update.currentRound;
+		}
+	}
+	/* End draw only functions */
 	
 }

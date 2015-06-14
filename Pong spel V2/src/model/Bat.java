@@ -38,6 +38,12 @@ public class Bat{
 		this.positionInGoal = Math.min(this.maximumGoalPosition - (Bat.getLength() / 2), this.positionInGoal + MOVE_SPEED);
 	}
 	
+	public void setPositionInGoal(int p){
+		if(p > 0 && p < this.maximumGoalPosition - (Bat.getLength() / 2)){
+			this.positionInGoal = p;
+		}
+	}
+	
 	public boolean hit(Puck puck, Point goalA, Point goalB, Player.Colour colour){
 		// Get this bat's points
 		Point[] points = this.getPoints(goalA, goalB);

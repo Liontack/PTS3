@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Graphics;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
@@ -9,6 +8,7 @@ import java.util.Set;
 import fontys.observer.BasicPublisher;
 import fontys.observer.RemotePropertyListener;
 
+import remote.GameFinished;
 import remote.ISecured;
 
 public class GameManagement extends UnicastRemoteObject implements ISecured{
@@ -74,8 +74,9 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 		for(Game game : GameManagement.getInstance().games){
 			if(game.getPlayers().contains(player)){
 				if(game.startGame()){
+					game.getGameField().startUpdaterThread();
 					
-					this.basicPublisher.inform(this, "game" + game.getID(), null, game.getBarricadePositions());
+					this.basicPublisher.inform(this, "game" + game.getID(), null, game.getBarricadesState());
 					
 					return true;
 				}else{
@@ -101,7 +102,7 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 	
 	
 	private static int createGame(User user){
-		Game newGame = new Game();
+		Game newGame = new Game(false);
 		Player player = newGame.addPlayer(false);
 		user.setPlayer(player);
 		
@@ -123,12 +124,6 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 	
 	
 	
-	public static void draw(Game game, Graphics g){
-		game.draw(g);
-	}
-	
-	
-	
 	// RemoteObservable part
 	private BasicPublisher basicPublisher = new BasicPublisher(new String[]{  });
 	
@@ -146,11 +141,13 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 	public void removeListener(RemotePropertyListener listener, String property) throws RemoteException{
 		this.basicPublisher.removeListener(listener, property);
 	}
-	
+
 	public static void informGameUpdate(Game game){
-		try{
-			GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, game.getGameUpdate());
-		}catch(RuntimeException exception){}
+		GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, game.getGameUpdate());
+	}
+
+	public static void informGameFinished(Game game){
+		GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, new GameFinished());
 	}
 	
 }

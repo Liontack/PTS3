@@ -71,7 +71,7 @@ public class StartScreen extends JPanel{
 				// Go directly to the game screen
 				Program.switchToPanel(GameScreen.class);
 				
-				Game offlineGame = new Game();
+				Game offlineGame = new Game(false);
 				Program.offlineGame = offlineGame;
 				Player offlinePlayer = offlineGame.addPlayer(false);
 				Program.offlinePlayer = offlinePlayer;

@@ -8,7 +8,7 @@ import view.Program;
 
 public class Player{
 	public static final double MAX_RATING = 40.00;
-	private static final int START_POINTS = 20;
+	public static final int START_POINTS = 20;
 	private static final int AI_REACTION_TIME = 100;
 	private static final int AI_TIMES_REOCCURING_MIN = 5;
 	private static final int AI_TIMES_REOCCURING_MAX = 10;
