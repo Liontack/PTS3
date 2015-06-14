@@ -2,6 +2,7 @@ package keyboard;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
 
@@ -14,6 +15,17 @@ public class BatController extends KeyAdapter{
 	private final int reactionSpeed = 60;
 	private Thread leftmover, rightmover;
 	
+	private static BatController instance;
+	private Bat bat = null;
+	
+	
+	
+	public BatController(){
+		instance = this;
+	}
+	
+	
+	
 	public void keyPressed(KeyEvent event){
 		if(leftmover == null){
 			if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A){
@@ -21,7 +33,7 @@ public class BatController extends KeyAdapter{
 					public void run(){
 						while(true){
 							if(rightmover == null){
-								bat().moveLeft();
+								moveLeft();
 							}
 							
 							// Update the Game screen
@@ -45,7 +57,7 @@ public class BatController extends KeyAdapter{
 					public void run(){
 						while(true){
 							if(leftmover == null){
-								bat().moveRight();
+								moveRight();
 							}
 							
 							// Update the Game screen
@@ -76,32 +88,37 @@ public class BatController extends KeyAdapter{
 			rightmover = null;
 		}
 	}
-	
-	private static Bat bat = null;
-	private Bat bat(){
-		if(bat != null){
-			return bat;
-		}
-		
-		if(Program.offlinePlayer != null){
-			bat = Program.offlinePlayer.getBat();
-			return bat;
+
+	private void moveLeft(){
+		if(this.bat != null){
+			this.bat.moveLeft();
 		}else{
-			/*TODO remote bat controller
-			//Program.secured.moveBat(Program.userID, left);
-			for(Player player : Program.activeGame.getPlayers()){
-				if(UserManagement.getUserOfPlayer(player) == Program.loggedInUser){
-					bat = player.getBat();
-					return bat;
-				}
-			}*/
+			try{
+				Program.secured.moveBat(Program.userID, true);
+			}catch(RemoteException e){}
 		}
-		
-		return null;
+	}
+
+	private void moveRight(){
+		if(this.bat != null){
+			this.bat.moveRight();
+		}else{
+			try{
+				Program.secured.moveBat(Program.userID, false);
+			}catch(RemoteException e){}
+		}
+	}
+	
+	
+	
+	public static void setBat(){
+		if(Program.offlinePlayer != null){
+			instance.bat = Program.offlinePlayer.getBat();
+		}
 	}
 	
 	public static void resetBat(){
-		bat = null;
+		instance.bat = null;
 	}
 	
 }

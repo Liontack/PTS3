@@ -40,6 +40,8 @@ public class GameScreen extends JPanel{
 	}
 	
 	public void initScreen(){
+		BatController.setBat();
+		
 		if(Program.offlineGame != null){
 			Program.offlineGame.getGameField().startUpdaterThread();
 		}else
