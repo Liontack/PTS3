@@ -61,11 +61,11 @@ public class GameScreen extends JPanel{
 	}
 	
 	public void gameIsFinished(){
-		// Go to start screen
-		Program.switchToPanel(StartScreen.class);
-		
 		Program.gameID = 0;
 		Program.barricadesState = null;
+		
+		// Go to start screen
+		Program.switchToPanel(StartScreen.class);
 	}
 	
 	
@@ -104,7 +104,7 @@ public class GameScreen extends JPanel{
 				i += 16;
 			}
 		}else if(this.drawOnlyGame != null){
-			this.drawOnlyGame.draw(g);
+			this.drawOnlyGame.draw(g);//TODO second and third player must have a different view (rotated)
 			
 			// Also draw some strings
 			g.setColor(Color.black);
@@ -120,6 +120,4 @@ public class GameScreen extends JPanel{
 		
 	}
 	
-	
-	//XXX second and third player must have a different view (rotated)
 }

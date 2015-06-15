@@ -126,6 +126,7 @@ public class PreGameScreen extends JPanel{
 		
 		// Set these usernames in the gamescreen
 		((GameScreen)Program.getActivePanel()).usernames = this.usernames;
+		this.usernames = new String[]{};
 		Program.barricadesState = barricadesState;
 	}
 	

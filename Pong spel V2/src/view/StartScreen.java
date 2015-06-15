@@ -50,6 +50,11 @@ public class StartScreen extends JPanel{
 		playGameOnline.setLocation((Program.windowSize.width * 3 / 4) - (playGameOnline.getWidth() * 1 / 2) , Program.windowSize.height * 2 / 10);
 		playGameOnline.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
+				// Test the connection
+				if(!Program.testConnection()){
+					return;
+				}
+				
 				// Go to a next screen, dependent on whether there is someone logged in
 				if(Program.userID == 0){
 					Program.switchToPanel(LoginScreen.class);
@@ -99,7 +104,7 @@ public class StartScreen extends JPanel{
 						System.err.println("User " + Program.username + " was not logged out");
 					}
 					
-					// Close application after a delay of 5 seconds
+					// Close application after a delay of 4 seconds
 					new Thread(new Runnable(){
 						public void run(){
 							try{
@@ -117,12 +122,17 @@ public class StartScreen extends JPanel{
 	}
 	
 	public void initScreen(){
+		// Test the connection
+		Program.testConnection();
+		
 		// Reload the user rating table
 		Set<RatingWrapper> ratings = new TreeSet<>(new comparator.UserRating());
 		try{
 			ratings.addAll(Program.unsecured.getUserRatings());
+			//Program.setFeedback("De server is bereikbaar", Color.green);
 		}catch(RemoteException | NullPointerException exception){
 			System.err.println("The ratings were not retrieved from the server");
+			//Program.setFeedback("De server is onbereikbaar", Color.red);
 		}
 		String[] columnNames = { "Username", "Rating" };
 		Object[][] data = new Object[ratings.size()][2];

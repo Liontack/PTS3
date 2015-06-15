@@ -22,7 +22,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 10;
+	public static int ROUND_AMOUNT = 2;
 	
 	
 	
@@ -170,30 +170,10 @@ public class Game{
 			this.gameField.stopUpdaterThread();
 			this.gameField = null;
 		}
-		
-		if(this != Program.offlineGame){
-			// Add the player's scores to their user's point list
-			for(Player player : this.players){
-				if(!player.isAI()){
-					User user = UserManagement.getUserOfPlayer(player);
-					if(user != null){
-						user.addNewRecentPoints(player.getPoints());
-					}
-				}else{
-					// Turn the ai movers off
-					player.stopAiMoverThread();
-				}
-			}
-		}else{
-			Program.offlineGame = null;
-		}
-		
+
 		if(Program.offlineGame == null){
 			GameManagement.informGameFinished(this);
 		}
-		
-		// Remove the bat from the controller
-		BatController.resetBat();
 		
 		if(this == Program.offlineGame){
 			// Announce game over, wait a bit, and redirect to the start screen
@@ -207,6 +187,28 @@ public class Game{
 				}
 			}).start();
 		}
+		
+		if(this != Program.offlineGame){
+			// Add the player's scores to their user's point list
+			for(Player player : this.players){
+				if(!player.isAI()){
+					User user = UserManagement.getUserOfPlayer(player);
+					if(user != null){
+						user.addNewRecentPoints(player.getPoints());
+					}
+					user.clearPlayer();
+				}else{
+					// Turn the ai movers off
+					player.stopAiMoverThread();
+				}
+			}
+		}else{
+			Program.offlineGame = null;
+			Program.offlinePlayer = null;
+		}
+		
+		// Remove the bat from the controller
+		BatController.resetBat();
 		
 		// Remove the serialized back up
 		this.removeSerializedBackup();

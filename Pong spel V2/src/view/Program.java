@@ -45,6 +45,7 @@ public class Program{
 	public static Registry registry;
 	public static IUnsecured unsecured;
 	public static ISecured secured;
+	private static String ipAddress = "";
 	
 	
 	
@@ -113,7 +114,17 @@ public class Program{
         
         return secured;
     }
-	/*END RMI METHODS*/
+	
+    public static boolean testConnection(){//TODO test connection only localhost error?
+    	boolean connected = Program.locateRegistry(ipAddress, RmiServer.registryPort) != null;
+    	if(connected){
+			Program.setFeedback("De server is bereikbaar", Color.green);
+		}else{
+			Program.setFeedback("De server is onbereikbaar", Color.red);
+		}
+    	return connected;
+    }
+    /*END RMI METHODS*/
 	
 	private static void createFrame(){
 		mainFrame = new JFrame();
@@ -139,13 +150,12 @@ public class Program{
 		// Keep searching for the server until you found him
 		new Thread(new Runnable(){
 			public void run(){
-				/*System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
+				System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
 				Scanner scanner = new Scanner(System.in);
-			    String ipAddress = scanner.nextLine();*/
-				String ipAddress = "192.168.2.4";
+			    Program.ipAddress = scanner.nextLine();
 				
 				while(registry == null){
-					registry = locateRegistry(ipAddress, RmiServer.registryPort);
+					registry = locateRegistry(Program.ipAddress, RmiServer.registryPort);
 				}
 				
 		        if(registry != null){

@@ -198,7 +198,7 @@ public class GameField{
 		});
 		updaterThread.start();
 	}
-	
+		
 	public void stopUpdaterThread(){
 		this.updaterThread.interrupt();
 	}

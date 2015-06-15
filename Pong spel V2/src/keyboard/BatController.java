@@ -118,7 +118,9 @@ public class BatController extends KeyAdapter{
 	}
 	
 	public static void resetBat(){
-		instance.bat = null;
+		if(instance != null){
+			instance.bat = null;
+		}
 	}
 	
 }

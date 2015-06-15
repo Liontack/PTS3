@@ -7,7 +7,7 @@ import java.awt.Point;
 public class Puck{
 	
 	public static final int DIAMETER_PERCENT_OF_SIDE_LENGTH = 4;
-	public static final int DEFAULT_VELOCITY = 4;
+	public static final int DEFAULT_VELOCITY = 2;
 	private static final double significance = 10000.000000;
 	
 	private int velocity;

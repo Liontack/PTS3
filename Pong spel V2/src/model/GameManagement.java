@@ -147,6 +147,7 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 	}
 
 	public static void informGameFinished(Game game){
+		GameManagement.getInstance().games.remove(game);
 		GameManagement.getInstance().basicPublisher.inform(GameManagement.getInstance(), "game" + game.getID(), null, new GameFinished());
 	}
 	
