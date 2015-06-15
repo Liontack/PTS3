@@ -19,8 +19,8 @@ public class GameScreenReceiver extends UnicastRemoteObject implements RemotePro
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent event) throws RemoteException{
-		// If it is a BarricadePositions
-		if(event.getNewValue() instanceof BarricadesState){//XXX(remove comment for assessment) Does never occur
+		// If it is a BarricadePositions; does never occur, because it starts listening when this was sent
+		if(event.getNewValue() instanceof BarricadesState){
 			// Set the barricades state
 			gameScreen.drawOnlyGame.setBarricadesState((BarricadesState) event.getNewValue());
 		}

@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,7 +23,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 2;
+	public static int ROUND_AMOUNT = 10;
 	
 	
 	
@@ -392,7 +393,20 @@ public class Game{
 	
 	
 	
-	public void draw(Graphics g){
+	public void draw(Graphics g, Player.Colour playerColourDown){
+		// Rotate the gamefield graphics, such that playerColourDown is on the bottom of the screen
+		int rotationDegrees = 0;// Default and RED
+		switch(playerColourDown){
+			case GREEN:
+				rotationDegrees = 120;
+				break;
+			case BLUE:
+				rotationDegrees = 240;
+				break;
+		}
+		Point center = this.gameField.getCenter();
+		((Graphics2D) g).rotate(Math.toRadians(rotationDegrees), center.x, center.y);
+		
 		if(this.gameField != null){
 			this.gameField.draw(g);
 		}

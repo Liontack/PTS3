@@ -115,14 +115,20 @@ public class Program{
         return secured;
     }
 	
-    public static boolean testConnection(){//TODO test connection only localhost error?
-    	boolean connected = Program.locateRegistry(ipAddress, RmiServer.registryPort) != null;
+    public static boolean testConnection(){//TODO test connection other way
+    	if(ipAddress.isEmpty()){
+    		return false;
+    	}
+    	Program.setFeedback("De server is bereikbaar", Color.green);//XXX delete
+    	return true;
+    	/*Registry r = Program.locateRegistry(ipAddress, RmiServer.registryPort);
+    	boolean connected = (r != null);
     	if(connected){
 			Program.setFeedback("De server is bereikbaar", Color.green);
 		}else{
 			Program.setFeedback("De server is onbereikbaar", Color.red);
 		}
-    	return connected;
+    	return connected;*/
     }
     /*END RMI METHODS*/
 	

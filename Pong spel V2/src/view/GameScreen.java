@@ -75,9 +75,7 @@ public class GameScreen extends JPanel{
 		
 		// Draw the game
 		if(Program.offlineGame != null){
-			Program.offlineGame.draw(g);
-			
-			// Also draw some strings
+			// Draw some strings (unaffected by rotation)
 			g.setColor(Color.black);
 			g.drawString("Ronde " + Program.offlineGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
 			int i = 0;
@@ -103,19 +101,27 @@ public class GameScreen extends JPanel{
 				g.drawString(username, 30, 40 + i);
 				i += 16;
 			}
-		}else if(this.drawOnlyGame != null){
-			this.drawOnlyGame.draw(g);//TODO second and third player must have a different view (rotated)
 			
-			// Also draw some strings
+			// Draw the rotated Game, red down
+			Program.offlineGame.draw(g, Player.Colour.RED);
+		}else if(this.drawOnlyGame != null){
+			// Draw some strings (unaffected by rotation)
 			g.setColor(Color.black);
 			g.drawString("Ronde " + this.drawOnlyGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
+			Player.Colour thisLoggedInUsersColour = Player.Colour.RED;
 			int i = 0;
 			for(int k = 0; k < this.usernames.length; k++){
+				if(this.usernames[k].toLowerCase().equals(Program.username.toLowerCase())){
+					thisLoggedInUsersColour = Player.Colour.values()[k];
+				}
 				g.setColor(Player.Colour.values()[k].drawColor);
 				g.drawString(String.valueOf(this.playerPoints[k]), 8, 40 + i);
 				g.drawString(this.usernames[k], 30, 40 + i);
 				i += 16;
 			}
+			
+			// Draw the rotated Game, player colour down
+			this.drawOnlyGame.draw(g, thisLoggedInUsersColour);
 		}
 		
 	}

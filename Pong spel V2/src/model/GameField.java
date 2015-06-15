@@ -98,9 +98,9 @@ public class GameField{
 		this.puck = new Puck(angle, randomPosition, this.averageRating);
 	}
 	
-	private Point getCenter(){
+	public Point getCenter(){
 		int height = (int) (Math.tan(Math.toRadians(60)) * Side.LENGTH / 2);
-		return new Point(Side.LENGTH / 2, height / 2);
+		return new Point(Side.LENGTH / 2, height * 2 / 3);
 	}
 	
 	public Puck getPuck(){
