@@ -156,7 +156,7 @@ public class Program{
 		// Keep searching for the server until you found him
 		new Thread(new Runnable(){
 			public void run(){
-				System.out.println("Voer het ip adres van de server in");//XXX(iteration 3) Better way to get ip address
+				System.out.println("Voer het ip adres van de server in");//XXX(no iteration) Better way to get ip address
 				Scanner scanner = new Scanner(System.in);
 			    Program.ipAddress = scanner.nextLine();
 				

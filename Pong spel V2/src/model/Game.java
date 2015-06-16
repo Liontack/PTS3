@@ -318,14 +318,6 @@ public class Game{
 		}
 	}
 	
-	/* TODO(iteration 3) Deserialize Game from file
-	public Game deserialize(){
-		if(!this.drawOnly){
-			
-		}
-	}
-	*/
-	
 	public void removeSerializedBackup(){
 		if(!this.drawOnly){
 			File gameData = new File("game" + this.id + ".data");
@@ -394,20 +386,21 @@ public class Game{
 	
 	
 	public void draw(Graphics g, Player.Colour playerColourDown){
-		// Rotate the gamefield graphics, such that playerColourDown is on the bottom of the screen
-		int rotationDegrees = 0;// Default and RED
-		switch(playerColourDown){
-			case GREEN:
-				rotationDegrees = 120;
-				break;
-			case BLUE:
-				rotationDegrees = 240;
-				break;
-		}
-		Point center = this.gameField.getCenter();
-		((Graphics2D) g).rotate(Math.toRadians(rotationDegrees), center.x, center.y);
-		
+		//((Graphics2D) g).translate(150, 50); XXX(iteration 3) Add translation of gamefield
 		if(this.gameField != null){
+			// Rotate the gamefield graphics, such that playerColourDown is on the bottom of the screen
+			int rotationDegrees = 0;// Default and RED
+			switch(playerColourDown){
+				case GREEN:
+					rotationDegrees = 120;
+					break;
+				case BLUE:
+					rotationDegrees = 240;
+					break;
+			}
+			Point center = this.gameField.getCenter();
+			((Graphics2D) g).rotate(Math.toRadians(rotationDegrees), center.x, center.y);
+		
 			this.gameField.draw(g);
 		}
 	}

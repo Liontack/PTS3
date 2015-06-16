@@ -64,6 +64,8 @@ public class GameScreen extends JPanel{
 		Program.gameID = 0;
 		Program.barricadesState = null;
 		
+		this.drawOnlyGame = null;
+		
 		// Go to start screen
 		Program.switchToPanel(StartScreen.class);
 	}
