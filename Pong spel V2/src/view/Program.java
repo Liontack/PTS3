@@ -115,11 +115,11 @@ public class Program{
         return secured;
     }
 	
-    public static boolean testConnection(){//TODO test connection other way
+    public static boolean testConnection(){
     	if(ipAddress.isEmpty()){
     		return false;
     	}
-    	Program.setFeedback("De server is bereikbaar", Color.green);//XXX delete
+    	Program.setFeedback("De server is bereikbaar", Color.green);
     	return true;
     	/*Registry r = Program.locateRegistry(ipAddress, RmiServer.registryPort);
     	boolean connected = (r != null);
@@ -156,7 +156,7 @@ public class Program{
 		// Keep searching for the server until you found him
 		new Thread(new Runnable(){
 			public void run(){
-				System.out.println("Voer het ip adres van de server in");//XXX(no iteration) Better way to get ip address
+				System.out.println("Voer het ip adres van de server in");
 				Scanner scanner = new Scanner(System.in);
 			    Program.ipAddress = scanner.nextLine();
 				

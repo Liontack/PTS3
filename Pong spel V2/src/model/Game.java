@@ -386,7 +386,7 @@ public class Game{
 	
 	
 	public void draw(Graphics g, Player.Colour playerColourDown){
-		//((Graphics2D) g).translate(150, 50); XXX(iteration 3) Add translation of gamefield
+		//((Graphics2D) g).translate(150, 50);
 		if(this.gameField != null){
 			// Rotate the gamefield graphics, such that playerColourDown is on the bottom of the screen
 			int rotationDegrees = 0;// Default and RED
