@@ -24,17 +24,35 @@ public class User implements Serializable{
 	
 	
 	
-	User(String username, String password, int[] mostRecentPoints){
-		this(username, password);
+	public User(int id, String username, String password, boolean passwordIsPlain, int[] mostRecentPoints){
+		this.id = id;
+		this.username = username;
+		if(passwordIsPlain){
+			this.password = User.encrypt(password);
+		}else{
+			this.password = password;
+		}
+		Arrays.fill(this.mostRecentPoints, -1);
 		for(int i = 0; i < Math.min(mostRecentPoints.length, this.mostRecentPoints.length); i++){
 			this.mostRecentPoints[i] = mostRecentPoints[i];
 		}
 	}
 	
-	User(String username, String password){
+	User(String username, String password, boolean passwordIsPlain, int[] mostRecentPoints){
+		this(username, password, passwordIsPlain);
+		for(int i = 0; i < Math.min(mostRecentPoints.length, this.mostRecentPoints.length); i++){
+			this.mostRecentPoints[i] = mostRecentPoints[i];
+		}
+	}
+	
+	User(String username, String password, boolean passwordIsPlain){
 		this.id = User.NEXT_USER_ID++;
 		this.username = username;
-		this.password = User.encrypt(password);
+		if(passwordIsPlain){
+			this.password = User.encrypt(password);
+		}else{
+			this.password = password;
+		}
 		Arrays.fill(this.mostRecentPoints, -1);
 	}
 	
@@ -85,7 +103,7 @@ public class User implements Serializable{
 		this.mostRecentPoints[0] = points;
 		
 		// Also immediately save this
-		UserManagement.saveUsersSet();
+		UserManagement.save();
 	}
 	
 	public void setPlayer(Player player){
@@ -94,6 +112,16 @@ public class User implements Serializable{
 	
 	public void clearPlayer(){
 		this.player = null;
+	}
+	
+	/**
+	 * Only meant for the database mediator
+	 */
+	public String getPassword(){
+		return this.password;
+	}
+	public int[] getMostRecentPoints(){
+		return this.mostRecentPoints;
 	}
 	
 	

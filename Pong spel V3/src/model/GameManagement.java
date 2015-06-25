@@ -60,7 +60,6 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 		for(Game game : GameManagement.getInstance().games){
 			if(game.containsPlayer(user.getPlayer())){
 				game.removePlayer(user.getPlayer());
-				user.clearPlayer();
 				
 				this.basicPublisher.inform(this, "game" + game.getID(), null, game.getPlayersInGameUpdate());
 				

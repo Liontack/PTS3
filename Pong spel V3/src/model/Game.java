@@ -251,15 +251,17 @@ public class Game{
 	 * @param player	The player to remove
 	 * @return			True if the player was removed
 	 */
-	public boolean removePlayer(Player player){
+	public boolean removePlayer(Player player){//FIXME a second game can't be played, I think because of this (mal)function
 		boolean playerRemoved = false;
 		if(!started){
 			for(int i = 0; i < this.players.length; i++){
+				User userWithPlayerI = UserManagement.getUserOfPlayer(this.players[i]);
+				
 				if(this.players[i] == player){
 					this.players[i] = null;
+					userWithPlayerI.clearPlayer();
 					playerRemoved = true;
 				}else if(playerRemoved){
-					User userWithPlayerI = UserManagement.getUserOfPlayer(this.players[i]);
 					userWithPlayerI.setPlayer(new Player(Player.Colour.values()[i - 1], false));
 					this.players[i - 1] = userWithPlayerI.getPlayer();
 					this.players[i] = null;

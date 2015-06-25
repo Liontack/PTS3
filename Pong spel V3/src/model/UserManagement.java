@@ -1,11 +1,5 @@
 package model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collections;
@@ -15,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import remote.IUnsecured;
+import storage.*;
 
 import comparator.RatingWrapper;
 
@@ -26,11 +21,20 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	private static UserManagement instance;
 	
 	private Map<User, Boolean> users;
+	private StorageMediator storageMediator = new SerializationMediator();
 	
 	
 	
 	private UserManagement() throws RemoteException{
-		fillUsersSet();
+		Set<User> users = this.storageMediator.load();
+		this.users = new HashMap<>();
+		int highestUserID = 0;
+		for(User user : users){
+			this.users.put(user, false);
+			highestUserID = Math.max(user.getID(), highestUserID);
+		}
+		
+		User.setNextUserID(highestUserID + 1);
 	}
 	
 	public static UserManagement getInstance(){
@@ -41,42 +45,6 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		}
 		return UserManagement.instance;
 	}
-	
-	
-	
-	public void fillUsersSet(){
-		this.users = new HashMap<>();
-		File file = new File("users.data");
-		if(file.exists()){
-			try{
-				ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file));
-				int highestUserID = 0;
-				while(true){
-					try{
-						User user = (User) reader.readObject();
-						this.users.put(user, false);
-						highestUserID = user.getID();
-					}catch(Exception exception){
-						break;
-					}
-				}
-				User.setNextUserID(highestUserID + 1);
-			}catch(Exception exception){
-				exception.printStackTrace();
-			}
-		}
-	}
-	
-	public static void saveUsersSet(){
-		try{
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.data"));
-			for(User user : getInstance().users.keySet()){
-				out.writeObject(user);
-			}
-			out.close();
-		}catch(IOException exception){}
-	}
-	
 	
 	
 	
@@ -91,10 +59,10 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		}
 		
 		// Return true if the user was created and logged in
-		instance.users.put(new User(username, password), false);
+		instance.users.put(new User(username, password, true), false);
 		
 		// Also save the new user
-		UserManagement.saveUsersSet();
+		this.storageMediator.save();
 		
 		return userLogin(username, password);
 	}
@@ -160,6 +128,18 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	
 	public static synchronized boolean isUserLoggedIn(User user){
 		return getInstance().users.get(user);
+	}
+	
+	public static synchronized void save(){
+		UserManagement.getInstance().storageMediator.save();
+	}
+	
+	public static void setStorageType(Class<? extends StorageMediator> mediatorClass){
+		try {
+			UserManagement.getInstance().storageMediator = mediatorClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

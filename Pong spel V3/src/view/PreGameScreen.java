@@ -95,9 +95,9 @@ public class PreGameScreen extends JPanel{
 	}
 	
 	public void initScreen(){
-		setPlayButtonEnabled();
-		
 		if(Program.gameID == 0){
+			this.usernames = new String[]{ "", "", ""};
+			
 			// Join game and listen for updates
 			try{
 				Program.gameID = Program.secured.joinGame(Program.userID);
@@ -107,6 +107,8 @@ public class PreGameScreen extends JPanel{
 				System.err.println("PreGameScreen: Could not join game or listen to this game's updates");
 			}
 		}
+		
+		setPlayButtonEnabled();
 	}
 	
 	public void setPlayButtonEnabled(){

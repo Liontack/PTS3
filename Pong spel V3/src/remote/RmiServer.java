@@ -5,6 +5,10 @@ import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+import storage.DatabaseMediator;
+import storage.SerializationMediator;
 
 import model.GameManagement;
 import model.UserManagement;
@@ -17,6 +21,35 @@ public class RmiServer{
             System.out.println("Server: Started and open on IP address: " + localhost.getHostAddress());
             
             new RmiServer();
+            
+            // Start a thread to change mediators
+            new Thread(new Runnable(){
+            	public void run(){
+            		Scanner scanner = new Scanner(System.in);
+            		while(true){
+            			System.err.println();
+    					System.out.println("You can switch between the mediators");
+            			System.out.println("Choose '1' for the serialization mediatior");
+            			System.out.println("Choose '2' for the database mediatior");
+            			System.err.println();
+    					switch(scanner.next()){
+            				case "1":
+            					System.out.println("You choose for the serialization");
+            					UserManagement.setStorageType(SerializationMediator.class);
+            					UserManagement.save();
+            					break;
+            				case "2":
+            					System.out.println("You choose for the database");
+            					UserManagement.setStorageType(DatabaseMediator.class);
+            					UserManagement.save();
+            					break;
+            				default:
+            					System.err.println("You did not provide a legal input, try again");
+            					break;
+            			}
+            		}
+            	}
+            }).start();
         }catch(UnknownHostException ex){}
     }
     
