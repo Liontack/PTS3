@@ -48,7 +48,7 @@ public class GameField{
 		// Create barricades
 		int nBarricades = (int)Math.round(MIN_BARRICADES + (((double)averageRating / Player.MAX_RATING) * (MAX_BARRICADES - MIN_BARRICADES)));
 		for(int i = 0; i < nBarricades; i++){
-			barricades.add(new Barricade(this.getRandomPosition(), averageRating));
+			barricades.add(new Barricade(this.getRandomPositionInCenter(), averageRating));
 		}
 	}
 	
@@ -129,8 +129,16 @@ public class GameField{
 			double randomLength = 10 + (Math.random() * Side.LENGTH / 8);
 			point = new Point(this.getCenter().x + (int)(Math.cos(randomAngle) * randomLength), this.getCenter().y + (int)(Math.sin(randomAngle) * randomLength));
 			
+			// Check if the new point would interfere with another barricade
 			for(Barricade barricade : this.barricades){
-				if(barricade.getPosition().distance(point) < (barricade.getDiameter() + Puck.getDiameter()) / 2){
+				if(barricade.getPosition().distance(point) < barricade.getDiameter()){
+					hitBarricade = true;
+					break;
+				}
+			}
+			// Check if the new point would interfere with the puck
+			if(this.getPuck() != null){
+				if(this.getPuck().getPosition().distance(point) < Puck.getDiameter()){
 					hitBarricade = true;
 					break;
 				}
