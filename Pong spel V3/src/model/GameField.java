@@ -182,15 +182,17 @@ public class GameField{
 					
 					// Wait a bit
 					try{
-						Thread.sleep(3000);
+						Thread.sleep(5000);
 					}catch(InterruptedException exception){}
 				}
 				
+				boolean offlineGame = Program.offlineGame != null;
+				
 				// Keep updating, until the thread gets interrupted
-				while(true){
+				while(!game.isFinished()){
 					game.serialize();
 					
-					if(Program.offlineGame == null){
+					if(!offlineGame){
 						GameManagement.informGameUpdate(game);
 					}
 					
@@ -198,10 +200,10 @@ public class GameField{
 					try{
 						Thread.sleep(GameField.UPDATE_SPEED);
 					}catch(InterruptedException exception){
-						System.out.println("Game ended");
 						break;
 					}
 				}
+				System.out.println("Game ended");
 			}
 		});
 		updaterThread.start();
@@ -257,7 +259,7 @@ public class GameField{
 			}
 		}
 		
-		if(Program.offlineGame != null){
+		if(Program.offlineGame != null && !game.isFinished()){
 			// Update the Game screen
 			((JPanel)Program.getActivePanel()).repaint();
 		}

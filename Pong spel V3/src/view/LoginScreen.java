@@ -144,7 +144,7 @@ public class LoginScreen extends JPanel{
 					}
 					if(Program.userID != 0){
 						Program.username = input_username.getText();
-						Program.setFeedback("Gebruiker aangemaakt en ingelogd", Color.green);
+						Program.setFeedback("Gebruiker geregistreerd en ingelogd", Color.green);
 					}else{
 						Program.setFeedback("Gebruiker niet geregistreerd; gebruikersnaam bestaat al", Color.red);
 						return;

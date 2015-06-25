@@ -23,13 +23,14 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 10;
+	public static int ROUND_AMOUNT = 2;//XXX reset to 10
 	
 	
 	
 	private final int id;
 	private int currentRound = 0;
 	private boolean started = false;
+	private boolean finished = false;
 	private GameField gameField;
 	private Player[] players = new Player[3];
 	private Player scorer;
@@ -160,33 +161,24 @@ public class Game{
 
 			// Wait a bit
 			try{
-				Thread.sleep(3000);
+				Thread.sleep(5000);
 			}catch(InterruptedException exception){}
 		}
 	}
 	
 	private void finish(){
+		this.finished = true;
+		
 		// Make this instance unusable
 		if(this.gameField != null){
 			this.gameField.stopUpdaterThread();
 			this.gameField = null;
 		}
 
-		if(Program.offlineGame == null){
-			GameManagement.informGameFinished(this);
-		}
-		
-		if(this == Program.offlineGame){
-			// Announce game over, wait a bit, and redirect to the start screen
-			Program.setFeedback("Game over", Color.cyan);
-			new Thread(new Runnable(){
-				public void run(){
-					try{
-						Thread.sleep(5000);
-					}catch(InterruptedException exception){}
-					Program.switchToPanel(StartScreen.class);
-				}
-			}).start();
+		if(this != Program.offlineGame){
+			try{
+				GameManagement.informGameFinished(this);
+			}catch(Exception exception){}
 		}
 		
 		if(this != Program.offlineGame){
@@ -203,9 +195,6 @@ public class Game{
 					player.stopAiMoverThread();
 				}
 			}
-		}else{
-			Program.offlineGame = null;
-			Program.offlinePlayer = null;
 		}
 		
 		// Remove the bat from the controller
@@ -213,6 +202,26 @@ public class Game{
 		
 		// Remove the serialized back up
 		this.removeSerializedBackup();
+		
+		if(this == Program.offlineGame){
+			// Announce game over, wait a bit, and redirect to the start screen
+			Program.setFeedback("Game over", Color.cyan);
+			
+			new Thread(new Runnable(){
+				public void run(){
+					try{
+						Thread.sleep(5000);
+						
+						Program.offlineGame = null;
+						Program.offlinePlayer = null;
+					}catch(InterruptedException exception){
+						exception.printStackTrace();
+					}
+					Program.switchToPanel(StartScreen.class);
+				}
+			}).start();
+		}
+		
 	}
 	
 	/**
@@ -237,6 +246,8 @@ public class Game{
 	/**
 	 * Remove the player from this game; only if not started
 	 * It is always the case that the null values are at the end of the array
+	 * Note: The colours of the players should also stay in the correct order,
+	 * 		 so the existing users get new player objects with the correct colours
 	 * @param player	The player to remove
 	 * @return			True if the player was removed
 	 */
@@ -248,7 +259,9 @@ public class Game{
 					this.players[i] = null;
 					playerRemoved = true;
 				}else if(playerRemoved){
-					this.players[i - 1] = this.players[i];
+					User userWithPlayerI = UserManagement.getUserOfPlayer(this.players[i]);
+					userWithPlayerI.setPlayer(new Player(Player.Colour.values()[i - 1], false));
+					this.players[i - 1] = userWithPlayerI.getPlayer();
 					this.players[i] = null;
 				}
 			}
@@ -278,6 +291,10 @@ public class Game{
 		}
 		averageRating /= this.players.length;
 		return (int)averageRating;
+	}
+	
+	public boolean isFinished(){
+		return this.finished;
 	}
 	
 	

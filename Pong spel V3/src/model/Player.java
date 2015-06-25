@@ -193,7 +193,10 @@ public class Player{
 		}
 		
 		// Update the Game screen
-		((JPanel)Program.getActivePanel()).repaint();
+		JPanel activePanel = ((JPanel)Program.getActivePanel());
+		if(activePanel != null){
+			activePanel.repaint();
+		}
 	}
 	
 }

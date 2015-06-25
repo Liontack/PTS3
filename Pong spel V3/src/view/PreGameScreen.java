@@ -32,7 +32,7 @@ public class PreGameScreen extends JPanel{
 	
 	private PreGameScreenReceiver receiver;
 	
-	{
+	/*initialisation*/{
 		for(int i = 0; i < usernames.length; i++){
 			usernames[i] = "";
 		}

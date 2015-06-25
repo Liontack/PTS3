@@ -50,14 +50,17 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		if(file.exists()){
 			try{
 				ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file));
+				int highestUserID = 0;
 				while(true){
 					try{
 						User user = (User) reader.readObject();
 						this.users.put(user, false);
+						highestUserID = user.getID();
 					}catch(Exception exception){
 						break;
 					}
 				}
+				User.setNextUserID(highestUserID + 1);
 			}catch(Exception exception){
 				exception.printStackTrace();
 			}

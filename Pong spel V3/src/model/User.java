@@ -111,4 +111,8 @@ public class User implements Serializable{
 		}
 	}
 	
+	static void setNextUserID(int nextID){
+		User.NEXT_USER_ID = nextID;
+	}
+	
 }
