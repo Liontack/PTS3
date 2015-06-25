@@ -30,6 +30,9 @@ public class StartScreen extends JPanel{
 	private JButton playGameOffline = new JButton("Single player");
 	private JButton logOut = new JButton("Afsluiten");
 	
+	// UI to create connection to server
+	private JButton connectToServer = new JButton("Maak connectie met de game server");
+	
 	public StartScreen(){
 		this.addFocusListener(new FocusAdapter(){
 			public void focusGained(FocusEvent fe){
@@ -119,6 +122,15 @@ public class StartScreen extends JPanel{
 			}
 		});
 		this.add(logOut);
+		
+		connectToServer.setSize(250, 30);
+		connectToServer.setLocation(Program.windowSize.width - connectToServer.getWidth() - 8 , Program.windowSize.height - connectToServer.getHeight() - 16);
+		connectToServer.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				Program.switchToPanel(ConnectServerScreen.class);
+			}
+		});
+		this.add(connectToServer);
 	}
 	
 	public void initScreen(){

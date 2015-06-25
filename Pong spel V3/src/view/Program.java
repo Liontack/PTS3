@@ -10,7 +10,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -69,6 +68,29 @@ public class Program{
 	}
 	
 	/*RMI METHODS*/
+	static void connectToServer(final String ipAddress){
+		// Keep searching for the server until you found him
+		new Thread(new Runnable(){
+			public void run(){
+				Program.ipAddress = ipAddress;
+				
+				while(registry == null){
+					registry = locateRegistry(Program.ipAddress, RmiServer.registryPort);
+				}
+				
+		        if(registry != null){
+		            System.out.println("Client: Registry located");
+		            Program.unsecured = getUnsecuredInterface();
+		            Program.secured = getSecuredInterface();
+		            Program.setFeedback("Verbinding met de server gemaakt", Color.green);
+		        }else{
+		            System.out.println("Client: Cannot locate registry");    
+		        }
+		        
+			}
+		}).start();
+	}
+	
 	private static Registry locateRegistry(String ipAddress, int portNumber){
         Registry reg = null;
         
@@ -115,20 +137,21 @@ public class Program{
         return secured;
     }
 	
-    public static boolean testConnection(){//TODO test connection other way
-    	if(ipAddress.isEmpty()){
+    public static boolean testConnection(){// TODO test testConnection on two different devices
+    	Program.removeFeedback();
+    	if(ipAddress.isEmpty() || unsecured == null){
     		return false;
     	}
-    	Program.setFeedback("De server is bereikbaar", Color.green);//XXX delete
-    	return true;
-    	/*Registry r = Program.locateRegistry(ipAddress, RmiServer.registryPort);
-    	boolean connected = (r != null);
-    	if(connected){
-			Program.setFeedback("De server is bereikbaar", Color.green);
-		}else{
+    	
+    	boolean connected = false;
+    	try{
+    		connected = (unsecured.getUserRatings() != null);
+    	}catch(RemoteException exception){}
+    	
+    	if(!connected){
 			Program.setFeedback("De server is onbereikbaar", Color.red);
 		}
-    	return connected;*/
+    	return connected;
     }
     /*END RMI METHODS*/
 	
@@ -152,28 +175,6 @@ public class Program{
 		mainFrame.add(feedbackPanel, BorderLayout.SOUTH);
 		// Init feedback label
 		feedbackPanel.add(label_feedback, BorderLayout.CENTER);
-		
-		// Keep searching for the server until you found him
-		new Thread(new Runnable(){
-			public void run(){
-				System.out.println("Voer het ip adres van de server in");//XXX(no iteration) Better way to get ip address
-				Scanner scanner = new Scanner(System.in);
-			    Program.ipAddress = scanner.nextLine();
-				
-				while(registry == null){
-					registry = locateRegistry(Program.ipAddress, RmiServer.registryPort);
-				}
-				
-		        if(registry != null){
-		            System.out.println("Client: Registry located");
-		            Program.unsecured = getUnsecuredInterface();
-		            Program.secured = getSecuredInterface();
-		        }else{
-		            System.out.println("Client: Cannot locate registry");    
-		        }
-		        
-			}
-		}).start();
 		
 	}
 	
@@ -210,6 +211,7 @@ public class Program{
 		defineCard(LoginScreen.class);
 		defineCard(PreGameScreen.class);
 		defineCard(GameScreen.class);
+		defineCard(ConnectServerScreen.class);
 	}
 	public static void showFirstCard(){
 		// Show one of the cards first
