@@ -65,6 +65,8 @@ public class Puck{
 	
 	
 	public void draw(Graphics g){
+		g.setColor(Color.yellow);
+		g.fillOval(this.getPosition().x - (Puck.getDiameter() / 2), this.getPosition().y - (Puck.getDiameter() / 2), Puck.getDiameter(), Puck.getDiameter());
 		g.setColor(Color.black);
 		g.drawOval(this.getPosition().x - (Puck.getDiameter() / 2), this.getPosition().y - (Puck.getDiameter() / 2), Puck.getDiameter(), Puck.getDiameter());
 	}

@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +12,10 @@ import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.Player;
 
 import remote.BarricadesState;
 import remote.PreGameScreenReceiver;
@@ -18,12 +23,20 @@ import remote.PreGameScreenReceiver;
 @SuppressWarnings("serial")
 public class PreGameScreen extends JPanel{
 	
+	JLabel lbl_title = new JLabel("Pre game verzamelplaats");
 	JButton btn_back = new JButton("Terug");
 	JButton btn_play = new JButton("Start spel");
 	
-	public String[] usernames = new String[]{};
+	public String[] usernames = new String[3];
+	public double[] ratings = new double[3];
 	
 	private PreGameScreenReceiver receiver;
+	
+	{
+		for(int i = 0; i < usernames.length; i++){
+			usernames[i] = "";
+		}
+	}
 	
 	public PreGameScreen(){
 		this.addFocusListener(new FocusAdapter(){
@@ -41,6 +54,11 @@ public class PreGameScreen extends JPanel{
 		}
 		
 		// Init gui
+		lbl_title.setSize(500, 25);
+		lbl_title.setLocation(100, 50);
+		lbl_title.setFont(new Font("Arial", Font.PLAIN, 22));
+		this.add(lbl_title);
+		
 		btn_back.setSize(100, 25);
 		btn_back.setLocation(0, 0);
 		btn_back.addMouseListener(new MouseAdapter(){
@@ -135,12 +153,21 @@ public class PreGameScreen extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		// Draw the usernames
+		// Set another (bigger) font for the usernames
+		g.setFont(new Font("arial", Font.BOLD, 16));
+		
+		// Draw the users who will participate in the game
 		int i = 1;
 		for(String username : this.usernames){
 			int left = (Program.windowSize.width * 1 / 2) - (50);
 			int top = Program.windowSize.height * (2 * i) / 10;
-			g.drawString(username, left, top);
+			g.setColor(Player.Colour.values()[i - 1].drawColor);
+			g.fillRect(left - 200, top - 40, 500, Program.windowSize.height * 1 / 5);
+			if(!username.isEmpty()){
+				g.setColor(Color.black);
+				g.drawString(username, left, top);
+				g.drawString("Rating: " + ratings[i - 1], left, top + 32);
+			}
 			i++;
 		}
 	}

@@ -355,15 +355,19 @@ public class Game{
 		}
 		
 		String[] usernames = new String[this.players.length];
+		double[] ratings = new double[this.players.length];
 		for(int i = 0; i < this.players.length; i++){
 			if(this.players[i] == null){
 				usernames[i] = "";
+				ratings[i] = 0;
 			}else{
-				usernames[i] = UserManagement.getUserOfPlayer(this.players[i]).getUsername();
+				User userOfPlayer = UserManagement.getUserOfPlayer(this.players[i]);
+				usernames[i] = userOfPlayer.getUsername();
+				ratings[i] = userOfPlayer.getRating();
 			}
 		}
 		
-		return new PlayersInGameUpdate(this.id, usernames);
+		return new PlayersInGameUpdate(this.id, usernames, ratings);
 	}
 	
 	public BarricadesState getBarricadesState(){
@@ -386,7 +390,7 @@ public class Game{
 	
 	
 	public void draw(Graphics g, Player.Colour playerColourDown){
-		//((Graphics2D) g).translate(150, 50); XXX(iteration 3) Add translation of gamefield
+		((Graphics2D) g).translate(150, 50);
 		if(this.gameField != null){
 			// Rotate the gamefield graphics, such that playerColourDown is on the bottom of the screen
 			int rotationDegrees = 0;// Default and RED

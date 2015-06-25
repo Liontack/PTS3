@@ -24,6 +24,7 @@ public class PreGameScreenReceiver extends UnicastRemoteObject implements Remote
 			// Update the names in the gui
 			PlayersInGameUpdate players = (PlayersInGameUpdate) event.getNewValue();
 			preGameScreen.usernames = players.usernames;
+			preGameScreen.ratings = players.ratings;
 			preGameScreen.setPlayButtonEnabled();
 			preGameScreen.repaint();
 		}

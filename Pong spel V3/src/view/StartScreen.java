@@ -122,8 +122,8 @@ public class StartScreen extends JPanel{
 	}
 	
 	public void initScreen(){
-		// Test the connection
-		Program.testConnection();
+		// Only enable the multiplayer button if this application is connected to the server
+		this.playGameOnline.setEnabled(Program.testConnection());
 		
 		// Reload the user rating table
 		Set<RatingWrapper> ratings = new TreeSet<>(new comparator.UserRating());

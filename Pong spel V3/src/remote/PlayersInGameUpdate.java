@@ -7,9 +7,11 @@ public class PlayersInGameUpdate implements Serializable{
 	
 	public final int gameID;
 	public final String[] usernames;
+	public final double[] ratings;
 	
-	public PlayersInGameUpdate(int gameID, String[] usernames){
+	public PlayersInGameUpdate(int gameID, String[] usernames, double[] ratings){
 		this.gameID = gameID;
 		this.usernames = usernames;
+		this.ratings = ratings;
 	}
 }

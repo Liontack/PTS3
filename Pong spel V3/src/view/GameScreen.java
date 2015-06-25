@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -75,15 +76,18 @@ public class GameScreen extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
+		// Increase the font size a bit
+		g.setFont(new Font("arial", Font.BOLD, 16));
+		
 		// Draw the game
 		if(Program.offlineGame != null){
 			// Draw some strings (unaffected by rotation)
 			g.setColor(Color.black);
-			g.drawString("Ronde " + Program.offlineGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
-			int i = 0;
+			g.drawString("Ronde " + Program.offlineGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 28, 32);
+			int i = 32;
 			for(Player player : Program.offlineGame.getPlayers()){
 				g.setColor(player.getColour().drawColor);
-				g.drawString(String.valueOf(player.getPoints()), 8, 40 + i);
+				g.drawString(String.valueOf(player.getPoints()), 28, 40 + i);
 				String username = "";
 				switch(player.getColour()){
 					case RED:
@@ -100,8 +104,8 @@ public class GameScreen extends JPanel{
 						username = "Robot B";
 						break;
 				}
-				g.drawString(username, 30, 40 + i);
-				i += 16;
+				g.drawString(username, 50, 40 + i);
+				i += 24;
 			}
 			
 			// Draw the rotated Game, red down
