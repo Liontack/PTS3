@@ -100,6 +100,10 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	}
 	
 	public static synchronized User getUserOfPlayer(Player player){
+		if(player == null){
+			return null;
+		}
+		
 		for(User user : UserManagement.getUsers()){
 			if(user != null){
 				if(user.getPlayer() == player){

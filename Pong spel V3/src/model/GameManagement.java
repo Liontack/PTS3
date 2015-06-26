@@ -87,10 +87,14 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 	}
 	
 	public void moveBat(int userID, boolean left) throws RemoteException{
-		if(left){
-			UserManagement.getUserByID(userID).getPlayer().getBat().moveLeft();
-		}else{
-			UserManagement.getUserByID(userID).getPlayer().getBat().moveRight();
+		try{
+			if(left){
+				UserManagement.getUserByID(userID).getPlayer().getBat().moveLeft();
+			}else{
+				UserManagement.getUserByID(userID).getPlayer().getBat().moveRight();
+			}
+		}catch(NullPointerException exception){
+			System.out.println("A moveBat() request was found, but no bat to move. Maybe the game is over?");
 		}
 	}
 	
