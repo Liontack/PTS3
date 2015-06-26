@@ -20,21 +20,13 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 
 	private static UserManagement instance;
 	
-	private Map<User, Boolean> users;
-	private StorageMediator storageMediator = new SerializationMediator();
+	private Map<User, Boolean> users = new HashMap<>();
+	private StorageMediator storageMediator;
 	
 	
 	
 	private UserManagement() throws RemoteException{
-		Set<User> users = this.storageMediator.load();
-		this.users = new HashMap<>();
-		int highestUserID = 0;
-		for(User user : users){
-			this.users.put(user, false);
-			highestUserID = Math.max(user.getID(), highestUserID);
-		}
 		
-		User.setNextUserID(highestUserID + 1);
 	}
 	
 	public static UserManagement getInstance(){
@@ -136,6 +128,19 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	
 	public static synchronized void save(){
 		UserManagement.getInstance().storageMediator.save();
+	}
+	
+	public static synchronized void load(){
+		if(UserManagement.getInstance().storageMediator != null){
+			Set<User> users = UserManagement.getInstance().storageMediator.load();
+			int highestUserID = 0;
+			for(User user : users){
+				UserManagement.getInstance().users.put(user, false);
+				highestUserID = Math.max(user.getID(), highestUserID);
+			}
+			
+			User.setNextUserID(highestUserID + 1);
+		}
 	}
 	
 	public static void setStorageType(Class<? extends StorageMediator> mediatorClass){
