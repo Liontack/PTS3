@@ -27,6 +27,10 @@ public class GameScreenReceiver extends UnicastRemoteObject implements RemotePro
 		
 		// If it is a GameUpdate
 		else if(event.getNewValue() instanceof GameUpdate){
+			int puckX = ((GameUpdate) event.getNewValue()).puckX;
+			int puckY = ((GameUpdate) event.getNewValue()).puckY;
+			System.out.println("GameScreenReceiver received a new GameUpdate with puck at (" + puckX + ";" + puckY + ")");//XXX
+			
 			// Update game values for drawing purposes only
 			if(gameScreen.drawOnlyGame != null){
 				gameScreen.drawOnlyGame.setGameUpdate((GameUpdate) event.getNewValue());

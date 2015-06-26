@@ -73,9 +73,9 @@ public class GameManagement extends UnicastRemoteObject implements ISecured{
 		for(Game game : GameManagement.getInstance().games){
 			if(game.getPlayers().contains(player)){
 				if(game.startGame()){
-					game.getGameField().startUpdaterThread();
-					
 					this.basicPublisher.inform(this, "game" + game.getID(), null, game.getBarricadesState());
+					
+					game.getGameField().startUpdaterThread();
 					
 					return true;
 				}else{

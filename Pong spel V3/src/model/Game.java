@@ -23,7 +23,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 2;//XXX reset to 10
+	public static int ROUND_AMOUNT = 3;//XXX reset to 10
 	
 	
 	
@@ -127,7 +127,7 @@ public class Game{
 	
 	public void increaseRound(Player.Colour scoredInGoalOf){
 		if(this.started && !this.drawOnly){
-			// Change player's scoresa
+			// Change player's scores
 			for(Player player : this.players){
 				if(player.getColour() == scoredInGoalOf){
 					player.setPoints(player.getPoints() - 2);
@@ -158,7 +158,12 @@ public class Game{
 				// Announce the next round
 				Program.setFeedback("Volgende ronde begint zo", Color.cyan);
 			}
-
+			
+			// Send an extra GameUpdate before timeout
+			if(!this.drawOnly){
+				GameManagement.informGameUpdate(this);
+			}
+			
 			// Wait a bit
 			try{
 				Thread.sleep(5000);
@@ -203,24 +208,28 @@ public class Game{
 		// Remove the serialized back up
 		this.removeSerializedBackup();
 		
-		if(this == Program.offlineGame){
+		final boolean isOfflineGame = this == Program.offlineGame;
+		if(isOfflineGame){
 			// Announce game over, wait a bit, and redirect to the start screen
 			Program.setFeedback("Game over", Color.cyan);
 			
-			new Thread(new Runnable(){
-				public void run(){
-					try{
-						Thread.sleep(5000);
-						
-						Program.offlineGame = null;
-						Program.offlinePlayer = null;
-					}catch(InterruptedException exception){
-						exception.printStackTrace();
-					}
+		}
+		
+		new Thread(new Runnable(){
+			public void run(){
+				try{
+					Thread.sleep(5000);
+					
+					Program.offlineGame = null;
+					Program.offlinePlayer = null;
+				}catch(InterruptedException exception){
+					exception.printStackTrace();
+				}
+				if(isOfflineGame){
 					Program.switchToPanel(StartScreen.class);
 				}
-			}).start();
-		}
+			}
+		}).start();
 		
 	}
 	
@@ -451,6 +460,12 @@ public class Game{
 			this.gameField.getPuck().setPosition(new Point(update.puckX, update.puckY));
 			for(int i = 0; i < update.batPositions.length; i++){
 				this.gameField.getSide(Player.Colour.values()[i]).getGoal().getBat().setPositionInGoal(update.batPositions[i]);
+			}
+			
+			// If the currentRound is to change
+			if(this.currentRound != 0 && this.currentRound != update.currentRound){
+				// Announce the next round
+				Program.setFeedback("Volgende ronde begint zo", Color.cyan);
 			}
 			
 			// Set the currentRound

@@ -65,10 +65,23 @@ public class GameScreen extends JPanel{
 		Program.gameID = 0;
 		Program.barricadesState = null;
 		
-		this.drawOnlyGame = null;
+		// Announce game over
+		Program.setFeedback("Game over", Color.cyan);
 		
-		// Go to start screen
-		Program.switchToPanel(StartScreen.class);
+		new Thread(new Runnable(){
+			public void run(){
+				// Wait a bit
+				try{
+					Thread.sleep(5000);
+				}catch(InterruptedException exception){}
+
+				drawOnlyGame = null;
+				
+				// Go to start screen
+				Program.switchToPanel(StartScreen.class);
+			}
+		}).start();
+		
 	}
 	
 	

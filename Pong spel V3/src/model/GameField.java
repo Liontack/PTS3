@@ -176,17 +176,20 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
-				if(Program.offlineGame != null){
-					// Announce the first round
-					Program.setFeedback("Eerste ronde begint zo", Color.cyan);
-					
-					// Wait a bit
-					try{
-						Thread.sleep(5000);
-					}catch(InterruptedException exception){}
-				}
+				//FIXME inform the puck's position at start
+				GameManagement.informGameUpdate(game);
 				
 				boolean offlineGame = Program.offlineGame != null;
+				
+				if(offlineGame){
+					// Announce the first round
+					Program.setFeedback("Eerste ronde begint zo", Color.cyan);
+				}
+				
+				// Wait a bit
+				try{
+					Thread.sleep(5000);
+				}catch(InterruptedException exception){}
 				
 				// Keep updating, until the thread gets interrupted
 				while(!game.isFinished()){

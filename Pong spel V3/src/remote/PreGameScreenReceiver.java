@@ -1,11 +1,13 @@
 package remote;
 
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import view.PreGameScreen;
+import view.Program;
 import fontys.observer.RemotePropertyListener;
 
 public class PreGameScreenReceiver extends UnicastRemoteObject implements RemotePropertyListener, Serializable{
@@ -33,6 +35,9 @@ public class PreGameScreenReceiver extends UnicastRemoteObject implements Remote
 		// this is send on game start
 		else if(event.getNewValue() instanceof BarricadesState){
 			preGameScreen.gameIsStarted((BarricadesState) event.getNewValue());
+			
+			// Announce the first round
+			Program.setFeedback("Eerste ronde begint zo", Color.cyan);
 		}
 	}
 	
