@@ -33,8 +33,8 @@ public class PreGameScreenReceiver extends UnicastRemoteObject implements Remote
 		
 		// Go on to the game screen if an BarricadePositions is retrieved,
 		// this is send on game start
-		else if(event.getNewValue() instanceof BarricadesState){
-			preGameScreen.gameIsStarted((BarricadesState) event.getNewValue());
+		else if(event.getNewValue() instanceof GameStartState){
+			preGameScreen.gameIsStarted((GameStartState) event.getNewValue());
 			
 			// Announce the first round
 			Program.setFeedback("Eerste ronde begint zo", Color.cyan);

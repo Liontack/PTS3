@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 import model.Player;
 
-import remote.BarricadesState;
+import remote.GameStartState;
 import remote.PreGameScreenReceiver;
 
 @SuppressWarnings("serial")
@@ -127,7 +127,7 @@ public class PreGameScreen extends JPanel{
 		}
 	}
 	
-	public void gameIsStarted(BarricadesState barricadesState){
+	public void gameIsStarted(GameStartState barricadesState){
 		// Stop listening for updates
 		new Thread(new Runnable(){
 			public void run(){

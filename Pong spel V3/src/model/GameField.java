@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import remote.BarricadesState;
+import remote.GameStartState;
 
 
 import view.Program;
@@ -52,7 +52,7 @@ public class GameField{
 		}
 	}
 	
-	public GameField(Game game, BarricadesState state){
+	public GameField(Game game, GameStartState state){
 		if(game.drawOnly){
 			this.game = game;
 			

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import remote.BarricadesState;
+import remote.GameStartState;
 import remote.GameUpdate;
 import remote.PlayersInGameUpdate;
 
@@ -401,7 +401,7 @@ public class Game{
 		return new PlayersInGameUpdate(this.id, usernames, ratings);
 	}
 	
-	public BarricadesState getBarricadesState(){
+	public GameStartState getBarricadesState(){
 		if(this.drawOnly){
 			return null;
 		}
@@ -417,7 +417,7 @@ public class Game{
 		int puckX = this.gameField.getPuck().getPosition().x;
 		int puckY = this.gameField.getPuck().getPosition().y;
 		
-		return new BarricadesState(this.id, xs, ys, this.getAverageRating(), puckX, puckY);
+		return new GameStartState(this.id, xs, ys, this.getAverageRating(), puckX, puckY);
 	}
 	
 	
@@ -443,7 +443,7 @@ public class Game{
 	}
 	
 	/* Draw only functions */
-	public void setBarricadesState(BarricadesState state){
+	public void setBarricadesState(GameStartState state){
 		if(this.drawOnly){
 			// Set the gamefield with this state, it will see this game is a drawonly
 			this.gameField = new GameField(this, state);

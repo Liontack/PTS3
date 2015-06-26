@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import remote.BarricadesState;
+import remote.GameStartState;
 import remote.ISecured;
 import remote.IUnsecured;
 import remote.RmiServer;
@@ -32,7 +32,7 @@ public class Program{
 	
 	// The game this loggedInUser is in
 	public static int gameID;
-	public static BarricadesState barricadesState;
+	public static GameStartState barricadesState;
 	
 	// The offline game and player, if no one is logged in
 	public static Game offlineGame = null;
@@ -72,21 +72,25 @@ public class Program{
 		// Keep searching for the server until you found him
 		new Thread(new Runnable(){
 			public void run(){
-				Program.ipAddress = ipAddress;
-				
 				while(registry == null){
-					registry = locateRegistry(Program.ipAddress, RmiServer.registryPort);
+					registry = locateRegistry(ipAddress, RmiServer.registryPort);
 				}
 				
 		        if(registry != null){
 		            System.out.println("Client: Registry located");
+		            Program.ipAddress = ipAddress;
 		            Program.unsecured = getUnsecuredInterface();
 		            Program.secured = getSecuredInterface();
-		            Program.setFeedback("Verbinding met de server gemaakt", Color.green);
 		        }else{
-		            System.out.println("Client: Cannot locate registry");    
+		            System.err.println("Client: Cannot locate registry");    
 		        }
 		        
+		        if(Program.testConnection()){
+		        	Program.setFeedback("Verbinding met de server gemaakt", Color.green);
+		        }else{
+		        	Program.setFeedback("Kon geen server vinden op " + ipAddress, Color.red);
+		        	registry = null;
+		        }
 			}
 		}).start();
 	}
@@ -137,8 +141,7 @@ public class Program{
         return secured;
     }
 	
-    public static boolean testConnection(){// TODO test testConnection on two different devices
-    	Program.removeFeedback();
+    public static boolean testConnection(){// TODO test testConnection on two different devices and offline
     	if(ipAddress.isEmpty() || unsecured == null){
     		return false;
     	}

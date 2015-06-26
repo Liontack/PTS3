@@ -2,7 +2,7 @@ package remote;
 
 import java.io.Serializable;
 
-public class BarricadesState implements Serializable{
+public class GameStartState implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	public final int gameID;
@@ -12,7 +12,7 @@ public class BarricadesState implements Serializable{
 	public final int puckX;
 	public final int puckY;
 	
-	public BarricadesState(int gameID, int[] xs, int[] ys, int averageRating, int puckX, int puckY){
+	public GameStartState(int gameID, int[] xs, int[] ys, int averageRating, int puckX, int puckY){
 		this.gameID = gameID;
 		this.barricadeXs = xs;
 		this.barricadeYs = ys;
