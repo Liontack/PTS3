@@ -53,8 +53,8 @@ public class GameScreen extends JPanel{
 				Program.secured.removeListener(receiver, null);// Receive no notifications
 				Program.secured.addListener(receiver, "game" + Program.gameID);// but this one
 				this.drawOnlyGame = new Game(true);
-				this.drawOnlyGame.setBarricadesState(Program.barricadesState);
-				Program.barricadesState = null;
+				this.drawOnlyGame.setGameStartState(Program.gameStartState);
+				Program.gameStartState = null;
 			}catch(RemoteException exception){
 				System.err.println("GameScreen: Could not listen to the game's updates");
 			}
@@ -63,7 +63,7 @@ public class GameScreen extends JPanel{
 	
 	public void gameIsFinished(){
 		Program.gameID = 0;
-		Program.barricadesState = null;
+		Program.gameStartState = null;
 		
 		// Announce game over
 		Program.setFeedback("Game over", Color.cyan);

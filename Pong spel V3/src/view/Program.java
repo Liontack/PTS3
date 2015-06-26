@@ -32,7 +32,7 @@ public class Program{
 	
 	// The game this loggedInUser is in
 	public static int gameID;
-	public static GameStartState barricadesState;
+	public static GameStartState gameStartState;
 	
 	// The offline game and player, if no one is logged in
 	public static Game offlineGame = null;

@@ -127,7 +127,7 @@ public class PreGameScreen extends JPanel{
 		}
 	}
 	
-	public void gameIsStarted(GameStartState barricadesState){
+	public void gameIsStarted(GameStartState gameStartState){
 		// Stop listening for updates
 		new Thread(new Runnable(){
 			public void run(){
@@ -147,7 +147,7 @@ public class PreGameScreen extends JPanel{
 		// Set these usernames in the gamescreen
 		((GameScreen)Program.getActivePanel()).usernames = this.usernames;
 		this.usernames = new String[]{};
-		Program.barricadesState = barricadesState;
+		Program.gameStartState = gameStartState;
 	}
 	
 	

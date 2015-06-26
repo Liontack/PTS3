@@ -15,7 +15,7 @@ import view.Program;
 
 public class GameField{
 	
-	private static final int UPDATE_SPEED = 10;
+	public static final int UPDATE_SPEED = 10;
 	private static final int MIN_BARRICADES = 0;
 	private static final int MAX_BARRICADES = 5;
 	
@@ -188,10 +188,20 @@ public class GameField{
 					Program.setFeedback("Eerste ronde begint zo", Color.cyan);
 				}
 				
-				// Wait a bit
+				// Wait 5 seconds, but also give gameUpdates in the meantime
 				try{
-					Thread.sleep(5000);
-				}catch(InterruptedException exception){}
+					long startSleep = System.currentTimeMillis();
+					
+					while(System.currentTimeMillis() < startSleep + 5000){
+						Thread.sleep(GameField.UPDATE_SPEED);
+						
+						if(!offlineGame){
+							GameManagement.informGameUpdate(game);
+						}
+					}
+				}catch(InterruptedException exception){
+					System.err.println("The 5sec delay before the game was interrupted");
+				}
 				
 				// Keep updating, until the thread gets interrupted
 				while(!game.isFinished()){

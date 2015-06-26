@@ -23,7 +23,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 2;//XXX reset to 10
+	public static int ROUND_AMOUNT = 3;//XXX reset to 10
 	
 	
 	
@@ -159,15 +159,20 @@ public class Game{
 				Program.setFeedback("Volgende ronde begint zo", Color.cyan);
 			}
 			
-			// Send an extra GameUpdate before timeout
-			if(this != Program.offlineGame){
-				GameManagement.informGameUpdate(this);
-			}
-			
-			// Wait a bit
+			// Wait 5 seconds, but also give gameUpdates in the meantime
 			try{
-				Thread.sleep(5000);
-			}catch(InterruptedException exception){}
+				long startSleep = System.currentTimeMillis();
+				
+				while(System.currentTimeMillis() < startSleep + 5000){
+					Thread.sleep(GameField.UPDATE_SPEED);
+					
+					if(this != Program.offlineGame){
+						GameManagement.informGameUpdate(this);
+					}
+				}
+			}catch(InterruptedException exception){
+				System.err.println("The 5sec delay before the game was interrupted");
+			}
 		}
 	}
 	
@@ -401,7 +406,7 @@ public class Game{
 		return new PlayersInGameUpdate(this.id, usernames, ratings);
 	}
 	
-	public GameStartState getBarricadesState(){
+	public GameStartState getGameStartState(){
 		if(this.drawOnly){
 			return null;
 		}
@@ -443,7 +448,7 @@ public class Game{
 	}
 	
 	/* Draw only functions */
-	public void setBarricadesState(GameStartState state){
+	public void setGameStartState(GameStartState state){
 		if(this.drawOnly){
 			// Set the gamefield with this state, it will see this game is a drawonly
 			this.gameField = new GameField(this, state);

@@ -22,7 +22,7 @@ public class GameScreenReceiver extends UnicastRemoteObject implements RemotePro
 		// If it is a BarricadePositions; does never occur, because it starts listening when this was sent
 		if(event.getNewValue() instanceof GameStartState){
 			// Set the barricades state
-			gameScreen.drawOnlyGame.setBarricadesState((GameStartState) event.getNewValue());
+			gameScreen.drawOnlyGame.setGameStartState((GameStartState) event.getNewValue());
 		}
 		
 		// If it is a GameUpdate
