@@ -89,7 +89,6 @@ public class Side{
 	
 	public void draw(Graphics g){
 		g.setColor(this.colour.drawColor);
-		//g.drawLine(a.x, a.y, b.x, b.y);
 		
 		int thickness = 10;
 		switch(this.colour){
@@ -99,15 +98,29 @@ public class Side{
 				g.fillPolygon(new int[]{ a.x, b.x, rd.x, rc.x }, new int[]{ a.y, b.y, rd.y, rc.y }, 4);
 				break;
 			case BLUE:
-				double alpha = Math.toDegrees(Math.atan(this.goal.gety_perx() / 1)) + 360;
-				Point bc = new Point((int)(a.x + (Math.cos(alpha) * thickness * 1.4)), (int)(a.y + (Math.sin(alpha) * thickness * 1.4)));
-				Point bd = new Point((int)(b.x + (Math.cos(alpha) * thickness * 1.4)), (int)(b.y + (Math.sin(alpha) * thickness * 1.4)));
+				double bPy_perx = 0;
+				if(this.goal.gety_perx() > 0){
+					bPy_perx = -0.666667;
+				}else{
+					bPy_perx = 0.666667;
+				}
+				double bPa__y_on0x = a.y - (bPy_perx * a.x);
+				double bPb__y_on0x = b.y - (bPy_perx * b.x);
+				Point bc = new Point((int)(a.x - thickness), (int)((bPy_perx * (a.x - thickness)) + bPa__y_on0x));
+				Point bd = new Point((int)(b.x - thickness), (int)((bPy_perx * (b.x - thickness)) + bPb__y_on0x));
 				g.fillPolygon(new int[]{ a.x, b.x, bd.x, bc.x }, new int[]{ a.y, b.y, bd.y, bc.y }, 4);
 				break;
 			case GREEN:
-				double g_alpha = Math.toDegrees(Math.atan(this.goal.gety_perx() / 1)) + 360;
-				Point gc = new Point((int)(a.x + (Math.cos(g_alpha) * thickness * 1)), (int)(a.y + (Math.sin(g_alpha) * thickness * 1)));
-				Point gd = new Point((int)(b.x + (Math.cos(g_alpha) * thickness * 1)), (int)(b.y + (Math.sin(g_alpha) * thickness * 1)));
+				double gPy_perx = 0;
+				if(this.goal.gety_perx() > 0){
+					gPy_perx = -0.666667;
+				}else{
+					gPy_perx = 0.666667;
+				}
+				double gPa__y_on0x = a.y - (gPy_perx * a.x);
+				double gPb__y_on0x = b.y - (gPy_perx * b.x);
+				Point gc = new Point((int)(a.x + thickness), (int)((gPy_perx * (a.x + thickness)) + gPa__y_on0x));
+				Point gd = new Point((int)(b.x + thickness), (int)((gPy_perx * (b.x + thickness)) + gPb__y_on0x));
 				g.fillPolygon(new int[]{ a.x, b.x, gd.x, gc.x }, new int[]{ a.y, b.y, gd.y, gc.y }, 4);
 				break;
 		}
