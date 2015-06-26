@@ -23,7 +23,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 10;//XXX reset to 10
+	public static int ROUND_AMOUNT = 100;//XXX reset to 10
 	
 	
 	

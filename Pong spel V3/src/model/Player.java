@@ -96,8 +96,6 @@ public class Player{
 	public void setPoints(int points){
 		if(points >= 0){
 			this.points = points;
-		}else{
-			throw new IllegalArgumentException("Points can't be set to a negative number");
 		}
 	}
 	
