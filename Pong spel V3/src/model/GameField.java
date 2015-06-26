@@ -65,7 +65,7 @@ public class GameField{
 			
 			
 			// Create puck
-			this.puck = new Puck(0, this.getCenter(), 0);
+			this.puck = new Puck(0, new Point(state.puckX, state.puckY), 0);
 			
 			// Create barricades
 			for(int i = 0; i < state.barricadeXs.length; i++){
@@ -176,10 +176,12 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
-				// Inform the puck's position at start
-				GameManagement.informGameUpdate(game);
-				
 				boolean offlineGame = Program.offlineGame != null;
+				
+				if(!offlineGame){
+					// Inform the puck's position at start
+					GameManagement.informGameUpdate(game);
+				}
 				
 				if(offlineGame){
 					// Announce the first round

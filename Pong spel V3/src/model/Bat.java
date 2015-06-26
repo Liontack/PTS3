@@ -17,7 +17,7 @@ public class Bat{
 	public Bat(int goalLength){
 		this.maximumGoalPosition = goalLength - (Bat.getLength() / 2);
 		this.minimumGoalPosition = Bat.getLength() / 2;
-		this.positionInGoal = this.maximumGoalPosition / 2;
+		this.positionInGoal = (this.maximumGoalPosition / 2) - ( Bat.getLength() / 4);
 	}
 	
 	

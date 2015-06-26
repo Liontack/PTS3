@@ -32,6 +32,7 @@ public class GameScreenReceiver extends UnicastRemoteObject implements RemotePro
 				gameScreen.drawOnlyGame.setGameUpdate((GameUpdate) event.getNewValue());
 			}
 			gameScreen.playerPoints = ((GameUpdate) event.getNewValue()).playerPoints;
+			
 		}
 		
 		// If it is a GameFinished

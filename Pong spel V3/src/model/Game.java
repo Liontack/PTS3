@@ -23,7 +23,7 @@ import view.StartScreen;
 
 public class Game{
 	private static int NEXT_GAME_ID = 1;
-	public static int ROUND_AMOUNT = 3;//XXX reset to 10
+	public static int ROUND_AMOUNT = 2;//XXX reset to 10
 	
 	
 	
@@ -160,7 +160,7 @@ public class Game{
 			}
 			
 			// Send an extra GameUpdate before timeout
-			if(!this.drawOnly){
+			if(this != Program.offlineGame){
 				GameManagement.informGameUpdate(this);
 			}
 			
@@ -414,8 +414,10 @@ public class Game{
 			ys[i] = barricade.getPosition().y;
 			i++;
 		}
+		int puckX = this.gameField.getPuck().getPosition().x;
+		int puckY = this.gameField.getPuck().getPosition().y;
 		
-		return new BarricadesState(this.id, xs, ys, this.getAverageRating());
+		return new BarricadesState(this.id, xs, ys, this.getAverageRating(), puckX, puckY);
 	}
 	
 	
@@ -435,7 +437,7 @@ public class Game{
 			}
 			Point center = this.gameField.getCenter();
 			((Graphics2D) g).rotate(Math.toRadians(rotationDegrees), center.x, center.y);
-		
+			
 			this.gameField.draw(g);
 		}
 	}

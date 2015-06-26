@@ -9,12 +9,16 @@ public class BarricadesState implements Serializable{
 	public final int[] barricadeXs;
 	public final int[] barricadeYs;
 	public final int averageRating; //To calculate the size of the barricades
+	public final int puckX;
+	public final int puckY;
 	
-	public BarricadesState(int gameID, int[] xs, int[] ys, int averageRating){
+	public BarricadesState(int gameID, int[] xs, int[] ys, int averageRating, int puckX, int puckY){
 		this.gameID = gameID;
 		this.barricadeXs = xs;
 		this.barricadeYs = ys;
 		this.averageRating = averageRating;
+		this.puckX = puckX;
+		this.puckY = puckY;
 	}
 	
 }
