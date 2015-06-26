@@ -176,7 +176,7 @@ public class GameField{
 	public void startUpdaterThread(){
 		updaterThread = new Thread(new Runnable(){
 			public void run(){
-				//FIXME inform the puck's position at start
+				// Inform the puck's position at start
 				GameManagement.informGameUpdate(game);
 				
 				boolean offlineGame = Program.offlineGame != null;
