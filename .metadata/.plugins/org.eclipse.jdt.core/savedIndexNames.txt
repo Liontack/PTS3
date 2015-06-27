@@ -1,20 +1,7 @@
 INDEX VERSION 1.126+C:\Users\Luana\Desktop\Fontys\Fontys S4\Alternatieve PTS3 opgave\Werkmap\Eclipse workspace\.metadata\.plugins\org.eclipse.jdt.core
-4159040717.index
-2681324015.index
 2276642881.index
 515604987.index
-1638351397.index
-1178916697.index
-2030148972.index
-2516668808.index
-2567576319.index
 3504792740.index
 3336770161.index
-1660271313.index
-1076344726.index
-2469526022.index
-4285117381.index
-4082876316.index
-369436438.index
-3774374128.index
-680024187.index
+4038451415.index
+446931601.index

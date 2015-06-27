@@ -4,9 +4,17 @@ import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import util.storage.DummyMediator;
+
 public class GameManagementTest{
+
+	@Before
+	public void setSaveMethod(){
+		UserManagement.setStorageType(DummyMediator.class);
+	}
 	
 	@Test
 	public void testJoinGame(){

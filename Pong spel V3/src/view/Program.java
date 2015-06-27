@@ -141,7 +141,7 @@ public class Program{
         return secured;
     }
 	
-    public static boolean testConnection(){// TODO test testConnection on two different devices and offline
+    public static boolean testConnection(){
     	if(ipAddress.isEmpty() || unsecured == null){
     		return false;
     	}

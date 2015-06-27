@@ -2,14 +2,24 @@ package model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import util.storage.DummyMediator;
+import view.Program;
+
 public class GameTest{
+
+	@Before
+	public void setSaveMethod(){
+		UserManagement.setStorageType(DummyMediator.class);
+	}
 	
 	@Test
 	public void test(){
 		// A scenario of players joining and what the properties are
 		Game game = new Game(false);
+		Program.offlineGame = game;
 		
 		assertNull(game.getGameField());
 		assertTrue(game.getPlayers().size() == 0);
@@ -34,7 +44,15 @@ public class GameTest{
 		assertTrue(game.getPlayers().size() == 3);
 		assertTrue(game.isReadyToPlay());
 		
-		game.removePlayer(player2);
+		try{
+			int user2ID = UserManagement.getInstance().registerUser("user2", "");
+			User user2 = UserManagement.getUserByID(user2ID);
+			user2.setPlayer(player2);
+			game.removePlayer(player2);
+		}catch(Exception e){
+			boolean a = true;
+			a = !a;
+		}//user
 		
 		assertTrue(game.getPlayers().size() == 2);
 		assertFalse(game.isReadyToPlay());

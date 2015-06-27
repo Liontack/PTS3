@@ -17,7 +17,7 @@ import comparator.RatingWrapper;
 
 public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 	private static final long serialVersionUID = 1L;
-
+	
 	private static UserManagement instance;
 	
 	private Map<User, Boolean> users = new HashMap<>();
@@ -33,6 +33,14 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		if(UserManagement.instance == null){
 			try{
 				instance = new UserManagement();
+				/* Used to create initialisation file
+				instance.users.put(new User("Anjo", "a", true, new int[]{ 15, 15, 15, 16, 16 } ), false);
+				instance.users.put(new User("Bart", "b", true, new int[]{ 21, 21, 21, 21, 21 } ), false);
+				instance.users.put(new User("Cleo", "c", true, new int[]{ 15, 15, 15, 15, 15 } ), false);
+				instance.users.put(new User("Dirk", "d", true, new int[]{ 32, 32, 32, 32, 32 } ), false);
+				instance.users.put(new User("Echo", "e", true, new int[]{ 10, 10, 10, 10, 10 } ), false);
+				UserManagement.setStorageType(SerializationMediator.class);
+				UserManagement.save();*/
 			}catch(RemoteException exception){}
 		}
 		return UserManagement.instance;

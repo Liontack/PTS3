@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="33" version="2.0">
+<workbench progressCount="25" version="2.0">
 <workbenchAdvisor/>
-<window height="860" width="1262" x="338" y="0">
+<window height="860" maximized="true" width="1460" x="134" y="-16">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -13,7 +13,7 @@
 <coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="84" y="22"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="167" y="22"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="122" y="22"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
@@ -24,7 +24,7 @@
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -33,21 +33,10 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RmiServer.java" partName="RmiServer.java" path="C:/Users/Luana/Desktop/Fontys/Fontys S4/Alternatieve PTS3 opgave/Werkmap/Eclipse workspace/Pong spel V2/src/remote/RmiServer.java" title="RmiServer.java" tooltip="Pong spel V2/src/remote/RmiServer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Pong spel V2/src/remote/RmiServer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1364" selectionTopPixel="132"/>
-</editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameManagement.java" partName="GameManagement.java" path="C:/Users/Luana/Desktop/Fontys/Fontys S4/Alternatieve PTS3 opgave/Werkmap/Eclipse workspace/Pong spel V2/src/model/GameManagement.java" title="GameManagement.java" tooltip="Pong spel V2/src/model/GameManagement.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Pong spel V2/src/model/GameManagement.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="602" selectionTopPixel="0"/>
-</editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
@@ -58,10 +47,6 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Errors"/>
-<category IMemento.internal.id="Warnings (2 items)"/>
-</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -118,7 +103,7 @@
 </viewState>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.egit.ui.navigation"/>
@@ -145,6 +130,7 @@
 <alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<alwaysOnActionSet id="com.mountainminds.eclemma.ui.CoverageActionSet"/>
 <show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
 <show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
 <show_view_action id="org.eclipse.jdt.ui.SourceView"/>
@@ -189,7 +175,6 @@
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.TaskList"/>
-<view id="org.eclipse.jdt.junit.ResultView"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <fastViewBars/>
 <layout>
@@ -215,23 +200,24 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.23346303" ratioLeft="300" ratioRight="985" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.71467394" ratioLeft="526" ratioRight="210" relationship="4" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.20935102" ratioLeft="300" ratioRight="1133" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.76329786" ratioLeft="574" ratioRight="178" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
-<page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="LabelNotFound"/>
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.callhierarchy.view" label="LabelNotFound"/>
+<page content="com.mountainminds.eclemma.ui.CoverageView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
-<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -302,34 +288,23 @@
 <view id="org.eclipse.debug.ui.VariableView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@24e46506">
-<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.ui.internal.ViewStack@24e46506">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView" ratio="0.1938326" ratioLeft="308" ratioRight="1281" relationship="2" relative="org.eclipse.ui.internal.ViewStack@24e46506">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView" ratio="0.1938326" ratioLeft="308" ratioRight="1281" relationship="2" relative="org.eclipse.ui.internal.ViewStack@24e46506">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1194" ratioRight="398" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1194" ratioRight="398" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7496689" ratioLeft="566" ratioRight="189" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7496689" ratioLeft="566" ratioRight="189" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
@@ -337,40 +312,30 @@
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.callhierarchy.view" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 <part id="2"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@9b2eb89" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.debug.internal.ui.ConsoleFolderView">
-<folder appearance="2" expanded="2">
-<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@9b2eb89" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.debug.internal.ui.ConsoleFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.33571428" ratioLeft="188" ratioRight="372" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1194" ratioRight="398" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1194" ratioRight="398" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
-<folder appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@61cd1712" ratio="0.24089636" ratioLeft="172" ratioRight="542" relationship="4" relative="org.eclipse.ui.internal.ViewStack@24e46506">
-<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
-<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@61cd1712" ratio="0.5991848" ratioLeft="441" ratioRight="295" relationship="4" relative="org.eclipse.ui.internal.ViewStack@24e46506">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -379,180 +344,12 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/model/Game.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/remote/RmiServer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/model/UserManagement.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/model/GameManagement.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/remote/IUnsecured.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/model/User.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/remote/ISecured.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/view/GameScreen.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/view/PreGameScreen.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/view/LoginScreen.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/src/view/StartScreen.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Pong spel V2/test/model/GameManagementTest.java"/>
-</editors>
-<item historyLabel="RmiServer.java" index="1">
-<position info="not_deleted" x="1724" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="IUnsecured.java" index="4">
-<position/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="User.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="User.java" index="5">
-<position info="not_deleted" x="1056" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="IUnsecured.java" index="4">
-<position/>
-</item>
-<item historyLabel="RmiServer.java" index="1">
-<position info="not_deleted" x="1724" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1622" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1622" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="700" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1457" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="961" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="2281" y="0"/>
-</item>
-<item historyLabel="Game.java" index="0">
-<position/>
-</item>
-<item historyLabel="Game.java" index="0">
-<position/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="610" y="0"/>
-</item>
-<item historyLabel="IUnsecured.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="610" y="0"/>
-</item>
-<item historyLabel="ISecured.java" index="6">
-<position/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1240" y="0"/>
-</item>
-<item historyLabel="Game.java" index="0">
-<position info="not_deleted" x="1798" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1240" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="1309" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="537" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="537" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position/>
-</item>
-<item historyLabel="RmiServer.java" index="1">
-<position info="not_deleted" x="1364" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="309" y="0"/>
-</item>
-<item historyLabel="ISecured.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="292" y="0"/>
-</item>
-<item historyLabel="UserManagement.java" index="2">
-<position info="not_deleted" x="547" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="292" y="0"/>
-</item>
-<item historyLabel="GameScreen.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PreGameScreen.java" index="8">
-<position info="not_deleted" x="324" y="0"/>
-</item>
-<item historyLabel="GameScreen.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="2927" y="0"/>
-</item>
-<item historyLabel="LoginScreen.java" index="9">
-<position info="not_deleted" x="4994" y="0"/>
-</item>
-<item historyLabel="StartScreen.java" index="10">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="2927" y="0"/>
-</item>
-<item historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="2149" y="0"/>
-</item>
-<item historyLabel="GameManagementTest.java" index="11">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item active="true" historyLabel="GameManagement.java" index="3">
-<position info="not_deleted" x="2203" y="0"/>
-</item>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="left"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
@@ -561,55 +358,54 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameManagementTest.java" tooltip="Pong spel V2/test/model/GameManagementTest.java">
-<persistable path="/Pong spel V2/test/model/GameManagementTest.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StartScreen.java" tooltip="Pong spel V2/src/view/StartScreen.java">
-<persistable path="/Pong spel V2/src/view/StartScreen.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginScreen.java" tooltip="Pong spel V2/src/view/LoginScreen.java">
-<persistable path="/Pong spel V2/src/view/LoginScreen.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreGameScreen.java" tooltip="Pong spel V2/src/view/PreGameScreen.java">
-<persistable path="/Pong spel V2/src/view/PreGameScreen.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameScreen.java" tooltip="Pong spel V2/src/view/GameScreen.java">
-<persistable path="/Pong spel V2/src/view/GameScreen.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UserManagement.java" tooltip="Pong spel V2/src/model/UserManagement.java">
-<persistable path="/Pong spel V2/src/model/UserManagement.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ISecured.java" tooltip="Pong spel V2/src/remote/ISecured.java">
-<persistable path="/Pong spel V2/src/remote/ISecured.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameManagement.java" tooltip="Pong spel V2/src/model/GameManagement.java">
-<persistable path="/Pong spel V2/src/model/GameManagement.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Game.java" tooltip="Pong spel V2/src/model/Game.java">
-<persistable path="/Pong spel V2/src/model/Game.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IUnsecured.java" tooltip="Pong spel V2/src/remote/IUnsecured.java">
-<persistable path="/Pong spel V2/src/remote/IUnsecured.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" tooltip="Pong spel V2/src/model/User.java">
-<persistable path="/Pong spel V2/src/model/User.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PowerUp.java" tooltip="Pong spel V2/src/model/PowerUp.java">
+<persistable path="/Pong spel V2/src/model/PowerUp.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RatingWrapper.java" tooltip="Pong spel V2/src/comparator/RatingWrapper.java">
 <persistable path="/Pong spel V2/src/comparator/RatingWrapper.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BarricadePositions.java" tooltip="Pong spel V2/src/remote/BarricadePositions.java">
-<persistable path="/Pong spel V2/src/remote/BarricadePositions.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UserRating.java" tooltip="Pong spel V2/src/comparator/UserRating.java">
+<persistable path="/Pong spel V2/src/comparator/UserRating.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Barricade.java" tooltip="Pong spel V2/src/model/Barricade.java">
-<persistable path="/Pong spel V2/src/model/Barricade.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IUnsecured.java" tooltip="Pong spel V2/src/remote/IUnsecured.java">
+<persistable path="/Pong spel V2/src/remote/IUnsecured.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ISecured.java" tooltip="Pong spel V2/src/remote/ISecured.java">
+<persistable path="/Pong spel V2/src/remote/ISecured.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameScreen.java" tooltip="Pong spel V2/src/view/GameScreen.java">
+<persistable path="/Pong spel V2/src/view/GameScreen.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Game.java" tooltip="Pong spel V2/src/model/Game.java">
+<persistable path="/Pong spel V2/src/model/Game.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Program.java" tooltip="Pong spel V2/src/view/Program.java">
+<persistable path="/Pong spel V2/src/view/Program.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameField.java" tooltip="Pong spel V2/src/model/GameField.java">
 <persistable path="/Pong spel V2/src/model/GameField.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Program.java" tooltip="testRotate/src/Program.java">
+<persistable path="/testRotate/src/Program.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StartScreen.java" tooltip="testRotate/src/StartScreen.java">
+<persistable path="/testRotate/src/StartScreen.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreGameScreen.java" tooltip="Pong spel V2/src/view/PreGameScreen.java">
+<persistable path="/Pong spel V2/src/view/PreGameScreen.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="main.java" tooltip="testRotate/src/main.java">
+<persistable path="/testRotate/src/main.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" tooltip="Pong spel V1/src/model/User.java">
+<persistable path="/Pong spel V1/src/model/User.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UserManagement.java" tooltip="Pong spel V1/src/model/UserManagement.java">
+<persistable path="/Pong spel V1/src/model/UserManagement.java"/>
 </file>
 </mruList>
 </workbench>

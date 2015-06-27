@@ -3,7 +3,14 @@ package model;
 import static org.junit.Assert.*;
 import org.junit.*;
 
+import util.storage.DummyMediator;
+
 public class UserTest{
+
+	@Before
+	public void setSaveMethod(){
+		UserManagement.setStorageType(DummyMediator.class);
+	}
 	
 	@Test
 	public void testFields(){

@@ -6,7 +6,14 @@ import java.rmi.RemoteException;
 
 import org.junit.*;
 
+import util.storage.DummyMediator;
+
 public class UserManagementTest{
+
+	@Before
+	public void setSaveMethod(){
+		UserManagement.setStorageType(DummyMediator.class);
+	}
 	
 	@Test
 	public void testAdd(){

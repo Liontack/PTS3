@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="C:\Users\Luana\Desktop\Fontys\Fontys S3\GSO\Opdrachten\FontysObserver" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
+	<item value="C:\Users\Luana\Desktop\Fontys\Fontys S3\GSO\Opdrachten\FontysObserver" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="500" key="CallHierarchyViewPart.ratio1"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
 	<item value="0" key="CallHierarchyViewPart.call_mode"/>
+	<item value="C:\Users\Luana\Desktop\Fontys\Fontys S3\GSO\Opdrachten\fontysObserverSrc" key="org.eclipse.jdt.ui.last.external.project"/>
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
 	<section name="OptionalMessageDialog.hide.">
@@ -30,23 +31,23 @@
 		<item value="400" key="height"/>
 		<item value="600" key="width"/>
 	</section>
+	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="renameSubpackages"/>
+		<item value="false" key="updateQualifiedNames"/>
+		<item value="*" key="patterns"/>
+		<item value="1" key="updateSimilarElementsMatchStrategy"/>
+		<item value="false" key="updateTextualMatches"/>
+		<item value="false" key="updateSimilarElements"/>
+	</section>
 	<section name="SearchInDialog">
 		<item value="true" key="SearchInJRE"/>
 		<item value="true" key="SearchInProjects"/>
 		<item value="true" key="SearchInAppLibs"/>
 		<item value="true" key="SearchInSources"/>
-	</section>
-	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="*" key="patterns"/>
-		<item value="false" key="updateQualifiedNames"/>
-		<item value="false" key="renameSubpackages"/>
-		<item value="1" key="updateSimilarElementsMatchStrategy"/>
-		<item value="false" key="updateTextualMatches"/>
-		<item value="false" key="updateSimilarElements"/>
-	</section>
-	<section name="RenameInformationPopup">
-	</section>
-	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="ProblemSeveritiesConfigurationBlock">
 		<item value="false" key="expanded4"/>
