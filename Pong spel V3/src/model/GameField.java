@@ -218,7 +218,7 @@ public class GameField{
 						break;
 					}
 				}
-				System.out.println("Game ended");
+				//XXX System.out.println("Game ended");
 			}
 		});
 		updaterThread.start();
@@ -238,7 +238,7 @@ public class GameField{
 				case HIT_BAT:
 					game.setScorer(side.getColour());
 				case OVER_LINE:
-					System.out.println("Puck hit " + side.getColour() + " side");
+					//XXX System.out.println("Puck hit " + side.getColour() + " side");
 					// Adjust puck's angle (Not tested)
 					double alpha = Math.toDegrees(Math.atan(side.getGoal().gety_perx() / 1));
 					double newAngle = (2 * alpha) - puck.getAngle() + 360;
@@ -252,7 +252,7 @@ public class GameField{
 					this.puck.move();
 					break;
 				case IN_GOAL:
-					System.out.println("Puck went in " + side.getColour() + " goal");
+					//XXX System.out.println("Puck went in " + side.getColour() + " goal");
 					game.increaseRound(side.getColour());
 					break;
 			}
