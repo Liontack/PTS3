@@ -87,6 +87,10 @@ public class Game{
 		return false;
 	}
 	
+	public boolean hasZeroPlayers(){
+		return this.players[0] == null;
+	}
+	
 	/**
 	 * Checks if 3 players joined
 	 * @return	True if there are 3 players, otherwise false

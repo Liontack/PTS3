@@ -85,7 +85,7 @@ public class PreGameScreen extends JPanel{
 				
 				// Start the game
 				try{
-					Program.secured.startGame(Program.gameID);
+					Program.secured.startGame(Program.userID);
 				}catch(RemoteException exception){
 					System.err.println("PreGameScreen: Could not stop listening to this game's updates");
 				}

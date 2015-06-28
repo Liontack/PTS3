@@ -44,7 +44,7 @@ public class ConnectServerScreen extends JPanel{
 				Program.connectToServer(ipAddress);
 				
 				try{
-					Thread.sleep(200);
+					Thread.sleep(400);
 				}catch(InterruptedException exception){}
 				
 				// Go back to the start screen

@@ -100,7 +100,11 @@ public class GameScreen extends JPanel{
 			int i = 32;
 			for(Player player : Program.offlineGame.getPlayers()){
 				g.setColor(player.getColour().drawColor);
-				g.drawString(String.valueOf(player.getPoints()), 28, 40 + i);
+				int scoreExtraLeft = 0;
+				if(player.getPoints() < 10){// If the points are one digit
+					scoreExtraLeft = 10;
+				}
+				g.drawString(String.valueOf(player.getPoints()), 28 + scoreExtraLeft, 40 + i);
 				String username = "";
 				switch(player.getColour()){
 					case RED:
@@ -121,22 +125,26 @@ public class GameScreen extends JPanel{
 				i += 24;
 			}
 			
-			// Draw the rotated Game, red down
+			// Draw the Game, red down
 			Program.offlineGame.draw(g, Player.Colour.RED);
 		}else if(this.drawOnlyGame != null){
 			// Draw some strings (unaffected by rotation)
 			g.setColor(Color.black);
-			g.drawString("Ronde " + this.drawOnlyGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 8, 16);
+			g.drawString("Ronde " + this.drawOnlyGame.getCurrentRound() + "/" + Game.ROUND_AMOUNT, 28, 32);
 			Player.Colour thisLoggedInUsersColour = Player.Colour.RED;
-			int i = 0;
+			int i = 32;
 			for(int k = 0; k < this.usernames.length; k++){
 				if(this.usernames[k].toLowerCase().equals(Program.username.toLowerCase())){
 					thisLoggedInUsersColour = Player.Colour.values()[k];
 				}
 				g.setColor(Player.Colour.values()[k].drawColor);
-				g.drawString(String.valueOf(this.playerPoints[k]), 8, 40 + i);
-				g.drawString(this.usernames[k], 30, 40 + i);
-				i += 16;
+				int scoreExtraLeft = 0;
+				if(this.playerPoints[k] < 10){// If the points are one digit
+					scoreExtraLeft = 10;
+				}
+				g.drawString(String.valueOf(this.playerPoints[k]), 28 + scoreExtraLeft, 40 + i);
+				g.drawString(this.usernames[k], 50, 40 + i);
+				i += 24;
 			}
 			
 			// Draw the rotated Game, player colour down

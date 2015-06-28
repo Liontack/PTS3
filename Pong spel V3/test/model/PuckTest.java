@@ -30,7 +30,7 @@ public class PuckTest{
 		}catch(IllegalArgumentException ex){}
 		try{
 			puck1.setAngle(-1);
-			fail("Puck should not be able to be set to 360");
+			fail("Puck should not be able to be set to -1");
 		}catch(IllegalArgumentException ex){}
 		
 		assertEquals(puck1.getAngle(), 359, 1.000);
@@ -44,9 +44,9 @@ public class PuckTest{
 		Puck puckSlow = new Puck(0, zero, 0);
 		Puck puckAverage = new Puck(0, zero, 20);
 		Puck puckFast = new Puck(0, zero, 40);
-		assertTrue(puckSlow.getVelocity() < Puck.DEFAULT_VELOCITY);
-		assertTrue(puckAverage.getVelocity() == Puck.DEFAULT_VELOCITY);
-		assertTrue(puckFast.getVelocity() > Puck.DEFAULT_VELOCITY && puckFast.getVelocity() <= Puck.DEFAULT_VELOCITY * 2);
+		assertTrue(puckSlow.getVelocity() == Puck.MIN_VELOCITY);
+		assertTrue(puckAverage.getVelocity() > Puck.MIN_VELOCITY && puckAverage.getVelocity() < Puck.MAX_VELOCITY);
+		assertTrue(puckFast.getVelocity() == Puck.MAX_VELOCITY);
 	}
 	
 	@Test
@@ -54,16 +54,16 @@ public class PuckTest{
 		int angle0 = 0;
 		int angle90 = 90;
 		Point startPoint = new Point(10, 10);
-		int averageRating20 = 20;
-		Puck puck1 = new Puck(angle0, startPoint, averageRating20);
+		int averageRating = 40;
+		Puck puck1 = new Puck(angle0, startPoint, averageRating);
 		
 		puck1.move();
 		assertTrue(puck1.getPosition().distance(startPoint) == puck1.getVelocity());
-		assertEquals(puck1.getPosition(), new Point(10 + (1 * Puck.DEFAULT_VELOCITY), 10));
+		assertEquals(puck1.getPosition(), new Point(10 + (1 * (int)Puck.MAX_VELOCITY), 10));
 		puck1.move();
-		assertEquals(puck1.getPosition(), new Point(10 + (2 * Puck.DEFAULT_VELOCITY), 10));
+		assertEquals(puck1.getPosition(), new Point(10 + (2 * (int)Puck.MAX_VELOCITY), 10));
 		puck1.setAngle(angle90);
 		puck1.move();
-		assertEquals(puck1.getPosition(), new Point(10 + (2 * Puck.DEFAULT_VELOCITY), 10 + (1 * Puck.DEFAULT_VELOCITY)));
+		assertEquals(puck1.getPosition(), new Point(10 + (2 * (int)Puck.MAX_VELOCITY), 10 + (1 * (int)Puck.MAX_VELOCITY)));
 	}
 }

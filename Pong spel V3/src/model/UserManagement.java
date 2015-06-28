@@ -134,6 +134,8 @@ public class UserManagement extends UnicastRemoteObject implements IUnsecured{
 		return getInstance().users.get(user);
 	}
 	
+	
+	
 	public static synchronized void save(){
 		UserManagement.getInstance().storageMediator.save();
 	}
